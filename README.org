@@ -6,8 +6,8 @@ This is a project for working on the Ice Basins and Boundaries (IceBB) project.
 * Project goal
 
 Goals are TBD based on community input
-+ Community: See #1 & #2
-+ Goals: See #3
++ Community: See [[https://github.com/IACS-cryo/IceBB/issues/1][#1]] & [[https://github.com/IACS-cryo/IceBB/issues/2][#2]]
++ Goals: See [[https://github.com/IACS-cryo/IceBB/issues/3][#3]]
   
 But in general:  
 + Develop an IACS working group to develop a community standard for ice sheet and glacier ice basins and boundaries
