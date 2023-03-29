@@ -1,0 +1,15 @@
+
+* Introduction
+
+This is a project for working on the Ice Basins and Boundaries (IceBB) project.
+
+* Project goal
+
+Goals are TBD based on community input
++ Community: See #1 & #2
++ Goals: See #3
+  
+But in general:  
++ Develop an IACS working group to develop a community standard for ice sheet and glacier ice basins and boundaries
++ Avoid mis-counting mass loss by different communities because regions are or are not included or excluded from both ice sheet and glacier communities
++ Support model intercomparison
