@@ -1,15 +1,16 @@
 
 * Introduction
 
-This is a project for working on the Ice Basins and Boundaries (IceBB) project. ([[https://lists.cryolist.org/pipermail/cryolist/2022-November/008094.html][CRYOLIST announcement]])
+This is a project for working on the Ice Boundaries & Basins (IceBB) project. ([[https://lists.cryolist.org/pipermail/cryolist/2022-November/008094.html][CRYOLIST announcement]])
 
 * Project goal
 
-Goals are TBD based on community input
-+ Community: See [[https://github.com/IACS-cryo/IceBB/issues/1][#1]] & [[https://github.com/IACS-cryo/IceBB/issues/2][#2]]
-+ Goals: See [[https://github.com/IACS-cryo/IceBB/issues/3][#3]]
-  
+See
++ [[https://docs.google.com/document/d/1992Do27xRoYVDwOpMveWVGILJSPJr0-BhpqDxpsfvck/edit?usp=sharing][Proposal]]
++ [[https://docs.google.com/spreadsheets/d/18DBHRbEAuquOqChHN2GqUR2uPKpW7D1Y-IBqMPM6TtM/edit?usp=sharing][Team Members]]
++ Open issues at https://github.com/IACS-cryo/IceBB/issues
+
 But in general:  
-+ Develop an IACS working group to develop a community standard for ice sheet and glacier ice basins and boundaries
++ Develop an IACS working group to develop a community standard for ice sheet and glacier ice boundaries and basins
 + Avoid mis-counting mass loss by different communities because regions are or are not included or excluded from both ice sheet and glacier communities
 + Support model intercomparison
