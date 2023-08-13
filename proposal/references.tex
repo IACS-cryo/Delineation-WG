@@ -1,0 +1,24 @@
+
+% pandoc -s references.tex -C --bibliography=library.bib --csl=american-geophysical-union.csl -o references.docx
+
+% with a CSL file from https://github.com/citation-style-language/styles or https://www.zotero.org/styles
+
+\documentclass{article}
+\usepackage{biblatex}
+\addbibresource{library.bib}
+\begin{document}
+
+\nocite{hock_2023}
+\nocite{rastner_2012}
+\nocite{mankoff_2021}
+\nocite{otosaka_2023}
+\nocite{zwally_2012_data}
+\nocite{mouginot_2019_data}
+\nocite{hermann_2018}
+\nocite{krieger_2020}
+
+\printbibliography
+
+\end{document}
+
+
