@@ -14,3 +14,81 @@ But in general:
 + Develop an IACS working group to develop a community standard for ice sheet and glacier ice boundaries and basins
 + Avoid mis-counting mass loss by different communities because regions are or are not included or excluded from both ice sheet and glacier communities
 + Support model intercomparison
+
+
+* Graphic
+** Greenland
+
+#+BEGIN_SRC bash :exports both :results verbatim
+rm -fR G_GL
+grass -c EPSG:3413 ./G_GL
+
+v.import input=~/data/RGI/daacdata.apps.nsidc.org/pub/DATASETS/nsidc0770_rgi_v6/05_rgi60_GreenlandPeriphery.shp output=RGI
+v.import input=~/data/Mouginot_2019/Greenland_Basins_PS_v1.4.2.shp output=M2019
+v.import input=~/data/NaturalEarth/ne_10m_coastline.shp output=coast
+g.region vector=RGI,M2019 res=1000
+
+# delete Canada from coast
+v.edit map=coast tool=delete cats=1015 
+# drop ICE CAPS from Mouginot
+v.extract -r input=M2019 where="NAME LIKE '%CAP%'" out=M
+
+v.clip input=RGI clip=M output=both
+
+d.mon wx0
+d.erase
+d.vect M color=gray  fill_color=gray
+d.vect RGI color=none fillcolor=green
+d.vect both color=none fillcolor=orange
+d.vect coast
+
+d.mon start=png output=gl.png resolution=4
+d.vect M color=gray  fill_color=gray
+d.vect RGI color=none fillcolor=green
+d.vect both color=none fillcolor=orange
+d.vect coast width=3
+d.mon stop=png
+
+#+END_SRC
+
+** Antarctica
+
+#+BEGIN_SRC bash :exports both :results verbatim
+rm -fR G_AQ
+grass -c EPSG:3031 ./G_AQ
+
+v.import input=~/data/RGI/daacdata.apps.nsidc.org/pub/DATASETS/nsidc0770_rgi_v6/19_rgi60_AntarcticSubantarctic.shp output=RGI
+v.import input=dat/ANT_IceSheets_IMBIE2/ANT_IceSheets_IMBIE2_v1.6.shp output=IMBIE
+v.import input=~/data/NaturalEarth/ne_10m_coastline.shp output=coast
+g.region vector=RGI,IMBIE res=1000
+g.region w=-2650000 e=2650000 s=-2650000 n=2650000
+
+# delete Canada from coast
+# v.edit map=coast tool=delete cats=1015 
+# drop ICE CAPS from Mouginot
+# v.extract -r input=M2019 where="NAME LIKE '%CAP%'" out=M
+
+v.clip input=RGI clip=IMBIE output=both
+
+d.mon wx0
+d.erase
+d.vect IMBIE color=gray  fill_color=gray
+d.vect RGI color=none fillcolor=green
+d.vect both color=none fillcolor=orange
+
+d.mon start=png output=aq.png resolution=4
+d.vect IMBIE color=gray  fill_color=gray
+d.vect RGI color=none fillcolor=green
+d.vect both color=none fillcolor=orange
+d.vect coast width=3
+d.mon stop=png
+#+END_SRC
+
+** Merge
+
+#+BEGIN_SRC bash :exports both :results verbatim
+convert gl.png  -trim gl2.png
+convert aq.png  -trim aq2.png
+
+montage {gl,aq}2.png -tile 2x1 -geometry +0+0 out.png
+#+END_SRC
