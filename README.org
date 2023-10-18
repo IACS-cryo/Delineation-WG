@@ -36,19 +36,25 @@ v.edit map=coast tool=delete cats=1015
 # drop ICE CAPS from Mouginot
 v.extract -r input=M2019 where="NAME LIKE '%CAP%'" out=M
 
-v.clip input=RGI_c0 clip=M output=both
+v.clip input=RGI_c0 clip=M output=both_0
+v.clip input=RGI_c1 clip=M output=both_1
 
 d.mon wx0
 d.erase
 d.vect M color=gray  fill_color=gray
 d.vect RGI_c0 color=none fillcolor=green
-d.vect both color=none fillcolor=orange
+d.vect RGI_c1 color=none fillcolor=blue
+d.vect both_0 color=none fillcolor=orange
+d.vect both_1 color=none fillcolor=red
 d.vect coast
+d.mon stop=wx0
 
 d.mon start=png output=gl.png resolution=4
 d.vect M color=gray  fill_color=gray
 d.vect RGI_c0 color=none fillcolor=green
-d.vect both color=none fillcolor=orange
+d.vect RGI_c1 color=none fillcolor=blue
+d.vect both_0 color=none fillcolor=orange
+d.vect both_1 color=none fillcolor=red
 d.vect coast width=3
 d.mon stop=png
 
