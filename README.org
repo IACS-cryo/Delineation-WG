@@ -23,28 +23,31 @@ But in general:
 rm -fR G_GL
 grass -c EPSG:3413 ./G_GL
 
-v.import input=~/data/RGI/daacdata.apps.nsidc.org/pub/DATASETS/nsidc0770_rgi_v6/05_rgi60_GreenlandPeriphery.shp output=RGI
+v.import input=${DATADIR}/RGI/regional_files/RGI2000-v7.0-G/RGI2000-v7.0-G-05_greenland_periphery.shp output=RGI
 v.import input=~/data/Mouginot_2019/Greenland_Basins_PS_v1.4.2.shp output=M2019
 v.import input=~/data/NaturalEarth/ne_10m_coastline.shp output=coast
 g.region vector=RGI,M2019 res=1000
+
+v.extract input=RGI where='conn_lvl == 0' output=RGI_c0
+v.extract input=RGI where='conn_lvl == 1' output=RGI_c1
 
 # delete Canada from coast
 v.edit map=coast tool=delete cats=1015 
 # drop ICE CAPS from Mouginot
 v.extract -r input=M2019 where="NAME LIKE '%CAP%'" out=M
 
-v.clip input=RGI clip=M output=both
+v.clip input=RGI_c0 clip=M output=both
 
 d.mon wx0
 d.erase
 d.vect M color=gray  fill_color=gray
-d.vect RGI color=none fillcolor=green
+d.vect RGI_c0 color=none fillcolor=green
 d.vect both color=none fillcolor=orange
 d.vect coast
 
 d.mon start=png output=gl.png resolution=4
 d.vect M color=gray  fill_color=gray
-d.vect RGI color=none fillcolor=green
+d.vect RGI_c0 color=none fillcolor=green
 d.vect both color=none fillcolor=orange
 d.vect coast width=3
 d.mon stop=png
@@ -57,18 +60,16 @@ d.mon stop=png
 rm -fR G_AQ
 grass -c EPSG:3031 ./G_AQ
 
-v.import input=~/data/RGI/daacdata.apps.nsidc.org/pub/DATASETS/nsidc0770_rgi_v6/19_rgi60_AntarcticSubantarctic.shp output=RGI
+v.import input=${DATADIR}/RGI/regional_files/RGI2000-v7.0-G/RGI2000-v7.0-G-19_subantarctic_antarctic_islands.shp output=RGI
 v.import input=dat/ANT_IceSheets_IMBIE2/ANT_IceSheets_IMBIE2_v1.6.shp output=IMBIE
 v.import input=~/data/NaturalEarth/ne_10m_coastline.shp output=coast
 g.region vector=RGI,IMBIE res=1000
 g.region w=-2650000 e=2650000 s=-2650000 n=2650000
 
-# delete Canada from coast
-# v.edit map=coast tool=delete cats=1015 
-# drop ICE CAPS from Mouginot
-# v.extract -r input=M2019 where="NAME LIKE '%CAP%'" out=M
+v.extract input=RGI where='conn_lvl == 0' output=RGI_c0
+v.extract input=RGI where='conn_lvl == 1' output=RGI_c1
 
-v.clip input=RGI clip=IMBIE output=both
+v.clip input=RGI_c0 clip=IMBIE output=both
 
 d.mon wx0
 d.erase
