@@ -1,21 +1,3 @@
-
-* Introduction
-
-This is a project for working on the Ice Boundaries & Basins (IceBB) project. ([[https://lists.cryolist.org/pipermail/cryolist/2022-November/008094.html][CRYOLIST announcement]])
-
-* Project goal
-
-See
-+ [[https://docs.google.com/document/d/1992Do27xRoYVDwOpMveWVGILJSPJr0-BhpqDxpsfvck/edit?usp=sharing][Proposal]]
-+ [[https://docs.google.com/spreadsheets/d/18DBHRbEAuquOqChHN2GqUR2uPKpW7D1Y-IBqMPM6TtM/edit?usp=sharing][Team Members]]
-+ Open issues at https://github.com/IACS-cryo/IceBB/issues
-
-But in general:  
-+ Develop an IACS working group to develop a community standard for ice sheet and glacier ice boundaries and basins
-+ Avoid mis-counting mass loss by different communities because regions are or are not included or excluded from both ice sheet and glacier communities
-+ Support model intercomparison
-
-
 * Graphic
 ** Greenland
 
@@ -32,7 +14,7 @@ v.extract input=RGI where='conn_lvl == 0' output=RGI_c0
 v.extract input=RGI where='conn_lvl == 1' output=RGI_c1
 
 # delete Canada from coast
-v.edit map=coast tool=delete cats=1015 
+v.edit map=coast tool=delete cats=1015
 # drop ICE CAPS from Mouginot
 v.extract -r input=M2019 where="NAME LIKE '%CAP%'" out=M
 
