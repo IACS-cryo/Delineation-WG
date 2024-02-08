@@ -21,6 +21,10 @@ We envision the bulk of the dialog occurring under the [discussions](https://git
 Github might feel overwhelming at first, but fear not! We won't use it for computer code only, but as a collaborative project management tool:
 [Not just for programmers: How GitHub can accelerate collaborative and reproducible research](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.14108).
 
+## Updates
+
+To stay up-to-date with existing and new discussions, click on the `watch` button near the top of this page and then select `All Activity` or `Custom > Discussions (and Issues)`. 
+
 ## Status
 
 The project just started! Currently we are gathering ideas and brainstorming towards the first deliverable of the WG: 
