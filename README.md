@@ -34,3 +34,9 @@ information and suspected double counting in previous studies and IPCC report an
 proposed solutions to improve the situation.*
 
 Let's [discus](https://github.com/IACS-cryo/Delineation-WG/discussions)!
+
+## Motivation
+
+[![Many different Greenland](https://github.com/IACS-cryo/Delineation-WG/blob/main/fig/hester.png)](https://twitter.com/glasheologist/status/1557208390853505024)
+
+[![Many different standards](https://imgs.xkcd.com/comics/standards.png)](https://xkcd.com/927/)
