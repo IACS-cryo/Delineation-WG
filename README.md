@@ -10,6 +10,10 @@ See:
 - [Proposal](proposal/Ice%20Basins%20&%20Boundaries.pdf)
 - [Team members](https://docs.google.com/spreadsheets/d/18DBHRbEAuquOqChHN2GqUR2uPKpW7D1Y-IBqMPM6TtM/edit?usp=sharing)
 
+## Updates
+
+To stay up-to-date with existing and new discussions, click on the `watch` button near the top of this page and then select `All Activity` or `Custom > Discussions (and Issues)`. You can then unsubscribe from any individual conversation if it is not relevant to you.
+
 ## Organization
 
 We envision the bulk of the dialog occurring under the [discussions](https://github.com/IACS-cryo/Delineation-WG/discussions) section of this website, and actionable items distilled from the discussions will then be worked on under the [issues](https://github.com/IACS-cryo/Delineation-WG/issues/) section of this website.
@@ -20,10 +24,6 @@ We envision the bulk of the dialog occurring under the [discussions](https://git
 
 Github might feel overwhelming at first, but fear not! We won't use it for computer code only, but as a collaborative project management tool:
 [Not just for programmers: How GitHub can accelerate collaborative and reproducible research](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.14108).
-
-## Updates
-
-To stay up-to-date with existing and new discussions, click on the `watch` button near the top of this page and then select `All Activity` or `Custom > Discussions (and Issues)`. 
 
 ## Status
 
