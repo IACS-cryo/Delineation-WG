@@ -1,0 +1,22 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+project:
+  id: a0540010-c291-4726-8e98-9101f28a05d7
+  title: IACS Ice Delineation and Basin Working Group1 Deliverable 1
+  # description:
+  keywords: [IACS, Greenland, Antarctica, mass, GIS]
+  authors: [An Author]
+  github: https://github.com/IACS-cryo/Delineation-WG/
+  bibliography: [library.bib]
+site:
+  template: book-theme
+  # title:
+  # options:
+  #   logo: site_logo.png
+  nav: []
+  actions:
+    - title: GitHub
+      url: https://github.com/IACS-cryo/Delineation-WG/
+    - title: GoogleDrive
+      url: https://drive.google.com/drive/folders/1wD3TpKi4tGnDVGIhtnPaKjg6Wxv_Rj0X
+  domains: []
