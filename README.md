@@ -8,7 +8,10 @@ Project supported by the International Association of Cryospheric Sciences ([IAC
 See:
 - [CRYOLIST announcement](https://lists.cryolist.org/pipermail/cryolist/2022-November/008094.html)
 - [Proposal](proposal/Ice%20Basins%20&%20Boundaries.pdf)
-- [Team members](https://docs.google.com/spreadsheets/d/18DBHRbEAuquOqChHN2GqUR2uPKpW7D1Y-IBqMPM6TtM/edit?usp=sharing)
+- [Google Drive](https://drive.google.com/drive/folders/1wD3TpKi4tGnDVGIhtnPaKjg6Wxv_Rj0X) containing,
+  - Team member spreadsheet
+  - Meeting minutes and video recordings
+  - Other things TBD
 
 ## Updates
 
@@ -16,24 +19,25 @@ To stay up-to-date with existing and new discussions, click on the `watch` butto
 
 ## Organization
 
-We envision the bulk of the dialog occurring under the [discussions](https://github.com/IACS-cryo/Delineation-WG/discussions) section of this website, and actionable items distilled from the discussions will then be worked on under the [issues](https://github.com/IACS-cryo/Delineation-WG/issues/) section of this website.
-
-+ [Discussions](https://github.com/IACS-cryo/Delineation-WG/discussions) is where we will work as a community to decide what to address and how to address it.
-
 + [Issues](https://github.com/IACS-cryo/Delineation-WG/issues) is where individuals or smaller groups or teams will work on specific actionable items, possibly linked to specific data features or code.
 
-Github might feel overwhelming at first, but fear not! We won't use it for computer code only, but as a collaborative project management tool:
-[Not just for programmers: How GitHub can accelerate collaborative and reproducible research](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.14108).
++ Zoom meetings will occur occasionally and as needed and recordings shouldbe archived in the [Google Drive](https://drive.google.com/drive/folders/1wD3TpKi4tGnDVGIhtnPaKjg6Wxv_Rj0X).
+
+In person meetings will occur when possible (e.g., at EGU). 
+
+## Working with GitHub
+
+Github might feel overwhelming at first, but fear not! We won't use it for computer code only, but as a collaborative project management tool.
+- Please read: [Not just for programmers: How GitHub can accelerate collaborative and reproducible research](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.14108).
+- Documents can be edited via the web interface, without using `git`. For example, to edit this document, click the pen icon at the top right corner of the text (not top right of page), then select the `Commit changes...` button.
 
 ## Status
 
 The project just started! Currently we are gathering ideas and brainstorming towards the first deliverable of the WG: 
 
-*Deliverable 1: review report outlining the current situation, extracting the relevant 
-information and suspected double counting in previous studies and IPCC report and 
-proposed solutions to improve the situation.*
+### Deliverable 1
 
-Let's [discus](https://github.com/IACS-cryo/Delineation-WG/discussions)!
++ [D1 Milestone](https://github.com/IACS-cryo/Delineation-WG/milestone/3): Review report outlining the current situation, extracting the relevant  information and suspected double counting in previous studies and IPCC report and  proposed solutions to improve the situation.
 
 ## Motivation
 
