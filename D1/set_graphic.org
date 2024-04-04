@@ -209,10 +209,13 @@ for r0 in $rasters; do
   for r1 in $rasters; do
     r.mapcalc --quiet "tmp = if(${r0} & isnull(${r1}), 1, null())" --overwrite
     non_null_cells=$(r.univar --quiet map=tmp nprocs=8 -t|tail -n1|cut -d"|" -f1)
-    echo "${r0}, ${r1}, ${non_null_cells}" | tee -a sets_notin.csv
+    echo "${r0},${r1},${non_null_cells}" | tee -a sets_notin.csv
   done
 done
 #+end_src
+
+#+RESULTS:
+: m_RGI@RGI,m_RGI@RGI,
 
 
 #+name: fig:notin
@@ -248,7 +251,7 @@ hm.figure.savefig('./set_notin.png', bbox_inches='tight')
 #+CAPTION: Summary of different mask products and their respective “relative complement” (set difference, or X \notin Y) between products. Graphic should be interpreted as X outside Y. For example looking at only the top left 2x2 region, “RGI@RGI” has 10^4.9 = ~80,000 km^2 of ice outside of “GIC0@citterio_2013”, and Citterio 2013 GIC0 has 10^6.2 km^2 outside of RGI. Black 0 indicates product X contained entirely inside product Y. Here “all” is the entire mask, “main” is the main ice, “peripheral” is unconnected ice, and other labels (e.g. GICn) are specific to and documented elsewhere per those data products.
 
 #+RESULTS: fig:notin
-[[./figs_tmp/b603627e13dc6bacecb85021b9e0200a95f678a0.png]]
+[[./figs_tmp/42cb43672bb08ca894e566c6a92c32c3637f0eb8.png]]
 
 
 
@@ -265,7 +268,7 @@ for r0 in $rasters; do
   for r1 in $rasters; do
     r.mapcalc --quiet "tmp = if(${r0} & ${r1}, 1, null())" --overwrite
     non_null_cells=$(r.univar --quiet map=tmp nprocs=8 -t|tail -n1|cut -d"|" -f1)
-    echo "${r0}, ${r1}, ${non_null_cells}" | tee -a sets_union.csv
+    echo "${r0},${r1},${non_null_cells}" | tee -a sets_union.csv
   done
 done
 #+end_src
@@ -306,4 +309,4 @@ hm.figure.savefig('./set_union.png', bbox_inches='tight')
 #+caption: Summary of different mask products and their respective overlap or set union between products. For example looking at only the top of the left-most column, “RGI@RGI” has 10^4.9 = ~8E4 km^2 of ice overlapping itself, and 10^3.5 = ~3E3 km^2 overlapping Citterio 2013 GIC0. Black 0 indicates no overlap. Here “all” is the entire mask, “main” is the main ice, “peripheral” is unconnected ice, and other labels (e.g. GICn) are specific to and documented elsewhere per those data products.
 
 #+RESULTS: union
-[[./figs_tmp/c29dfa9c5630f72c9f8170f13e7d36b11a5a1b16.png]]
+[[./figs_tmp/24a99d86c43ced874b40e5050c5bd5ce9876a04c.png]]
