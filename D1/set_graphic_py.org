@@ -19,9 +19,6 @@ Workbook to create set difference graphic
 
 * Setup
 
-* Products
-** BedMachine v5
-
 #+begin_src jupyter-python :exports both
 import numpy as np
 import geopandas as gpd
@@ -31,117 +28,121 @@ import rasterio as rio
 import shapely
 
 def rm2p(r=None, m=None, t=None):
-    """Raster r and mask m to polygon using transform t"""
+    """Raster r and mask m to polygon using transform t
+
+    WARNING: Takes 10s of seconds per call
+    """
     p = []
     
     shapes = rio.features.shapes(r, mask=m, transform=t.transform)
     for shape, value in shapes:
         p.append(shapely.geometry.shape(shape))
-        mp = shapely.geometry.MultiPolygon(p)
+        
+    mp = shapely.geometry.MultiPolygon(p)
     return mp
 
-d = rio.open('netcdf:/home/kdm/data/Morlighem_2017/BedMachineGreenland-v5.nc:mask')
-r = d.read(1)\
-     .astype(np.uint8)
-
-ds = gpd.GeoSeries()
-ds['BedMachine:all'] = rm2p(r=r, m=((r==2)|(r==3)), t=d)
-
-ds['BedMachine:main'] = max(ds['BedMachine:all'].geoms, key=lambda a: a.area)
-ds['BedMachine:shelf'] = rm2p(r=r, m=(r==3), t=d)
-ds['BedMachine:peripheral'] = dfs['BedMachine:all']\
-    .difference((ds['BedMachine:main'].union(ds['BedMachine:shelf'])))
-#+end_src
-
-#+begin_src jupyter-python :exports both
-
-
-# polygons = polygons.apply(make_valid)
-# gdf = gpd.GeoSeries(polygons)
-# m = r.read(1).astype(np.uint8)
-#geometry = list(shapes)
-#gg = [_[0]['coordinates'] for _ in geometry]
-#df = gpd.GeoDataFrame({'v':[1]*len(gg), 'geometry':gg})
-#df.head()
-# df2 = df.dissolve(by='v', aggfunc='first').reset_index()
-# pprint.pprint(next(shapes))
-
-# burn to raster
-# ice_mask = features.rasterize(((p, 1) for p, _ in shapes),
-# out_shape = r.shape,
-# transform = r.transform)
-
-# df = ds['mask'].to_dataframe().reset_index()
-
-# bm.set_crs('EPSG:3413')
-# bedmachine = gpd.read_file('./dat/BedMachine.gpkg')
-# bm = bedmachine.dissolve(by='cat', aggfunc='first').reset_index()
+try:
+    roi = gpd.read_file('roi.gpkg')
+except:
+    roi = gpd.GeoDataFrame(columns=['geometry'])
+    roi = roi.set_crs('EPSG:3413')
 #+end_src
 
 #+RESULTS:
 
-| cat | meaning     |
-|-----+-------------|
-|   1 | ice         |
-|   2 | peripheral  |
-|   3 | shelves     |
+* Products
+** BedMachine v5
+
+#+begin_src jupyter-python :exports both
+d = rio.open('netcdf:/home/kdm/data/Morlighem_2017/BedMachineGreenland-v5.nc:mask')
+r = d.read(1).astype(np.uint8)
+
+print('BedMachine:all...')
+roi.loc['BedMachine:all'] = rm2p(r=r, m=((r==2)|(r==3)), t=d)
+
+print('BedMachine:main...')
+roi.loc['BedMachine:main'] = max(roi.loc['BedMachine:all'], key=lambda a: a.area)
+
+print('BedMachine:shelf...')
+roi.loc['BedMachine:shelf'] = rm2p(r=r, m=(r==3), t=d)
+
+print('BedMachine:peripheral...')
+roi.loc['BedMachine:peripheral'] = roi.loc['BedMachine:all']\
+    .difference((roi.loc['BedMachine:main'].union(roi.loc['BedMachine:shelf'])))
+
+roi = roi.set_crs(d.crs)
+roi.to_file('roi.gpkg', driver='GPKG')
+#+end_src
+
+
+*** Displays
+**** Interactive
+
+#+BEGIN_SRC jupyter-python :exports both
+columns = [_ for _ in roi.index if 'BedMachine' in _]
+map = roi[columns]\
+    .drop('BedMachine:all')\
+    .simplify(1000)\
+    .explore(color=['red','green','blue'])\
+    .save('explore_bedmachine.html')
+#+END_SRC
+
+#+RESULTS:
+
+**** Subplots
+
+#+BEGIN_SRC jupyter-python :exports both
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+mpl.rcParams['axes.facecolor'] = '#fffaf0'
+
+fig, ax = plt.subplots(nrows=2, ncols=2)
+ax = ax.flatten()
+for i,r in enumerate(roi.index):
+    gpd.GeoSeries(roi[r], crs=roi.crs).plot(ax=ax[i])
+    ax[i].set_title(r)
+
+for a in ax:
+    # a.axis('off')
+    a.set_xticks([])
+    a.set_yticks([])
+#+END_SRC
 
 
 ** Citterio & Ahlstrøm 2013
 
-#+BEGIN_SRC bash :exports both :results verbatim
-g.mapset -c citterio_2013
+#+begin_src jupyter-python :exports both
+df = gpd.read_file('/home/kdm/data/Citterio_2013/PROMICE_3413/PROMICE_250_GIC_BASE_Jason4_Ruth_WGS84-b0_a.shp')
+df['GIC'] = df['GIC'].astype(int)
+df = df.dissolve(by='GIC', aggfunc='first').reset_index()
+#+end_src
 
-# doesn't import properly to GRASS (does to QGIS)
-# v.import input=${DATADIR}/Citterio_2013/PROMICE_250_2019-12-04_EPSG4326/PROMICE_250_2019-12-04.shp output=mask
+#+RESULTS:
 
-mkdir tmp
-ogr2ogr -s_srs EPSG:3413 -t_srs EPSG:3413 ./tmp/citterio_2013.gpkg ${DATADIR}/Citterio_2013/PROMICE_3413
-v.in.ogr input=./tmp/citterio_2013.gpkg output=mask
-g.region vector=mask res=100 -pa
+Explore
 
-# v.db.select map=mask|head
-# GIC is character but should be numbers
-v.db.addcolumn map=mask columns="GICn INT"
-db.execute sql='UPDATE mask SET GICn = CAST(GIC AS numeric)'
-
-v.to.rast input=mask output=mask use=attr attribute_column=GICn
-# v.out.ogr input=mask output=./dat/citterio_2013.gpkg
-
-r.mapcalc "m_all = if(mask)"
-r.mapcalc "m_ice = if(mask == 0, 1, null())"
-r.mapcalc "m_peripheral = if(mask == 1, 1, null())"
-r.mapcalc "m_attached = if(mask == 2, 1, null())"
-#+END_SRC
-
-*** NOTDONE Python
 #+BEGIN_SRC jupyter-python :exports both
-citterio = gpd.read_file('./dat/citterio_2013.gpkg')
-citterio['GIC'] = citterio['GIC'].astype(int)
-CIT = citterio.dissolve(by='GIC', aggfunc='first').reset_index()
-CIT[CIT['GIC'] == 1].plot()
-CIT[CIT['GIC'] == 2].plot()
-CIT[CIT['GIC'] == 3].plot()
+df.simplify(1000).explore(color=['red','green','blue']).save('explore_citterio.html')
 #+END_SRC
 
 #+RESULTS:
 
-| CIT | meaning    |
-|-----+------------|
-|   0 | main ice   |
-|   1 | peripheral |
-|   2 | attached   |
+#+begin_src jupyter-python :exports both
+print('Citterio2013:all...')
+roi['Citterio2013:all'] = df.dissolve()
 
-#+BEGIN_SRC jupyter-python :exports both
-bm_ice = bm[bm['cat'] == 1]
-CIT_ice = CIT[CIT['GIC'] == 0]
-CT_diff = CIT_ice.difference(bm_ice)
-bm_diff = bm_ice.difference(CIT_ice)
-#+END_SRC
+print('Citterio2013:GIC0...')
+roi['Citterio2013:GIC0'] = df[df['GIC'] == 0]
+
+print('Citterio2013:GIC1...')
+roi['Citterio2013:GIC1'] = df[df['GIC'] == 1]
+
+print('Citterio2013:GIC2...')
+roi['Citterio2013:GIC2'] = df[df['GIC'] == 2]
+#+end_src
 
 #+RESULTS:
-: /home/kdm/local/mambaforge/envs/ds/lib/python3.10/site-packages/geopandas/base.py:31: UserWarning: The indices of the two GeoSeries are different.
-:   warn("The indices of the two GeoSeries are different.")
+: Citterio2013:all...
 
 ** RACMO
 
