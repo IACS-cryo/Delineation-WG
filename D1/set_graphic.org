@@ -215,6 +215,7 @@ done
 #+end_src
 
 
+#+name: fig:notin
 #+begin_src jupyter-python :exports both
 import numpy as np
 import pandas as pd
@@ -244,9 +245,13 @@ hm.xaxis.tick_top()  # Move x-axis labels to top
 hm.set_xticklabels(hm.get_xticklabels(), rotation=90, ha='center')
 hm.figure.savefig('./set_notin.png', bbox_inches='tight')
 #+end_src
+#+CAPTION: Summary of different mask products and their respective “relative complement” (set difference, or X \notin Y) between products. Graphic should be interpreted as X outside Y. For example looking at only the top left 2x2 region, “RGI@RGI” has 10^4.9 = ~80,000 km^2 of ice outside of “GIC0@citterio_2013”, and Citterio 2013 GIC0 has 10^6.2 km^2 outside of RGI. Black 0 indicates product X contained entirely inside product Y. Here “all” is the entire mask, “main” is the main ice, “peripheral” is unconnected ice, and other labels (e.g. GICn) are specific to and documented elsewhere per those data products.
 
-#+RESULTS:
+#+RESULTS: fig:notin
 [[./figs_tmp/b603627e13dc6bacecb85021b9e0200a95f678a0.png]]
+
+
+
 ** Union
 #+begin_src bash :exports both :results verbatim
 g.mapset -c diff
@@ -265,6 +270,7 @@ for r0 in $rasters; do
 done
 #+end_src
 
+#+NAME: union
 #+begin_src jupyter-python :exports both
 import numpy as np
 import pandas as pd
@@ -297,8 +303,7 @@ hm = sns.heatmap(d10,
                  cbar_kws={'label': 'X $\\in$ Y [log$_{10}$ km$^2$]'})
 hm.figure.savefig('./set_union.png', bbox_inches='tight')
 #+end_src
+#+caption: Summary of different mask products and their respective overlap or set union between products. For example looking at only the top of the left-most column, “RGI@RGI” has 10^4.9 = ~8E4 km^2 of ice overlapping itself, and 10^3.5 = ~3E3 km^2 overlapping Citterio 2013 GIC0. Black 0 indicates no overlap. Here “all” is the entire mask, “main” is the main ice, “peripheral” is unconnected ice, and other labels (e.g. GICn) are specific to and documented elsewhere per those data products.
 
-#+RESULTS:
+#+RESULTS: union
 [[./figs_tmp/c29dfa9c5630f72c9f8170f13e7d36b11a5a1b16.png]]
-
-
