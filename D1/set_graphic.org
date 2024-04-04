@@ -10,8 +10,6 @@
   - [[#racmo][RACMO]]
   - [[#mar][MAR]]
 - [[#set-differences][Set differences]]
-  - [[#python][Python]]
-  - [[#bash][Bash]]
 
 * Introduction
 
@@ -49,21 +47,6 @@ r.mapcalc "m_shelf = if(mask == 3, 1, null())"
 # v.out.ogr input=mask output=./dat/BedMachine.gpkg
 #+END_SRC
 
-*** NOTDONE python 
-#+BEGIN_SRC jupyter-python :exports both
-import geopandas as gpd
-bedmachine = gpd.read_file('./dat/BedMachine.gpkg')
-bm = bedmachine.dissolve(by='cat', aggfunc='first').reset_index()
-#+END_SRC
-
-#+RESULTS:
-
-| cat | meaning     |
-|-----+-------------|
-|   1 | ice         |
-|   2 | peripheral  |
-|   3 | shelves     |
-
 
 ** Citterio & Ahlstrøm 2013
 
@@ -91,35 +74,6 @@ r.mapcalc "m_ice = if(mask == 0, 1, null())"
 r.mapcalc "m_peripheral = if(mask == 1, 1, null())"
 r.mapcalc "m_attached = if(mask == 2, 1, null())"
 #+END_SRC
-
-*** NOTDONE Python
-#+BEGIN_SRC jupyter-python :exports both
-citterio = gpd.read_file('./dat/citterio_2013.gpkg')
-citterio['GIC'] = citterio['GIC'].astype(int)
-CIT = citterio.dissolve(by='GIC', aggfunc='first').reset_index()
-CIT[CIT['GIC'] == 1].plot()
-CIT[CIT['GIC'] == 2].plot()
-CIT[CIT['GIC'] == 3].plot()
-#+END_SRC
-
-#+RESULTS:
-
-| CIT | meaning    |
-|-----+------------|
-|   0 | main ice   |
-|   1 | peripheral |
-|   2 | attached   |
-
-#+BEGIN_SRC jupyter-python :exports both
-bm_ice = bm[bm['cat'] == 1]
-CIT_ice = CIT[CIT['GIC'] == 0]
-CT_diff = CIT_ice.difference(bm_ice)
-bm_diff = bm_ice.difference(CIT_ice)
-#+END_SRC
-
-#+RESULTS:
-: /home/kdm/local/mambaforge/envs/ds/lib/python3.10/site-packages/geopandas/base.py:31: UserWarning: The indices of the two GeoSeries are different.
-:   warn("The indices of the two GeoSeries are different.")
 
 ** RACMO
 
@@ -227,45 +181,6 @@ r.mapcalc "m_peripheral = if(mask == 2, 1, null())"
 
 * Set differences
 
-** Python
-#+begin_src jupyter-python :exports both
-from grass_session import Session
-
-# import some convenient GRASS GIS Python API parts
-from grass.script import core as gcore
-import grass.script as gscript
-import grass.script.setup as gsetup
-from grass.script import array as garray
-# import grass python libraries
-from grass.pygrass.modules.shortcuts import general as g
-from grass.pygrass.modules.shortcuts import raster as r
-from grass.pygrass.modules.shortcuts import vector as v
-from grass.pygrass.modules.shortcuts import temporal as t
-
-# set some common environmental variables, like for raster compression settings:
-import os
-os.environ.update(dict(GRASS_COMPRESS_NULLS='1'))
-#  needs G76:          GRASS_COMPRESSOR='ZSTD'))
-
-# PERMANENT = Session()
-grass = Session()
-with grass.open(gisdb="./", location="G_GL", mapset="PERMANENT"):
-    print(g.list(type='raster'))
-#+end_src
-
-
-#+begin_src jupyter-python :exports both
-
-from grass_session import Session
-from grass.script import core as gcore
-import os
-from grass.pygrass.modules.shortcuts import general as g
-
-with Session.open(gisdb="./", location="G_GL", mapset="BedMachine", create_opts=""):
-    g.list(type='raster')
-#+end_src
-
-** Bash
 #+begin_src bash :exports both :results verbatim
 g.mapset -c diff
 g.region raster=mask@BedMachine res=100 -pa
@@ -572,5 +487,5 @@ hm.figure.savefig('./heatmap.png', bbox_inches='tight')
 
 #+RESULTS:
 [[./figs_tmp/5ee1171930c77a739d4dd0505bff2f91b8e3da59.png]]
-q[[./figs_tmp/939cd4e7717ac7d0e6d845b99773ed69867ccc54.png]]
+
 
