@@ -189,9 +189,9 @@ rm -f sets.csv
 rasters=$(g.list -m type=raster mapset=* pattern="m_*")
 for r0 in $rasters; do
   for r1 in $rasters; do
-    r.mapcalc --quiet "tmp = if(${r0} & isnull(${r1}), 1, null())"
+    r.mapcalc --quiet "tmp = if(${r0} & isnull(${r1}), 1, null())" --overwrite
     non_null_cells=$(r.univar --quiet map=tmp nprocs=8 -t|tail -n1|cut -d"|" -f1)
-    echo "${r0} outside ${r1}, ${non_null_cells}" | tee -a sets.csv
+    echo "${r0} not in ${r1}, ${non_null_cells}" | tee -a sets.csv
   done
 done
 #+end_src
@@ -202,231 +202,231 @@ cat sets.csv
 
 #+RESULTS:
 #+begin_example
-m_all@BedMachine outside m_all@BedMachine, 0
-m_all@BedMachine outside m_all@MAR, 1588240
-m_all@BedMachine outside m_all@RACMO, 0
-m_all@BedMachine outside m_all@citterio_2013, 1213615
-m_all@BedMachine outside m_attached@RACMO, 175868747
-m_all@BedMachine outside m_attached@citterio_2013, 175768017
-m_all@BedMachine outside m_ice@BedMachine, 6614774
-m_all@BedMachine outside m_ice@MAR, 6986843
-m_all@BedMachine outside m_ice@RACMO, 9215394
-m_all@BedMachine outside m_ice@citterio_2013, 8822905
-m_all@BedMachine outside m_peripheral@BedMachine, 171513642
-m_all@BedMachine outside m_peripheral@MAR, 172324355
-m_all@BedMachine outside m_peripheral@RACMO, 172736959
-m_all@BedMachine outside m_peripheral@citterio_2013, 172068609
-m_all@BedMachine outside m_shelf@BedMachine, 177317500
-m_all@MAR outside m_all@BedMachine, 2135782
-m_all@MAR outside m_all@MAR, 0
-m_all@MAR outside m_all@RACMO, 0
-m_all@MAR outside m_all@citterio_2013, 2163444
-m_all@MAR outside m_attached@RACMO, 176359125
-m_all@MAR outside m_attached@citterio_2013, 176357484
-m_all@MAR outside m_ice@BedMachine, 7933748
-m_all@MAR outside m_ice@MAR, 6112000
-m_all@MAR outside m_ice@RACMO, 9236575
-m_all@MAR outside m_ice@citterio_2013, 9379397
-m_all@MAR outside m_peripheral@BedMachine, 172873997
-m_all@MAR outside m_peripheral@MAR, 172158500
-m_all@MAR outside m_peripheral@RACMO, 173143975
-m_all@MAR outside m_peripheral@citterio_2013, 172967563
-m_all@MAR outside m_shelf@BedMachine, 177869037
-m_all@RACMO outside m_all@BedMachine, 2922726
-m_all@RACMO outside m_all@MAR, 2198675
-m_all@RACMO outside m_all@RACMO, 0
-m_all@RACMO outside m_all@citterio_2013, 2890783
-m_all@RACMO outside m_attached@RACMO, 176147500
-m_all@RACMO outside m_attached@citterio_2013, 176422998
-m_all@RACMO outside m_ice@BedMachine, 8379867
-m_all@RACMO outside m_ice@MAR, 7351475
-m_all@RACMO outside m_ice@RACMO, 8186900
-m_all@RACMO outside m_ice@citterio_2013, 9735755
-m_all@RACMO outside m_peripheral@BedMachine, 173212797
-m_all@RACMO outside m_peripheral@MAR, 173117700
-m_all@RACMO outside m_peripheral@RACMO, 172206600
-m_all@RACMO outside m_peripheral@citterio_2013, 173273030
-m_all@RACMO outside m_shelf@BedMachine, 177871062
-m_all@citterio_2013 outside m_all@BedMachine, 1027779
-m_all@citterio_2013 outside m_all@MAR, 1421116
-m_all@citterio_2013 outside m_all@RACMO, 0
-m_all@citterio_2013 outside m_all@citterio_2013, 0
-m_all@citterio_2013 outside m_attached@RACMO, 6787299
-m_all@citterio_2013 outside m_attached@citterio_2013, 6535670
-m_all@citterio_2013 outside m_ice@BedMachine, 6711635
-m_all@citterio_2013 outside m_ice@MAR, 6751239
-m_all@citterio_2013 outside m_ice@RACMO, 8614269
-m_all@citterio_2013 outside m_ice@citterio_2013, 8637069
-m_all@citterio_2013 outside m_peripheral@BedMachine, 2953301
-m_all@citterio_2013 outside m_peripheral@MAR, 3306946
-m_all@citterio_2013 outside m_peripheral@RACMO, 3664667
-m_all@citterio_2013 outside m_peripheral@citterio_2013, 2101399
-m_all@citterio_2013 outside m_shelf@BedMachine, 8636981
-m_attached@RACMO outside m_all@BedMachine, 268789
-m_attached@RACMO outside m_all@MAR, 211625
-m_attached@RACMO outside m_all@RACMO, 0
-m_attached@RACMO outside m_all@citterio_2013, 261814
-m_attached@RACMO outside m_attached@RACMO, 0
-m_attached@RACMO outside m_attached@citterio_2013, 284148
-m_attached@RACMO outside m_ice@BedMachine, 451374
-m_attached@RACMO outside m_ice@MAR, 417550
-m_attached@RACMO outside m_ice@RACMO, 2123000
-m_attached@RACMO outside m_ice@citterio_2013, 2111584
-m_attached@RACMO outside m_peripheral@BedMachine, 1941451
-m_attached@RACMO outside m_peripheral@MAR, 1917075
-m_attached@RACMO outside m_peripheral@RACMO, 2123000
-m_attached@RACMO outside m_peripheral@citterio_2013, 2112082
-m_attached@RACMO outside m_shelf@BedMachine, 2121964
-m_attached@citterio_2013 outside m_all@BedMachine, 146458
-m_attached@citterio_2013 outside m_all@MAR, 188383
-m_attached@citterio_2013 outside m_all@RACMO, 0
-m_attached@citterio_2013 outside m_all@citterio_2013, 0
-m_attached@citterio_2013 outside m_attached@RACMO, 262547
-m_attached@citterio_2013 outside m_attached@citterio_2013, 0
-m_attached@citterio_2013 outside m_ice@BedMachine, 342156
-m_attached@citterio_2013 outside m_ice@MAR, 401161
-m_attached@citterio_2013 outside m_ice@RACMO, 2094240
-m_attached@citterio_2013 outside m_ice@citterio_2013, 2101399
-m_attached@citterio_2013 outside m_peripheral@BedMachine, 1905715
-m_attached@citterio_2013 outside m_peripheral@MAR, 1888621
-m_attached@citterio_2013 outside m_peripheral@RACMO, 2099908
-m_attached@citterio_2013 outside m_peripheral@citterio_2013, 2101399
-m_attached@citterio_2013 outside m_shelf@BedMachine, 2101385
-m_ice@BedMachine outside m_all@BedMachine, 0
-m_ice@BedMachine outside m_all@MAR, 771432
-m_ice@BedMachine outside m_all@RACMO, 0
-m_ice@BedMachine outside m_all@citterio_2013, 701582
-m_ice@BedMachine outside m_attached@RACMO, 169436558
-m_ice@BedMachine outside m_attached@citterio_2013, 169348941
-m_ice@BedMachine outside m_ice@BedMachine, 0
-m_ice@BedMachine outside m_ice@MAR, 991532
-m_ice@BedMachine outside m_ice@RACMO, 3029803
-m_ice@BedMachine outside m_ice@citterio_2013, 2627016
-m_ice@BedMachine outside m_peripheral@BedMachine, 171108184
-m_ice@BedMachine outside m_peripheral@MAR, 170888084
-m_ice@BedMachine outside m_peripheral@RACMO, 170967558
-m_ice@BedMachine outside m_peripheral@citterio_2013, 170941993
-m_ice@BedMachine outside m_shelf@BedMachine, 171108184
-m_ice@MAR outside m_all@BedMachine, 1422385
-m_ice@MAR outside m_all@MAR, 0
-m_ice@MAR outside m_all@RACMO, 0
-m_ice@MAR outside m_all@citterio_2013, 1424849
-m_ice@MAR outside m_attached@RACMO, 170453050
-m_ice@MAR outside m_attached@citterio_2013, 170458262
-m_ice@MAR outside m_ice@BedMachine, 2041848
-m_ice@MAR outside m_ice@MAR, 0
-m_ice@MAR outside m_ice@RACMO, 3152175
-m_ice@MAR outside m_ice@citterio_2013, 3310679
-m_ice@MAR outside m_peripheral@BedMachine, 171940500
-m_ice@MAR outside m_peripheral@MAR, 172158500
-m_ice@MAR outside m_peripheral@RACMO, 171951250
-m_ice@MAR outside m_peripheral@citterio_2013, 171972908
-m_ice@MAR outside m_shelf@BedMachine, 171757037
-m_ice@RACMO outside m_all@BedMachine, 1576036
-m_ice@RACMO outside m_all@MAR, 1049675
-m_ice@RACMO outside m_all@RACMO, 0
-m_ice@RACMO outside m_all@citterio_2013, 1548832
-m_ice@RACMO outside m_attached@RACMO, 170083600
-m_ice@RACMO outside m_attached@citterio_2013, 170076441
-m_ice@RACMO outside m_ice@BedMachine, 2005219
-m_ice@RACMO outside m_ice@MAR, 1077275
-m_ice@RACMO outside m_ice@RACMO, 0
-m_ice@RACMO outside m_ice@citterio_2013, 1571632
-m_ice@RACMO outside m_peripheral@BedMachine, 170052561
-m_ice@RACMO outside m_peripheral@MAR, 170056000
-m_ice@RACMO outside m_peripheral@RACMO, 170083600
-m_ice@RACMO outside m_peripheral@citterio_2013, 170067959
-m_ice@RACMO outside m_shelf@BedMachine, 169685456
-m_ice@citterio_2013 outside m_all@BedMachine, 843291
-m_ice@citterio_2013 outside m_all@MAR, 852241
-m_ice@citterio_2013 outside m_all@RACMO, 0
-m_ice@citterio_2013 outside m_all@citterio_2013, 0
-m_ice@citterio_2013 outside m_attached@RACMO, 169731928
-m_ice@citterio_2013 outside m_attached@citterio_2013, 169743344
-m_ice@citterio_2013 outside m_ice@BedMachine, 1262176
-m_ice@citterio_2013 outside m_ice@MAR, 895523
-m_ice@citterio_2013 outside m_ice@RACMO, 1231376
-m_ice@citterio_2013 outside m_ice@citterio_2013, 0
-m_ice@citterio_2013 outside m_peripheral@BedMachine, 169704795
-m_ice@citterio_2013 outside m_peripheral@MAR, 169700062
-m_ice@citterio_2013 outside m_peripheral@RACMO, 169731983
-m_ice@citterio_2013 outside m_peripheral@citterio_2013, 169743344
-m_ice@citterio_2013 outside m_shelf@BedMachine, 169363008
-m_peripheral@BedMachine outside m_all@BedMachine, 0
-m_peripheral@BedMachine outside m_all@MAR, 812813
-m_peripheral@BedMachine outside m_all@RACMO, 0
-m_peripheral@BedMachine outside m_all@citterio_2013, 486999
-m_peripheral@BedMachine outside m_attached@RACMO, 6027767
-m_peripheral@BedMachine outside m_attached@citterio_2013, 6013632
-m_peripheral@BedMachine outside m_ice@BedMachine, 6209316
-m_peripheral@BedMachine outside m_ice@MAR, 5991316
-m_peripheral@BedMachine outside m_ice@RACMO, 6178277
-m_peripheral@BedMachine outside m_ice@citterio_2013, 6170767
-m_peripheral@BedMachine outside m_peripheral@BedMachine, 0
-m_peripheral@BedMachine outside m_peripheral@MAR, 1030813
-m_peripheral@BedMachine outside m_peripheral@RACMO, 1364201
-m_peripheral@BedMachine outside m_peripheral@citterio_2013, 721232
-m_peripheral@BedMachine outside m_shelf@BedMachine, 6209316
-m_peripheral@MAR outside m_all@BedMachine, 713397
-m_peripheral@MAR outside m_all@MAR, 0
-m_peripheral@MAR outside m_all@RACMO, 0
-m_peripheral@MAR outside m_all@citterio_2013, 738595
-m_peripheral@MAR outside m_attached@RACMO, 5906075
-m_peripheral@MAR outside m_attached@citterio_2013, 5899222
-m_peripheral@MAR outside m_ice@BedMachine, 5891900
-m_peripheral@MAR outside m_ice@MAR, 6112000
-m_peripheral@MAR outside m_ice@RACMO, 6084400
-m_peripheral@MAR outside m_ice@citterio_2013, 6068718
-m_peripheral@MAR outside m_peripheral@BedMachine, 933497
-m_peripheral@MAR outside m_peripheral@MAR, 0
-m_peripheral@MAR outside m_peripheral@RACMO, 1192725
-m_peripheral@MAR outside m_peripheral@citterio_2013, 994655
-m_peripheral@MAR outside m_shelf@BedMachine, 6112000
-m_peripheral@RACMO outside m_all@BedMachine, 1077901
-m_peripheral@RACMO outside m_all@MAR, 937375
-m_peripheral@RACMO outside m_all@RACMO, 0
-m_peripheral@RACMO outside m_all@citterio_2013, 1080137
-m_peripheral@RACMO outside m_attached@RACMO, 6063900
-m_peripheral@RACMO outside m_attached@citterio_2013, 6062409
-m_peripheral@RACMO outside m_ice@BedMachine, 5923274
-m_peripheral@RACMO outside m_ice@MAR, 5856650
-m_peripheral@RACMO outside m_ice@RACMO, 6063900
-m_peripheral@RACMO outside m_ice@citterio_2013, 6052539
-m_peripheral@RACMO outside m_peripheral@BedMachine, 1218785
-m_peripheral@RACMO outside m_peripheral@MAR, 1144625
-m_peripheral@RACMO outside m_peripheral@RACMO, 0
-m_peripheral@RACMO outside m_peripheral@citterio_2013, 1092989
-m_peripheral@RACMO outside m_shelf@BedMachine, 6063642
-m_peripheral@citterio_2013 outside m_all@BedMachine, 881321
-m_peripheral@citterio_2013 outside m_all@MAR, 1232733
-m_peripheral@citterio_2013 outside m_all@RACMO, 0
-m_peripheral@citterio_2013 outside m_all@citterio_2013, 0
-m_peripheral@citterio_2013 outside m_attached@RACMO, 6524752
-m_peripheral@citterio_2013 outside m_attached@citterio_2013, 6535670
-m_peripheral@citterio_2013 outside m_ice@BedMachine, 6369479
-m_peripheral@citterio_2013 outside m_ice@MAR, 6350078
-m_peripheral@citterio_2013 outside m_ice@RACMO, 6520029
-m_peripheral@citterio_2013 outside m_ice@citterio_2013, 6535670
-m_peripheral@citterio_2013 outside m_peripheral@BedMachine, 1047586
-m_peripheral@citterio_2013 outside m_peripheral@MAR, 1418325
-m_peripheral@citterio_2013 outside m_peripheral@RACMO, 1564759
-m_peripheral@citterio_2013 outside m_peripheral@citterio_2013, 0
-m_peripheral@citterio_2013 outside m_shelf@BedMachine, 6535596
-m_shelf@BedMachine outside m_all@BedMachine, 0
-m_shelf@BedMachine outside m_all@MAR, 3995
-m_shelf@BedMachine outside m_all@RACMO, 0
-m_shelf@BedMachine outside m_all@citterio_2013, 25034
-m_shelf@BedMachine outside m_attached@RACMO, 404422
-m_shelf@BedMachine outside m_attached@citterio_2013, 405444
-m_shelf@BedMachine outside m_ice@BedMachine, 405458
-m_shelf@BedMachine outside m_ice@MAR, 3995
-m_shelf@BedMachine outside m_ice@RACMO, 7314
-m_shelf@BedMachine outside m_ice@citterio_2013, 25122
-m_shelf@BedMachine outside m_peripheral@BedMachine, 405458
-m_shelf@BedMachine outside m_peripheral@MAR, 405458
-m_shelf@BedMachine outside m_peripheral@RACMO, 405200
-m_shelf@BedMachine outside m_peripheral@citterio_2013, 405384
-m_shelf@BedMachine outside m_shelf@BedMachine, 0
+m_all@BedMachine not in m_all@BedMachine, 0
+m_all@BedMachine not in m_all@MAR, 1588240
+m_all@BedMachine not in m_all@RACMO, 172736959
+m_all@BedMachine not in m_all@citterio_2013, 1213615
+m_all@BedMachine not in m_attached@RACMO, 175868747
+m_all@BedMachine not in m_attached@citterio_2013, 175768017
+m_all@BedMachine not in m_ice@BedMachine, 6614774
+m_all@BedMachine not in m_ice@MAR, 6986843
+m_all@BedMachine not in m_ice@RACMO, 9215394
+m_all@BedMachine not in m_ice@citterio_2013, 8822905
+m_all@BedMachine not in m_peripheral@BedMachine, 171513642
+m_all@BedMachine not in m_peripheral@MAR, 172324355
+m_all@BedMachine not in m_peripheral@RACMO, 172736959
+m_all@BedMachine not in m_peripheral@citterio_2013, 172068609
+m_all@BedMachine not in m_shelf@BedMachine, 177317500
+m_all@MAR not in m_all@BedMachine, 2135782
+m_all@MAR not in m_all@MAR, 0
+m_all@MAR not in m_all@RACMO, 173143975
+m_all@MAR not in m_all@citterio_2013, 2163444
+m_all@MAR not in m_attached@RACMO, 176359125
+m_all@MAR not in m_attached@citterio_2013, 176357484
+m_all@MAR not in m_ice@BedMachine, 7933748
+m_all@MAR not in m_ice@MAR, 6112000
+m_all@MAR not in m_ice@RACMO, 9236575
+m_all@MAR not in m_ice@citterio_2013, 9379397
+m_all@MAR not in m_peripheral@BedMachine, 172873997
+m_all@MAR not in m_peripheral@MAR, 172158500
+m_all@MAR not in m_peripheral@RACMO, 173143975
+m_all@MAR not in m_peripheral@citterio_2013, 172967563
+m_all@MAR not in m_shelf@BedMachine, 177869037
+m_all@RACMO not in m_all@BedMachine, 1077901
+m_all@RACMO not in m_all@MAR, 937375
+m_all@RACMO not in m_all@RACMO, 0
+m_all@RACMO not in m_all@citterio_2013, 1080137
+m_all@RACMO not in m_attached@RACMO, 6063900
+m_all@RACMO not in m_attached@citterio_2013, 6062409
+m_all@RACMO not in m_ice@BedMachine, 5923274
+m_all@RACMO not in m_ice@MAR, 5856650
+m_all@RACMO not in m_ice@RACMO, 6063900
+m_all@RACMO not in m_ice@citterio_2013, 6052539
+m_all@RACMO not in m_peripheral@BedMachine, 1218785
+m_all@RACMO not in m_peripheral@MAR, 1144625
+m_all@RACMO not in m_peripheral@RACMO, 0
+m_all@RACMO not in m_peripheral@citterio_2013, 1092989
+m_all@RACMO not in m_shelf@BedMachine, 6063642
+m_all@citterio_2013 not in m_all@BedMachine, 1027779
+m_all@citterio_2013 not in m_all@MAR, 1421116
+m_all@citterio_2013 not in m_all@RACMO, 3664667
+m_all@citterio_2013 not in m_all@citterio_2013, 0
+m_all@citterio_2013 not in m_attached@RACMO, 6787299
+m_all@citterio_2013 not in m_attached@citterio_2013, 6535670
+m_all@citterio_2013 not in m_ice@BedMachine, 6711635
+m_all@citterio_2013 not in m_ice@MAR, 6751239
+m_all@citterio_2013 not in m_ice@RACMO, 8614269
+m_all@citterio_2013 not in m_ice@citterio_2013, 8637069
+m_all@citterio_2013 not in m_peripheral@BedMachine, 2953301
+m_all@citterio_2013 not in m_peripheral@MAR, 3306946
+m_all@citterio_2013 not in m_peripheral@RACMO, 3664667
+m_all@citterio_2013 not in m_peripheral@citterio_2013, 2101399
+m_all@citterio_2013 not in m_shelf@BedMachine, 8636981
+m_attached@RACMO not in m_all@BedMachine, 268789
+m_attached@RACMO not in m_all@MAR, 211625
+m_attached@RACMO not in m_all@RACMO, 2123000
+m_attached@RACMO not in m_all@citterio_2013, 261814
+m_attached@RACMO not in m_attached@RACMO, 0
+m_attached@RACMO not in m_attached@citterio_2013, 284148
+m_attached@RACMO not in m_ice@BedMachine, 451374
+m_attached@RACMO not in m_ice@MAR, 417550
+m_attached@RACMO not in m_ice@RACMO, 2123000
+m_attached@RACMO not in m_ice@citterio_2013, 2111584
+m_attached@RACMO not in m_peripheral@BedMachine, 1941451
+m_attached@RACMO not in m_peripheral@MAR, 1917075
+m_attached@RACMO not in m_peripheral@RACMO, 2123000
+m_attached@RACMO not in m_peripheral@citterio_2013, 2112082
+m_attached@RACMO not in m_shelf@BedMachine, 2121964
+m_attached@citterio_2013 not in m_all@BedMachine, 146458
+m_attached@citterio_2013 not in m_all@MAR, 188383
+m_attached@citterio_2013 not in m_all@RACMO, 2099908
+m_attached@citterio_2013 not in m_all@citterio_2013, 0
+m_attached@citterio_2013 not in m_attached@RACMO, 262547
+m_attached@citterio_2013 not in m_attached@citterio_2013, 0
+m_attached@citterio_2013 not in m_ice@BedMachine, 342156
+m_attached@citterio_2013 not in m_ice@MAR, 401161
+m_attached@citterio_2013 not in m_ice@RACMO, 2094240
+m_attached@citterio_2013 not in m_ice@citterio_2013, 2101399
+m_attached@citterio_2013 not in m_peripheral@BedMachine, 1905715
+m_attached@citterio_2013 not in m_peripheral@MAR, 1888621
+m_attached@citterio_2013 not in m_peripheral@RACMO, 2099908
+m_attached@citterio_2013 not in m_peripheral@citterio_2013, 2101399
+m_attached@citterio_2013 not in m_shelf@BedMachine, 2101385
+m_ice@BedMachine not in m_all@BedMachine, 0
+m_ice@BedMachine not in m_all@MAR, 771432
+m_ice@BedMachine not in m_all@RACMO, 170967558
+m_ice@BedMachine not in m_all@citterio_2013, 701582
+m_ice@BedMachine not in m_attached@RACMO, 169436558
+m_ice@BedMachine not in m_attached@citterio_2013, 169348941
+m_ice@BedMachine not in m_ice@BedMachine, 0
+m_ice@BedMachine not in m_ice@MAR, 991532
+m_ice@BedMachine not in m_ice@RACMO, 3029803
+m_ice@BedMachine not in m_ice@citterio_2013, 2627016
+m_ice@BedMachine not in m_peripheral@BedMachine, 171108184
+m_ice@BedMachine not in m_peripheral@MAR, 170888084
+m_ice@BedMachine not in m_peripheral@RACMO, 170967558
+m_ice@BedMachine not in m_peripheral@citterio_2013, 170941993
+m_ice@BedMachine not in m_shelf@BedMachine, 171108184
+m_ice@MAR not in m_all@BedMachine, 1422385
+m_ice@MAR not in m_all@MAR, 0
+m_ice@MAR not in m_all@RACMO, 171951250
+m_ice@MAR not in m_all@citterio_2013, 1424849
+m_ice@MAR not in m_attached@RACMO, 170453050
+m_ice@MAR not in m_attached@citterio_2013, 170458262
+m_ice@MAR not in m_ice@BedMachine, 2041848
+m_ice@MAR not in m_ice@MAR, 0
+m_ice@MAR not in m_ice@RACMO, 3152175
+m_ice@MAR not in m_ice@citterio_2013, 3310679
+m_ice@MAR not in m_peripheral@BedMachine, 171940500
+m_ice@MAR not in m_peripheral@MAR, 172158500
+m_ice@MAR not in m_peripheral@RACMO, 171951250
+m_ice@MAR not in m_peripheral@citterio_2013, 171972908
+m_ice@MAR not in m_shelf@BedMachine, 171757037
+m_ice@RACMO not in m_all@BedMachine, 1576036
+m_ice@RACMO not in m_all@MAR, 1049675
+m_ice@RACMO not in m_all@RACMO, 170083600
+m_ice@RACMO not in m_all@citterio_2013, 1548832
+m_ice@RACMO not in m_attached@RACMO, 170083600
+m_ice@RACMO not in m_attached@citterio_2013, 170076441
+m_ice@RACMO not in m_ice@BedMachine, 2005219
+m_ice@RACMO not in m_ice@MAR, 1077275
+m_ice@RACMO not in m_ice@RACMO, 0
+m_ice@RACMO not in m_ice@citterio_2013, 1571632
+m_ice@RACMO not in m_peripheral@BedMachine, 170052561
+m_ice@RACMO not in m_peripheral@MAR, 170056000
+m_ice@RACMO not in m_peripheral@RACMO, 170083600
+m_ice@RACMO not in m_peripheral@citterio_2013, 170067959
+m_ice@RACMO not in m_shelf@BedMachine, 169685456
+m_ice@citterio_2013 not in m_all@BedMachine, 843291
+m_ice@citterio_2013 not in m_all@MAR, 852241
+m_ice@citterio_2013 not in m_all@RACMO, 169731983
+m_ice@citterio_2013 not in m_all@citterio_2013, 0
+m_ice@citterio_2013 not in m_attached@RACMO, 169731928
+m_ice@citterio_2013 not in m_attached@citterio_2013, 169743344
+m_ice@citterio_2013 not in m_ice@BedMachine, 1262176
+m_ice@citterio_2013 not in m_ice@MAR, 895523
+m_ice@citterio_2013 not in m_ice@RACMO, 1231376
+m_ice@citterio_2013 not in m_ice@citterio_2013, 0
+m_ice@citterio_2013 not in m_peripheral@BedMachine, 169704795
+m_ice@citterio_2013 not in m_peripheral@MAR, 169700062
+m_ice@citterio_2013 not in m_peripheral@RACMO, 169731983
+m_ice@citterio_2013 not in m_peripheral@citterio_2013, 169743344
+m_ice@citterio_2013 not in m_shelf@BedMachine, 169363008
+m_peripheral@BedMachine not in m_all@BedMachine, 0
+m_peripheral@BedMachine not in m_all@MAR, 812813
+m_peripheral@BedMachine not in m_all@RACMO, 1364201
+m_peripheral@BedMachine not in m_all@citterio_2013, 486999
+m_peripheral@BedMachine not in m_attached@RACMO, 6027767
+m_peripheral@BedMachine not in m_attached@citterio_2013, 6013632
+m_peripheral@BedMachine not in m_ice@BedMachine, 6209316
+m_peripheral@BedMachine not in m_ice@MAR, 5991316
+m_peripheral@BedMachine not in m_ice@RACMO, 6178277
+m_peripheral@BedMachine not in m_ice@citterio_2013, 6170767
+m_peripheral@BedMachine not in m_peripheral@BedMachine, 0
+m_peripheral@BedMachine not in m_peripheral@MAR, 1030813
+m_peripheral@BedMachine not in m_peripheral@RACMO, 1364201
+m_peripheral@BedMachine not in m_peripheral@citterio_2013, 721232
+m_peripheral@BedMachine not in m_shelf@BedMachine, 6209316
+m_peripheral@MAR not in m_all@BedMachine, 713397
+m_peripheral@MAR not in m_all@MAR, 0
+m_peripheral@MAR not in m_all@RACMO, 1192725
+m_peripheral@MAR not in m_all@citterio_2013, 738595
+m_peripheral@MAR not in m_attached@RACMO, 5906075
+m_peripheral@MAR not in m_attached@citterio_2013, 5899222
+m_peripheral@MAR not in m_ice@BedMachine, 5891900
+m_peripheral@MAR not in m_ice@MAR, 6112000
+m_peripheral@MAR not in m_ice@RACMO, 6084400
+m_peripheral@MAR not in m_ice@citterio_2013, 6068718
+m_peripheral@MAR not in m_peripheral@BedMachine, 933497
+m_peripheral@MAR not in m_peripheral@MAR, 0
+m_peripheral@MAR not in m_peripheral@RACMO, 1192725
+m_peripheral@MAR not in m_peripheral@citterio_2013, 994655
+m_peripheral@MAR not in m_shelf@BedMachine, 6112000
+m_peripheral@RACMO not in m_all@BedMachine, 1077901
+m_peripheral@RACMO not in m_all@MAR, 937375
+m_peripheral@RACMO not in m_all@RACMO, 0
+m_peripheral@RACMO not in m_all@citterio_2013, 1080137
+m_peripheral@RACMO not in m_attached@RACMO, 6063900
+m_peripheral@RACMO not in m_attached@citterio_2013, 6062409
+m_peripheral@RACMO not in m_ice@BedMachine, 5923274
+m_peripheral@RACMO not in m_ice@MAR, 5856650
+m_peripheral@RACMO not in m_ice@RACMO, 6063900
+m_peripheral@RACMO not in m_ice@citterio_2013, 6052539
+m_peripheral@RACMO not in m_peripheral@BedMachine, 1218785
+m_peripheral@RACMO not in m_peripheral@MAR, 1144625
+m_peripheral@RACMO not in m_peripheral@RACMO, 0
+m_peripheral@RACMO not in m_peripheral@citterio_2013, 1092989
+m_peripheral@RACMO not in m_shelf@BedMachine, 6063642
+m_peripheral@citterio_2013 not in m_all@BedMachine, 881321
+m_peripheral@citterio_2013 not in m_all@MAR, 1232733
+m_peripheral@citterio_2013 not in m_all@RACMO, 1564759
+m_peripheral@citterio_2013 not in m_all@citterio_2013, 0
+m_peripheral@citterio_2013 not in m_attached@RACMO, 6524752
+m_peripheral@citterio_2013 not in m_attached@citterio_2013, 6535670
+m_peripheral@citterio_2013 not in m_ice@BedMachine, 6369479
+m_peripheral@citterio_2013 not in m_ice@MAR, 6350078
+m_peripheral@citterio_2013 not in m_ice@RACMO, 6520029
+m_peripheral@citterio_2013 not in m_ice@citterio_2013, 6535670
+m_peripheral@citterio_2013 not in m_peripheral@BedMachine, 1047586
+m_peripheral@citterio_2013 not in m_peripheral@MAR, 1418325
+m_peripheral@citterio_2013 not in m_peripheral@RACMO, 1564759
+m_peripheral@citterio_2013 not in m_peripheral@citterio_2013, 0
+m_peripheral@citterio_2013 not in m_shelf@BedMachine, 6535596
+m_shelf@BedMachine not in m_all@BedMachine, 0
+m_shelf@BedMachine not in m_all@MAR, 3995
+m_shelf@BedMachine not in m_all@RACMO, 405200
+m_shelf@BedMachine not in m_all@citterio_2013, 25034
+m_shelf@BedMachine not in m_attached@RACMO, 404422
+m_shelf@BedMachine not in m_attached@citterio_2013, 405444
+m_shelf@BedMachine not in m_ice@BedMachine, 405458
+m_shelf@BedMachine not in m_ice@MAR, 3995
+m_shelf@BedMachine not in m_ice@RACMO, 7314
+m_shelf@BedMachine not in m_ice@citterio_2013, 25122
+m_shelf@BedMachine not in m_peripheral@BedMachine, 405458
+m_shelf@BedMachine not in m_peripheral@MAR, 405458
+m_shelf@BedMachine not in m_peripheral@RACMO, 405200
+m_shelf@BedMachine not in m_peripheral@citterio_2013, 405384
+m_shelf@BedMachine not in m_shelf@BedMachine, 0
 #+end_example
 
 #+begin_src jupyter-python :exports both
@@ -435,7 +435,7 @@ import pandas as pd
 
 sets = pd.read_csv('sets.csv', names=['set','area'])
 sets['out'] = [_.split(' ')[0] for _ in sets['set']]
-sets['baseline'] = [_.split(' ')[2] for _ in sets['set']]
+sets['baseline'] = [_.split(' ')[3] for _ in sets['set']]
 sets = sets.drop(columns=['set'])
 # sets = sets.loc[sets.index[:-2]]
 
@@ -458,23 +458,23 @@ df
 #+end_src
 
 #+RESULTS:
-|                          | all@BedMachine | all@MAR | all@RACMO | all@citterio_2013 | attached@RACMO | attached@citterio_2013 | ice@BedMachine | ice@MAR | ice@RACMO | ice@citterio_2013 | peripheral@BedMachine | peripheral@MAR | peripheral@RACMO | peripheral@citterio_2013 | shelf@BedMachine |
-|--------------------------+----------------+---------+-----------+-------------------+----------------+------------------------+----------------+---------+-----------+-------------------+-----------------------+----------------+------------------+--------------------------+------------------|
-| all@BedMachine           |              0 |   15882 |         0 |             12136 |    1.75869e+06 |            1.75768e+06 |          66148 |   69868 |     92154 |             88229 |           1.71514e+06 |    1.72324e+06 |      1.72737e+06 |              1.72069e+06 |      1.77318e+06 |
-| all@MAR                  |          21358 |       0 |         0 |             21634 |    1.76359e+06 |            1.76358e+06 |          79337 |   61120 |     92366 |             93794 |           1.72874e+06 |    1.72158e+06 |      1.73144e+06 |              1.72968e+06 |      1.77869e+06 |
-| all@RACMO                |          29227 |   21987 |         0 |             28908 |    1.76148e+06 |            1.76423e+06 |          83799 |   73515 |     81869 |             97358 |           1.73213e+06 |    1.73118e+06 |      1.72207e+06 |              1.73273e+06 |      1.77871e+06 |
-| all@citterio_2013        |          10278 |   14211 |         0 |                 0 |          67873 |                  65357 |          67116 |   67512 |     86143 |             86371 |                 29533 |          33069 |            36647 |                    21014 |            86370 |
-| attached@RACMO           |           2688 |    2116 |         0 |              2618 |              0 |                   2841 |           4514 |    4176 |     21230 |             21116 |                 19415 |          19171 |            21230 |                    21121 |            21220 |
-| attached@citterio_2013   |           1465 |    1884 |         0 |                 0 |           2625 |                      0 |           3422 |    4012 |     20942 |             21014 |                 19057 |          18886 |            20999 |                    21014 |            21014 |
-| ice@BedMachine           |              0 |    7714 |         0 |              7016 |    1.69437e+06 |            1.69349e+06 |              0 |    9915 |     30298 |             26270 |           1.71108e+06 |    1.70888e+06 |      1.70968e+06 |              1.70942e+06 |      1.71108e+06 |
-| ice@MAR                  |          14224 |       0 |         0 |             14248 |    1.70453e+06 |            1.70458e+06 |          20418 |       0 |     31522 |             33107 |            1.7194e+06 |    1.72158e+06 |      1.71951e+06 |              1.71973e+06 |      1.71757e+06 |
-| ice@RACMO                |          15760 |   10497 |         0 |             15488 |    1.70084e+06 |            1.70076e+06 |          20052 |   10773 |         0 |             15716 |           1.70053e+06 |    1.70056e+06 |      1.70084e+06 |              1.70068e+06 |      1.69686e+06 |
-| ice@citterio_2013        |           8433 |    8522 |         0 |                 0 |    1.69732e+06 |            1.69743e+06 |          12622 |    8955 |     12314 |                 0 |           1.69705e+06 |      1.697e+06 |      1.69732e+06 |              1.69743e+06 |      1.69363e+06 |
-| peripheral@BedMachine    |              0 |    8128 |         0 |              4870 |          60278 |                  60136 |          62093 |   59913 |     61783 |             61708 |                     0 |          10308 |            13642 |                     7212 |            62093 |
-| peripheral@MAR           |           7134 |       0 |         0 |              7386 |          59061 |                  58992 |          58919 |   61120 |     60844 |             60687 |                  9335 |              0 |            11927 |                     9947 |            61120 |
-| peripheral@RACMO         |          10779 |    9374 |         0 |             10801 |          60639 |                  60624 |          59233 |   58566 |     60639 |             60525 |                 12188 |          11446 |                0 |                    10930 |            60636 |
-| peripheral@citterio_2013 |           8813 |   12327 |         0 |                 0 |          65248 |                  65357 |          63695 |   63501 |     65200 |             65357 |                 10476 |          14183 |            15648 |                        0 |            65356 |
-| shelf@BedMachine         |              0 |      40 |         0 |               250 |           4044 |                   4054 |           4055 |      40 |        73 |               251 |                  4055 |           4055 |             4052 |                     4054 |                0 |
+|                          | all@BedMachine | all@MAR |   all@RACMO | all@citterio_2013 | attached@RACMO | attached@citterio_2013 | ice@BedMachine | ice@MAR | ice@RACMO | ice@citterio_2013 | peripheral@BedMachine | peripheral@MAR | peripheral@RACMO | peripheral@citterio_2013 | shelf@BedMachine |
+|--------------------------+----------------+---------+-------------+-------------------+----------------+------------------------+----------------+---------+-----------+-------------------+-----------------------+----------------+------------------+--------------------------+------------------|
+| all@BedMachine           |              0 |   15882 | 1.72737e+06 |             12136 |    1.75869e+06 |            1.75768e+06 |          66148 |   69868 |     92154 |             88229 |           1.71514e+06 |    1.72324e+06 |      1.72737e+06 |              1.72069e+06 |      1.77318e+06 |
+| all@MAR                  |          21358 |       0 | 1.73144e+06 |             21634 |    1.76359e+06 |            1.76358e+06 |          79337 |   61120 |     92366 |             93794 |           1.72874e+06 |    1.72158e+06 |      1.73144e+06 |              1.72968e+06 |      1.77869e+06 |
+| all@RACMO                |          10779 |    9374 |           0 |             10801 |          60639 |                  60624 |          59233 |   58566 |     60639 |             60525 |                 12188 |          11446 |                0 |                    10930 |            60636 |
+| all@citterio_2013        |          10278 |   14211 |       36647 |                 0 |          67873 |                  65357 |          67116 |   67512 |     86143 |             86371 |                 29533 |          33069 |            36647 |                    21014 |            86370 |
+| attached@RACMO           |           2688 |    2116 |       21230 |              2618 |              0 |                   2841 |           4514 |    4176 |     21230 |             21116 |                 19415 |          19171 |            21230 |                    21121 |            21220 |
+| attached@citterio_2013   |           1465 |    1884 |       20999 |                 0 |           2625 |                      0 |           3422 |    4012 |     20942 |             21014 |                 19057 |          18886 |            20999 |                    21014 |            21014 |
+| ice@BedMachine           |              0 |    7714 | 1.70968e+06 |              7016 |    1.69437e+06 |            1.69349e+06 |              0 |    9915 |     30298 |             26270 |           1.71108e+06 |    1.70888e+06 |      1.70968e+06 |              1.70942e+06 |      1.71108e+06 |
+| ice@MAR                  |          14224 |       0 | 1.71951e+06 |             14248 |    1.70453e+06 |            1.70458e+06 |          20418 |       0 |     31522 |             33107 |            1.7194e+06 |    1.72158e+06 |      1.71951e+06 |              1.71973e+06 |      1.71757e+06 |
+| ice@RACMO                |          15760 |   10497 | 1.70084e+06 |             15488 |    1.70084e+06 |            1.70076e+06 |          20052 |   10773 |         0 |             15716 |           1.70053e+06 |    1.70056e+06 |      1.70084e+06 |              1.70068e+06 |      1.69686e+06 |
+| ice@citterio_2013        |           8433 |    8522 | 1.69732e+06 |                 0 |    1.69732e+06 |            1.69743e+06 |          12622 |    8955 |     12314 |                 0 |           1.69705e+06 |      1.697e+06 |      1.69732e+06 |              1.69743e+06 |      1.69363e+06 |
+| peripheral@BedMachine    |              0 |    8128 |       13642 |              4870 |          60278 |                  60136 |          62093 |   59913 |     61783 |             61708 |                     0 |          10308 |            13642 |                     7212 |            62093 |
+| peripheral@MAR           |           7134 |       0 |       11927 |              7386 |          59061 |                  58992 |          58919 |   61120 |     60844 |             60687 |                  9335 |              0 |            11927 |                     9947 |            61120 |
+| peripheral@RACMO         |          10779 |    9374 |           0 |             10801 |          60639 |                  60624 |          59233 |   58566 |     60639 |             60525 |                 12188 |          11446 |                0 |                    10930 |            60636 |
+| peripheral@citterio_2013 |           8813 |   12327 |       15648 |                 0 |          65248 |                  65357 |          63695 |   63501 |     65200 |             65357 |                 10476 |          14183 |            15648 |                        0 |            65356 |
+| shelf@BedMachine         |              0 |      40 |        4052 |               250 |           4044 |                   4054 |           4055 |      40 |        73 |               251 |                  4055 |           4055 |             4052 |                     4054 |                0 |
 
 #+begin_src jupyter-python :exports both
 import seaborn as sns
@@ -486,6 +486,6 @@ hm.figure.savefig('./heatmap.png', bbox_inches='tight')
 #+end_src
 
 #+RESULTS:
-[[./figs_tmp/5ee1171930c77a739d4dd0505bff2f91b8e3da59.png]]
+[[./figs_tmp/c555ab23d077e4264be62e8f0b6914187df3bd1b.png]]
 
 
