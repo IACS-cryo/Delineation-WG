@@ -243,15 +243,15 @@ import matplotlib.pyplot as plt
 hm = sns.heatmap(d10,
                  mask = df.isnull(),
                  annot=True,
-                 cbar_kws={'label': 'X $\\notin$ Y [log$_{10}$ km$^2$]'})
+                 cbar_kws={'label': 'X $\\cap$ Y\' [log$_{10}$ km$^2$]'})
 hm.xaxis.tick_top()  # Move x-axis labels to top
 hm.set_xticklabels(hm.get_xticklabels(), rotation=90, ha='center')
 hm.figure.savefig('./set_notin.png', bbox_inches='tight')
 #+end_src
-#+CAPTION: Summary of different mask products and their respective “relative complement” (set difference, or X \notin Y) between products. Graphic should be interpreted as X outside Y. For example looking at only the top left 2x2 region, “RGI@RGI” has 10^4.9 = ~80,000 km^2 of ice outside of “GIC0@citterio_2013”, and Citterio 2013 GIC0 has 10^6.2 km^2 outside of RGI. Black 0 indicates product X contained entirely inside product Y. Here “all” is the entire mask, “main” is the main ice, “peripheral” is unconnected ice, and other labels (e.g. GICn) are specific to and documented elsewhere per those data products.
+#+CAPTION: Summary of different mask products and their respective “relative complement” (X outside Y) between products. Graphic should be interpreted as X outside Y. For example looking at only the top left 2x2 region, “RGI@RGI” has 10^4.9 = ~80,000 km^2 of ice outside of “GIC0@citterio_2013”, and Citterio 2013 GIC0 has 10^6.2 km^2 outside of RGI. Black 0 indicates product X contained entirely inside product Y. Here “all” is the entire mask, “main” is the main ice, “peripheral” is unconnected ice, and other labels (e.g. GICn) are specific to and documented elsewhere per those data products.
 
 #+RESULTS: fig:notin
-[[./figs_tmp/42cb43672bb08ca894e566c6a92c32c3637f0eb8.png]]
+[[./figs_tmp/c5b8b1905759b72cafc7c4d94e832f025fc75465.png]]
 
 
 
@@ -303,10 +303,10 @@ import matplotlib.pyplot as plt
 hm = sns.heatmap(d10,
                  annot=True,
                  mask = df.isnull(),
-                 cbar_kws={'label': 'X $\\in$ Y [log$_{10}$ km$^2$]'})
+                 cbar_kws={'label': 'X $\\cap$ Y [log$_{10}$ km$^2$]'})
 hm.figure.savefig('./set_union.png', bbox_inches='tight')
 #+end_src
-#+caption: Summary of different mask products and their respective overlap or set union between products. For example looking at only the top of the left-most column, “RGI@RGI” has 10^4.9 = ~8E4 km^2 of ice overlapping itself, and 10^3.5 = ~3E3 km^2 overlapping Citterio 2013 GIC0. Black 0 indicates no overlap. Here “all” is the entire mask, “main” is the main ice, “peripheral” is unconnected ice, and other labels (e.g. GICn) are specific to and documented elsewhere per those data products.
+#+caption: Summary of different mask products and their respective overlap or set intersection between products. For example looking at only the top of the left-most column, “RGI@RGI” has 10^4.9 = ~8E4 km^2 of ice overlapping itself, and 10^3.5 = ~3E3 km^2 overlapping Citterio 2013 GIC0. Black 0 indicates no overlap. Here “all” is the entire mask, “main” is the main ice, “peripheral” is unconnected ice, and other labels (e.g. GICn) are specific to and documented elsewhere per those data products.
 
 #+RESULTS: union
-[[./figs_tmp/24a99d86c43ced874b40e5050c5bd5ce9876a04c.png]]
+[[./figs_tmp/8a376511f44abaaf2551af38863f7cd015611fac.png]]
