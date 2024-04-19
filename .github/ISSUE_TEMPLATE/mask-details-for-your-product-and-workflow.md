@@ -14,7 +14,7 @@ assignees: ''
 -   Product name and version: *PRODUCT NAME* [Example: RGI, GlacierMiP, BedMachine, ISMIP, or it could even be a study/paper in some cases]
 -   Purpose of your product: [Example: mass balance, hydrology, ecological, etc.]
 -   Geographic region: [Example: Greenland, Antarctica, Peripheral]
-
+-   Year(s) covered by product: 
 
 [Use the sections below to describe the upstream input mask for your work (if any), masks you generate internally (if any), and downstream output masks you release (if any), reasons for their usage, and cost of changing.]
 
@@ -40,6 +40,8 @@ assignees: ''
 -   Resolution if raster:
 
 -   Projection information: [Example: WKT string, proj4 string, EPSG code, or other]
+
+-   Year or years of input product(s): 
 
 
 # Internal
