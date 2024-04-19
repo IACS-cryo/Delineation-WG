@@ -3,19 +3,27 @@
 
 Project supported by the International Association of Cryospheric Sciences ([IACS](https://cryosphericsciences.org/activities/delineation-of-glaciers-ice-sheets-and-ice-sheet-basins)).
 
-## Project goals
+## Goals
 
 See:
 - [CRYOLIST announcement](https://lists.cryolist.org/pipermail/cryolist/2022-November/008094.html)
 - [Proposal](proposal/Ice%20Basins%20&%20Boundaries.pdf)
-- [Google Drive](https://drive.google.com/drive/folders/1wD3TpKi4tGnDVGIhtnPaKjg6Wxv_Rj0X) containing,
-  - Team member spreadsheet
-  - Meeting minutes and video recordings
-  - Other things TBD
 
 ## Updates
 
 To stay up-to-date with existing and new discussions, click on the `watch` button near the top of this page and then select `All Activity` or `Custom > Discussions (and Issues)`. You can then unsubscribe from any individual conversation if it is not relevant to you.
+
+There will also be occasional emails to emails on the [Team Member spreadsheet](https://docs.google.com/spreadsheets/d/18DBHRbEAuquOqChHN2GqUR2uPKpW7D1Y-IBqMPM6TtM/edit#gid=1372946030).
+
+Work to day can be seen on the [GitHub discussions](https://github.com/IACS-cryo/Delineation-WG/discussions) and the project [Google Drive](https://drive.google.com/drive/folders/1wD3TpKi4tGnDVGIhtnPaKjg6Wxv_Rj0X) containing,
+  - Team member spreadsheet
+  - Meeting minutes and video recordings
+  - Other things TBD
+
+## How to join this project
+
++ Add your details to the [Team Member spreadsheet](https://docs.google.com/spreadsheets/d/18DBHRbEAuquOqChHN2GqUR2uPKpW7D1Y-IBqMPM6TtM/edit#gid=1372946030).
++ Create a GitHub account and Click on the `watch` button near the top of this page and then select `All Activity` or `Custom > Discussions (and Issues)`.
 
 ## Organization
 
@@ -37,7 +45,7 @@ The project just started! Currently we are gathering ideas and brainstorming tow
 
 ### Deliverable 1
 
-+ [D1 Milestone](https://github.com/IACS-cryo/Delineation-WG/milestone/3): Review report outlining the current situation, extracting the relevant  information and suspected double counting in previous studies and IPCC report and  proposed solutions to improve the situation.
++ [ ] [D1 Milestone](https://github.com/IACS-cryo/Delineation-WG/milestone/3): Review report outlining the current situation, extracting the relevant  information and suspected double counting in previous studies and IPCC report and  proposed solutions to improve the situation.
 
 ## Motivation
 
