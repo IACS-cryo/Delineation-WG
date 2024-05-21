@@ -247,16 +247,16 @@ r.mapcalc "m_peripheral = if(mask == 2, 1, null())"
 grass ./G_GL/PERMANENT
 g.mapset -c overlap
 
-g.region raster=mask@BedMachine res=1000 -pa
+g.region raster=mask@BedMachine res=100 -pa
 
-g.list type=raster pattern=m_* mapset=* -m
+g.list type=raster pattern=m_* mapset=* -m |cat
 
 r.mapcalc << EOF
  overlap = if(isnull(m_all@BedMachine), 0, 1) \
   + if(isnull(m_all@citterio_2013), 0, 1) \
   + if(isnull(m_all@MAR), 0, 1) \
   + if(isnull(m_all@RACMO), 0, 1) \
-  + if(isnull(m_all@Harper_2023), 0, 1) \
+  + if(isnull(m_all@harper_2023), 0, 1) \
   + if(isnull(m_all@GIMP), 0, 1) \
   + if(isnull(m_RGI@RGI), 0, 1)
 EOF
