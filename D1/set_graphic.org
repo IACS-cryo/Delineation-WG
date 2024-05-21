@@ -262,7 +262,16 @@ r.mapcalc << EOF
 EOF
 
 r.null map=overlap setnull=0
+
+d.mon wx0
+d.rast overlap
+d.legend overlap
 #+END_SRC
+
+Example:
+
+[[file:./figs_tmp/overlap.png]]
+
 
 * Sets
 
