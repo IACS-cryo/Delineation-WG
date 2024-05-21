@@ -272,6 +272,8 @@ d.legend overlap
 
 Example:
 
+#+CAPTION: Subset of West Greenland coast showing how many (of 7) masks overlap within a given region. This example figure highlights the inconsistencies between various products, making intercomparison challenging.
+
 [[file:./figs_tmp/overlap.png]]
 
 
@@ -489,6 +491,10 @@ d.legend overlap
 #+END_SRC
 
 Example:
+
+#+CAPTION: Subset of West Antarctica including Pine Island Bay and ice shelf showing how many (of RGI, BedMachin, and the ESA CCI Landcover dataset) masks overlap within a given region. This example figure highlights the inconsistencies between various products, making intercomparison challenging.
+
+[[file:./figs_tmp/overlap_AQ.png]]
 
 ** TODO Sets
 
