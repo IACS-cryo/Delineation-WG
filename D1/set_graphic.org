@@ -11,6 +11,7 @@
   - [[#racmo][RACMO]]
   - [[#mar][MAR]]
   - [[#esa-cci-landcover][ESA CCI Landcover]]
+  - [[#gimp][GIMP]]
 - [[#overlap][Overlap]]
 - [[#sets][Sets]]
   - [[#not-in][Not in]]
@@ -217,6 +218,29 @@ r.mapcalc "m_main = if(mask == 1, 1, null())"
 r.mapcalc "m_peripheral = if(mask == 2, 1, null())"
 #+END_SRC
 
+** GIMP
+
++ NSIDC 0714 v001
+
+#+BEGIN_SRC bash :exports both :results verbatim
+g.mapset -c GIMP
+r.in.gdal input=${DATADIR}/NSIDC/NSIDC-0714.001/2013.03.26/GimpIceMask_90m_2015_v1.2.tif output=mask_0
+r.colors -r map=mask_0
+g.region raster=mask_0 -pa
+
+# find largest clump (main ice), excluding Canda # exclude Canada
+r.mapcalc "mask = if((mask_0 == 1), 1, null())"
+r.clump input=mask output=clumps --o
+main_clump=$(r.stats -c -n clumps sort=desc | head -n1 | cut -d" " -f1)
+
+# set main clump to 1, peripheral is 2
+r.mapcalc "mask = if(clumps == ${main_clump}, 1, 2)" --overwrite
+
+r.mapcalc "m_all = if(mask)"
+r.mapcalc "m_main = if(mask == 1, 1, null())"
+r.mapcalc "m_peripheral = if(mask == 2, 1, null())"
+#+END_SRC
+
 * Overlap
 
 #+BEGIN_SRC bash :exports both :results verbatim
@@ -233,6 +257,7 @@ r.mapcalc << EOF
   + if(isnull(m_all@MAR), 0, 1) \
   + if(isnull(m_all@RACMO), 0, 1) \
   + if(isnull(m_all@Harper_2023), 0, 1) \
+  + if(isnull(m_all@GIMP), 0, 1) \
   + if(isnull(m_RGI@RGI), 0, 1)
 EOF
 
