@@ -1,5 +1,5 @@
 
-#+PROPERTY: header-args:jupyter-python+ :session IDWG
+#+PROPERTY: header-args:jupyter-python+ :dir (file-name-directory buffer-file-name) :session IDWG
 
 * Table of contents                               :toc_2:noexport:
 - [[#introduction][Introduction]]
@@ -287,14 +287,13 @@ for r0 in $rasters; do
 done
 #+end_src
 
-#+RESULTS:
-: m_RGI@RGI,m_RGI@RGI,
-
 
 #+name: fig:notin
 #+begin_src jupyter-python :exports both
 import numpy as np
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 sets = pd.read_csv('sets_notin.csv', names=['x','y','area'])
 
@@ -311,11 +310,11 @@ df.index = [_[2:] for _ in df.index]
 
 d10 = np.log10(df.replace(0,1)).replace(0.1,0)
 
-import seaborn as sns
-import matplotlib.pyplot as plt
+fig, ax = plt.subplots(figsize=(10,7))
 hm = sns.heatmap(d10,
                  mask = df.isnull(),
-                 annot=True,
+                 annot = True,
+                 ax = ax, 
                  cbar_kws={'label': 'X $\\cap$ Y\' [log$_{10}$ km$^2$]'})
 hm.xaxis.tick_top()  # Move x-axis labels to top
 hm.set_xticklabels(hm.get_xticklabels(), rotation=90, ha='center')
@@ -324,7 +323,7 @@ hm.figure.savefig('./set_notin.png', bbox_inches='tight')
 #+CAPTION: Summary of different mask products and their respective “relative complement” (X outside Y) between products. Graphic should be interpreted as X outside Y. For example looking at only the top left 2x2 region, “RGI@RGI” has 10^4.9 = ~80,000 km^2 of ice outside of “GIC0@citterio_2013”, and Citterio 2013 GIC0 has 10^6.2 km^2 outside of RGI. Black 0 indicates product X contained entirely inside product Y. Here “all” is the entire mask, “main” is the main ice, “peripheral” is unconnected ice, and other labels (e.g. GICn) are specific to and documented elsewhere per those data products.
 
 #+RESULTS: fig:notin
-[[./figs_tmp/c5b8b1905759b72cafc7c4d94e832f025fc75465.png]]
+[[file:./figs_tmp/9bee37c7cd8b29cedca1fd66991fcb343fbccba9.png]]
 
 
 
@@ -350,6 +349,8 @@ done
 #+begin_src jupyter-python :exports both
 import numpy as np
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 sets = pd.read_csv('sets_union.csv', names=['x','y','area'])
 
@@ -371,8 +372,7 @@ for i,c in enumerate(df.columns):
 
 d10 = np.log10(df.replace(0,1)).replace(0.1,0)
 
-import seaborn as sns
-import matplotlib.pyplot as plt
+fig, ax = plt.subplots(figsize=(10,7))
 hm = sns.heatmap(d10,
                  annot=True,
                  mask = df.isnull(),
@@ -382,4 +382,4 @@ hm.figure.savefig('./set_union.png', bbox_inches='tight')
 #+caption: Summary of different mask products and their respective overlap or set intersection between products. For example looking at only the top of the left-most column, “RGI@RGI” has 10^4.9 = ~8E4 km^2 of ice overlapping itself, and 10^3.5 = ~3E3 km^2 overlapping Citterio 2013 GIC0. Black 0 indicates no overlap. Here “all” is the entire mask, “main” is the main ice, “peripheral” is unconnected ice, and other labels (e.g. GICn) are specific to and documented elsewhere per those data products.
 
 #+RESULTS: union
-[[./figs_tmp/8a376511f44abaaf2551af38863f7cd015611fac.png]]
+[[file:./figs_tmp/dbaf3217ea552bd766d00423712b55c1a5f33e8b.png]]
