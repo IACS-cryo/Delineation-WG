@@ -10,6 +10,7 @@
   - [[#citterio--ahlstrøm-2013][Citterio & Ahlstrøm 2013]]
   - [[#racmo][RACMO]]
   - [[#mar][MAR]]
+- [[#overlap][Overlap]]
 - [[#sets][Sets]]
   - [[#not-in][Not in]]
   - [[#union][Union]]
@@ -190,6 +191,26 @@ r.mapcalc "m_main = if(mask == 1, 1, null())"
 r.mapcalc "m_peripheral = if(mask == 2, 1, null())"
 #+END_SRC
 
+* Overlap
+
+#+BEGIN_SRC bash :exports both :results verbatim
+grass ./G_GL/PERMANENT
+g.mapset -c overlap
+
+g.region raster=mask@BedMachine res=1000 -pa
+
+g.list type=raster pattern=m_* mapset=* -m
+
+r.mapcalc << EOF
+ overlap = if(isnull(m_all@BedMachine), 0, 1) \
+  + if(isnull(m_all@citterio_2013), 0, 1) \
+  + if(isnull(m_all@MAR), 0, 1) \
+  + if(isnull(m_all@RACMO), 0, 1) \
+  + if(isnull(m_RGI@RGI), 0, 1)
+EOF
+
+r.null map=overlap setnull=0
+#+END_SRC
 
 * Sets
 
