@@ -9,11 +9,13 @@
   - [[#overlap][Overlap]]
   - [[#sets][Sets]]
   - [[#union][Union]]
+  - [[#share][Share]]
 - [[#antarctica][Antarctica]]
   - [[#setup-1][Setup]]
   - [[#products-1][Products]]
   - [[#overlap-1][Overlap]]
   - [[#sets-1][Sets]]
+  - [[#share-1][Share]]
 
 * Introduction
 
@@ -398,6 +400,23 @@ hm.figure.savefig('./set_union.png', bbox_inches='tight')
 [[file:./figs_tmp/dbaf3217ea552bd766d00423712b55c1a5f33e8b.png]]
 
 
+** Share
+
+#+BEGIN_SRC bash :exports both :results verbatim
+g.mapset PERMANENT
+
+mkdir -p share/GL
+rasters=$(g.list -m type=raster mapset=* pattern="m_*")
+for r in $rasters; do
+  g.region raster=${r}
+  rn=$(echo ${r} | tr '@' '___')
+  r.out.gdal --o -c -m input=${r} output=./share/GL/${rn}.tif format=GTiff type=Int16 createopt="COMPRESS=DEFLATE"
+done
+
+zip -r masks_GL.zip share/GL
+#+END_SRC
+
+
 * Antarctica
 
 ** Setup
@@ -616,4 +635,21 @@ hm.figure.savefig('./set_union_AQ.png', bbox_inches='tight')
 
 #+RESULTS: fig:union_AQ
 [[file:./figs_tmp/38ec307d2fea643d040b9b3ba374a4f3731e13be.png]]
+
+** Share
+
+#+BEGIN_SRC bash :exports both :results verbatim
+g.mapset PERMANENT
+
+mkdir -p share/AQ
+rasters=$(g.list -m type=raster mapset=* pattern="m_*")
+for r in $rasters; do
+  g.region raster=${r}
+  rn=$(echo ${r} | tr '@' '___')
+  r.out.gdal --o -c -m input=${r} output=./share/AQ/${rn}.tif format=GTiff type=Int16 createopt="COMPRESS=DEFLATE"
+done
+
+zip -r masks_AQ.zip share/AQ
+#+END_SRC
+
 
