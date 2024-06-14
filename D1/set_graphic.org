@@ -486,6 +486,62 @@ r.mapcalc "m_main = if(mask == 1, 1, null())"
 r.mapcalc "m_peripheral = if(mask == 2, 1, null())"
 #+END_SRC
 
+
+*** IMBIE Rignot
+
+#+BEGIN_SRC bash :exports both :results verbatim
+g.mapset -c IMBIE_Rignot
+
+# v.import input=${DATADIR}/IMBIE/Rignot/ANT_Basins_IMBIE2_v1.6.shp  output=Rignot extent=region
+# g.region raster=mask_0 -pa
+
+# Antarctica
+ogr2ogr ./tmp/Rignot_E_AQ.gpkg -t_srs "EPSG:3031" ${DATADIR}/IMBIE/Rignot/ANT_Basins_IMBIE2_v1.6.shp
+v.import input=./tmp/Rignot_E_AQ.gpkg output=Rignot
+g.region vector=Rignot res=100 -pa
+
+v.to.rast input=Rignot output=mask use=val val=1
+
+# find largest clump (main ice)
+r.clump input=mask output=clumps --o
+main_clump=$(r.stats -c -n clumps sort=desc | head -n1 | cut -d" " -f1)
+
+# set main clump to 1, peripheral is 2, shelves ar 3
+r.mapcalc "mask = if(clumps == ${main_clump}, 1, 2)" --overwrite
+
+r.mapcalc "m_all = if(mask)"
+r.mapcalc "m_main = if(mask == 1, 1, null())"
+r.mapcalc "m_peripheral = if(mask == 2, 1, null())"
+#+END_SRC
+
+*** Greene 2022 (use year 2020)
+
+#+BEGIN_SRC bash :exports both :results verbatim
+g.mapset -c Green_2022
+
+cat ${DATADIR}/Greene_2022/data/coastline_data/antarctic_coastline_2020.2.txt \
+     | grep -v '^[#|\"]' \
+     | v.in.lines input=- output=line sep=,
+
+g.region vector=line res=100
+
+v.edit tool=chtype map=line cats=1-100000000
+v.centroids input=line output=area
+
+v.to.rast input=area output=mask use=val val=1
+
+# find largest clump (main ice)
+r.clump input=mask output=clumps --o
+main_clump=$(r.stats -c -n clumps sort=desc | head -n1 | cut -d" " -f1)
+
+# set main clump to 1, peripheral is 2, shelves ar 3
+r.mapcalc "mask = if(clumps == ${main_clump}, 1, 2)" --overwrite
+
+r.mapcalc "m_all = if(mask)"
+r.mapcalc "m_main = if(mask == 1, 1, null())"
+r.mapcalc "m_peripheral = if(mask == 2, 1, null())"
+#+END_SRC
+
 ** TODO Overlap
 
 #+BEGIN_SRC bash :exports both :results verbatim
