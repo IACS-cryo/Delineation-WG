@@ -6,6 +6,7 @@
 - [[#greenland][Greenland]]
   - [[#setup][Setup]]
   - [[#products][Products]]
+  - [[#places][Places]]
   - [[#overlap][Overlap]]
   - [[#sets][Sets]]
   - [[#union][Union]]
@@ -52,6 +53,9 @@ g.region raster=mask_0 -pa
 r.mapcalc "mask = if((mask_0 > 1) & (mask_0 < 4), mask_0, null())"
 
 r.in.gdal input="NetCDF:${DATADIR}/Morlighem_2017/BedMachineGreenland-v5.nc:thickness" output=thickness
+
+r.mapcalc "ocean = if(mask_0 == 0)"
+r.to.vect input=ocean output=ocean type=area
 
 # find largest clump (main ice)
 r.clump input=mask output=clumps --o
@@ -245,6 +249,27 @@ r.mapcalc "m_main = if(mask == 1, 1, null())"
 r.mapcalc "m_peripheral = if(mask == 2, 1, null())"
 #+END_SRC
 
+** Places
+
+#+BEGIN_SRC bash :exports both :results verbatim
+g.mapset PERMANENT
+
+v.import output=places input="${DATADIR}/QGreenland_v1.0.1/Places/Community map (crowd-sourced)/Populated places/hotosm_populated_places.gpkg"
+v.db.select map=places | head | column -s"|" -t
+v.db.select map=places where='population > 500'
+
+# v.import output=places input="${DATADIR}/QGreenland_v1.0.1/Places/Towns and settlements/populated_places.gpkg"
+# v.db.select map=places | head -n2
+
+# v.import output=places input="${DATADIR}/QGreenland_v1.0.1/Places/Place names database/comprehensive_places.gpkg"
+# v.db.select map=places | head -n2
+
+v.label map=places column=name labels=lname size=7500 where="population > 100" bgcolor=white
+d.labels lname
+
+#+END_SRC
+
+
 ** Overlap
 
 #+BEGIN_SRC bash :exports both :results verbatim
@@ -256,27 +281,34 @@ g.region raster=mask@BedMachine res=100 -pa
 g.list type=raster pattern=m_* mapset=* -m |cat
 
 r.mapcalc << EOF
- overlap = if(isnull(m_all@BedMachine), 0, 1) \
-  + if(isnull(m_all@citterio_2013), 0, 1) \
-  + if(isnull(m_all@MAR), 0, 1) \
-  + if(isnull(m_all@RACMO), 0, 1) \
-  + if(isnull(m_all@harper_2023), 0, 1) \
-  + if(isnull(m_all@GIMP), 0, 1) \
-  + if(isnull(m_RGI@RGI), 0, 1)
+ overlap = if(isnull(m_main@BedMachine), 0, 1) \
+  + if(isnull(m_GIC0@citterio_2013), 0, 1) \
+  + if(isnull(m_main@MAR), 0, 1) \
+  + if(isnull(m_main@RACMO), 0, 1) \
+  + if(isnull(m_main@harper_2023), 0, 1) \
+  + if(isnull(m_main@GIMP), 0, 1)
 EOF
 
 r.null map=overlap setnull=0
+r.colors map=overlap color=viridis
 
 d.mon wx0
+d.erase
+d.vect ocean@BedMachine fill_color=none legend_label="Coast"
 d.rast overlap
 d.legend overlap
+d.vect RGI@RGI fill_color=none color=red legend_label="RGI 5 (Greenland)"
+d.labels lname
+d.vect places icon=basic/circle size=10 color=black fill_color=black legend_label='Populated region' where='population > 100'
+d.barscale length=50 units=kilometers at=3,97
+d.legend.vect -b at=10,20 fontsize=16 border_color=none
 #+END_SRC
 
 Example:
 
 #+CAPTION: Subset of West Greenland coast showing how many (of 7) masks overlap within a given region. This example figure highlights the inconsistencies between various products, making intercomparison challenging.
 
-[[file:./figs_tmp/overlap.png]]
+[[file:./fig/overlap_GLXXX.png]]
 
 
 ** Sets
@@ -287,7 +319,7 @@ Example:
 g.mapset -c diff
 g.region raster=mask@BedMachine res=1000 -pa
 
-rm -f sets_notin.csv
+rm -f sets_notin_GL.csv
 
 # rasters=$(g.list -m type=raster mapset=* pattern="m_*")
 # RGI first
@@ -297,7 +329,7 @@ for r0 in $rasters; do
   for r1 in $rasters; do
     r.mapcalc --quiet "tmp = if(${r0} & isnull(${r1}), 1, null())" --overwrite
     non_null_cells=$(r.univar --quiet map=tmp nprocs=8 -t|tail -n1|cut -d"|" -f1)
-    echo "${r0},${r1},${non_null_cells}" | tee -a sets_notin.csv
+    echo "${r0},${r1},${non_null_cells}" | tee -a sets_notin_GL.csv
   done
 done
 #+end_src
@@ -310,7 +342,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-sets = pd.read_csv('sets_notin.csv', names=['x','y','area'])
+sets = pd.read_csv('sets_notin_GL.csv', names=['x','y','area'])
 
 df = pd.DataFrame()
 for o in sets['x'].unique():
@@ -333,7 +365,7 @@ hm = sns.heatmap(d10,
                  cbar_kws={'label': 'X $\\cap$ Y\' [log$_{10}$ km$^2$]'})
 hm.xaxis.tick_top()  # Move x-axis labels to top
 hm.set_xticklabels(hm.get_xticklabels(), rotation=90, ha='center')
-hm.figure.savefig('./set_notin.png', bbox_inches='tight')
+hm.figure.savefig('./fig/set_notin_GL.png', bbox_inches='tight')
 #+end_src
 #+CAPTION: Summary of different mask products and their respective “relative complement” (X outside Y) between products. Graphic should be interpreted as X outside Y. For example looking at only the top left 2x2 region, “RGI@RGI” has 10^4.9 = ~80,000 km^2 of ice outside of “GIC0@citterio_2013”, and Citterio 2013 GIC0 has 10^6.2 km^2 outside of RGI. Black 0 indicates product X contained entirely inside product Y. Here “all” is the entire mask, “main” is the main ice, “peripheral” is unconnected ice, and other labels (e.g. GICn) are specific to and documented elsewhere per those data products.
 
@@ -347,7 +379,7 @@ hm.figure.savefig('./set_notin.png', bbox_inches='tight')
 g.mapset -c diff
 g.region raster=mask@BedMachine res=1000 -pa
 
-rm -f sets_union.csv
+rm -f sets_union_GL.csv
 
 # put RGI first
 rasters="m_RGI@RGI $(g.list -m type=raster mapset=* pattern="m_*" | tr ' ' '\n' | grep -v RGI)"
@@ -355,7 +387,7 @@ for r0 in $rasters; do
   for r1 in $rasters; do
     r.mapcalc --quiet "tmp = if(${r0} & ${r1}, 1, null())" --overwrite
     non_null_cells=$(r.univar --quiet map=tmp nprocs=8 -t|tail -n1|cut -d"|" -f1)
-    echo "${r0},${r1},${non_null_cells}" | tee -a sets_union.csv
+    echo "${r0},${r1},${non_null_cells}" | tee -a sets_union_GL.csv
   done
 done
 #+end_src
@@ -367,7 +399,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-sets = pd.read_csv('sets_union.csv', names=['x','y','area'])
+sets = pd.read_csv('sets_union_GL.csv', names=['x','y','area'])
 
 df = pd.DataFrame()
 for o in sets['x'].unique():
@@ -392,7 +424,7 @@ hm = sns.heatmap(d10,
                  annot=True,
                  mask = df.isnull(),
                  cbar_kws={'label': 'X $\\cap$ Y [log$_{10}$ km$^2$]'})
-hm.figure.savefig('./set_union.png', bbox_inches='tight')
+hm.figure.savefig('./fig/set_union_GL.png', bbox_inches='tight')
 #+end_src
 #+caption: Summary of different mask products and their respective overlap or set intersection between products. For example looking at only the top of the left-most column, “RGI@RGI” has 10^4.9 = ~8E4 km^2 of ice overlapping itself, and 10^3.5 = ~3E3 km^2 overlapping Citterio 2013 GIC0. Black 0 indicates no overlap. Here “all” is the entire mask, “main” is the main ice, “peripheral” is unconnected ice, and other labels (e.g. GICn) are specific to and documented elsewhere per those data products.
 
@@ -427,15 +459,30 @@ mkdir -p tmp dat
 #+END_SRC
 
 ** Products
+
 *** RGI 7.0
 
 #+BEGIN_SRC bash :exports both :results verbatim
 g.mapset -c RGI
-v.import input=${DATADIR}/RGI/7.0/regional_files/RGI2000-v7.0-G/RGI2000-v7.0-G-19_subantarctic_antarctic_islands.shp output=RGI
+
+# islands
+v.import input=${DATADIR}/RGI/7.0/regional_files/RGI2000-v7.0-G/RGI2000-v7.0-G-19_subantarctic_antarctic_islands.shp output=m_peripheral
+
+# Main continent
+ogr2ogr ./tmp/RGI.gpkg -t_srs "EPSG:3031" ${DATADIR}/RGI/7.0/RGI2000-v7.0-o2regions.shp
+v.import input=./tmp/RGI.gpkg output=m_main extent=region
+
+v.patch input=m_peripheral,m_main output=m_all
+
 # v.db.select map=RGI|head -n2
-g.region vector=RGI res=100 -pa
-v.to.rast input=RGI output=mask use=val val=1
-r.mapcalc "m_RGI = if(mask)"
+g.region vector=m_all res=100 -pa
+v.to.rast input=m_peripheral output=m_peripheral use=val val=1
+v.to.rast input=m_main output=m_main use=val val=1 where="o1region == 20"
+v.to.rast input=m_all output=m_all use=val val=1
+
+g.copy vect=m_peripheral,RGI_Islands
+g.copy vect=m_main,RGI_Main
+
 #+END_SRC
 
 *** BedMachine v3
@@ -517,7 +564,7 @@ r.mapcalc "m_peripheral = if(mask == 2, 1, null())"
 *** Greene 2022 (use year 2020)
 
 #+BEGIN_SRC bash :exports both :results verbatim
-g.mapset -c Green_2022
+g.mapset -c Greene_2022
 
 cat ${DATADIR}/Greene_2022/data/coastline_data/antarctic_coastline_2020.2.txt \
      | grep -v '^[#|\"]' \
@@ -542,6 +589,53 @@ r.mapcalc "m_main = if(mask == 1, 1, null())"
 r.mapcalc "m_peripheral = if(mask == 2, 1, null())"
 #+END_SRC
 
+*** Measures Antarctic boundaries (NSDIC 0709)
+
+#+BEGIN_SRC bash :exports both :results verbatim
+g.mapset -c NSIDC_0709
+
+v.import input=${DATADIR}/NSIDC/NSIDC-0709.002/2008.01.01/Coastline_Antarctica_v02.shp output=coastline
+
+v.import input=${DATADIR}/NSIDC/NSIDC-0709.002/1992.02.07/IceShelf_Antarctica_v02.shp output=shelf
+v.import # input=${DATADIR}/NSIDC/NSIDC-0709.002/1992.02.07/IceBoundaries_Antarctica_v02.shp output=boundaries
+
+g.region vector=coastline,shelf,boundaries res=100
+
+v.to.rast input=coastline output=m_all use=val val=1
+v.to.rast input=shelf output=m_shelf use=val val=1
+
+r.mapcalc "tmp = if(m_all & isnull(m_shelf), 1, null())"
+r.clump input=tmp output=clumps --o
+main_clump=$(r.stats -c -n clumps sort=desc | head -n1 | cut -d" " -f1)
+
+# set main clump to 1, peripheral is 2, shelves ar 3
+r.mapcalc "mask = if(clumps == ${main_clump}, 1, 2)" --overwrite
+
+r.mapcalc "m_main = if(mask == 1, 1, null())"
+r.mapcalc "m_peripheral = if(mask == 2, 1, null())"
+#+END_SRC
+
+Labeling
+
+#+BEGIN_SRC bash :exports both :results verbatim
+d.vect coastline
+d.vect shelf fill_color=blue
+
+v.db.select map=boundaries|head
+v.db.select map=boundaries column=TYPE| sort | uniq # FL(oating), GR(ounded), IS(land)
+v.label map=boundaries column=NAME labels=lname size=7500 \
+    where="(NAME != \"Islands\")
+    AND (TYPE == 'FL')
+    AND (NAME not like '%_1')
+    AND (NAME not like '%_2')
+    AND (NAME not like '%_3')
+    AND (NAME not like '%_4')
+    AND (NAME not like '%_5')
+    AND (NAME not like '%_6')
+    AND (NAME not like '%_7')"
+d.labels lname
+#+END_SRC
+
 ** TODO Overlap
 
 #+BEGIN_SRC bash :exports both :results verbatim
@@ -553,23 +647,45 @@ g.region raster=mask@BedMachine res=1000 -pa
 g.list type=raster pattern=m_* mapset=* -m |cat
 
 r.mapcalc << EOF
- overlap = if(isnull(m_all@BedMachine), 0, 1) \
-  + if(isnull(m_all@harper_2023), 0, 1) \
-  + if(isnull(m_RGI@RGI), 0, 1)
+ overlap = if(isnull(m_main@BedMachine), 0, 1) \
+  + if(isnull(m_main@harper_2023), 0, 1) \
+  + if(isnull(m_main@IMBIE_Rignot), 0, 1) \
+  + if(isnull(m_main@Greene_2022), 0, 1) \
+  + if(isnull(m_main@NSIDC_0709), 0, 1)
 EOF
 
+r.colors map=overlap color=viridis
 r.null map=overlap setnull=0
 
+v.label map=boundaries@NSIDC_0709 column=NAME labels=lname size=15000 bgcolor=white \
+    where="(NAME != \"Islands\")
+    AND (TYPE == 'FL')
+    AND (NAME not like '%_)')
+    AND (NAME not like '%_1')
+    AND (NAME not like '%_2')
+    AND (NAME not like '%_3')
+    AND (NAME not like '%_4')
+    AND (NAME not like '%_5')
+    AND (NAME not like '%_6')
+    AND (NAME not like '%_7')"
+
 d.mon wx0
+d.erase
 d.rast overlap
 d.legend overlap
+d.vect m_peripheral@RGI fill_color=none color=red legend_label="RGI 19 (Island)"
+d.vect m_main@RGI fill_color=none color=red legend_label="RGI 20 (Continent)" width=3
+d.labels lname
+d.barscale length=100 units=kilometers at=3,97
+d.legend.vect -b at=10,10 fontsize=16 border_color=none
+
 #+END_SRC
 
 Example:
 
-#+CAPTION: Subset of West Antarctica including Pine Island Bay and ice shelf showing how many (of RGI, BedMachin, and the ESA CCI Landcover dataset) masks overlap within a given region. This example figure highlights the inconsistencies between various products, making intercomparison challenging.
+#+CAPTION: Subset of West Antarctica including Pine Island Bay and ice shelf showing how many masks overlap within a given region. This example figure highlights the inconsistencies between various products, making intercomparison challenging. The six products include BedMachine, CCI (Harper 2023), IMBIE Rignot, Greene (2022), NSIDC 0709, and RGI (both peripheral islands (region 19, thin red outline) and the Antarctica continent (region 20, thick red outline).
 
-[[file:./figs_tmp/overlap_AQ.png]]
+[[file:./fig/overlap_PIG.png]]
 
 ** TODO Sets
 
@@ -583,7 +699,7 @@ rm -f sets_notin_AQ.csv
 
 # rasters=$(g.list -m type=raster mapset=* pattern="m_*")
 # RGI first
-rasters="m_RGI@RGI $(g.list -m type=raster mapset=* pattern="m_*" | tr ' ' '\n' | grep -v RGI)"
+rasters="m_all@RGI m_main@RGI m_peripheral@RGI $(g.list -m type=raster mapset=* pattern="m_*" | tr ' ' '\n' | grep -v RGI)"
 
 for r0 in $rasters; do
   for r1 in $rasters; do
@@ -617,7 +733,7 @@ df.index = [_[2:] for _ in df.index]
 
 d10 = np.log10(df.replace(0,1)).replace(0.1,0)
 
-fig, ax = plt.subplots(figsize=(4,3))
+fig, ax = plt.subplots(figsize=(8,6))
 hm = sns.heatmap(d10,
                  mask = df.isnull(),
                  annot = True,
@@ -625,13 +741,13 @@ hm = sns.heatmap(d10,
                  cbar_kws={'label': 'X $\\cap$ Y\' [log$_{10}$ km$^2$]'})
 hm.xaxis.tick_top()  # Move x-axis labels to top
 hm.set_xticklabels(hm.get_xticklabels(), rotation=90, ha='center')
-hm.figure.savefig('./set_notin_AQ.png', bbox_inches='tight')
+hm.figure.savefig('./fig/set_notin_AQ.png', bbox_inches='tight')
 #+end_src
 
 #+CAPTION: Summary of different mask products and their respective “relative complement” (X outside Y) between products. Graphic should be interpreted as X outside Y. For example looking at only the top left 2x2 region, “RGI@RGI” has 10^3.9 = ~8,000 km^2 of ice outside of "all@BedMachine", and BedMachine has 10^7.1 km^2 outside of RGI. Black 0 indicates product X contained entirely inside product Y. Here "all" is the entire mask, "main" is the main ice, "peripheral" is unconnected ice, and other labels are specific to and documented elsewhere per those data products.
 
 #+RESULTS: fig:notin_AQ
-[[file:./figs_tmp/a165853aac67eca9494542351aff8dbdaed4b767.png]]
+[[file:./figs_tmp/dcb9ed95fd2606a0387418edf5821f7e3a8e68bf.png]]
 
 
 *** Union
@@ -642,7 +758,7 @@ g.region raster=mask@BedMachine res=1000 -pa
 rm -f sets_union_AQ.csv
 
 # put RGI first
-rasters="m_RGI@RGI $(g.list -m type=raster mapset=* pattern="m_*" | tr ' ' '\n' | grep -v RGI)"
+rasters="m_all@RGI m_main@RGI m_peripheral@RGI $(g.list -m type=raster mapset=* pattern="m_*" | tr ' ' '\n' | grep -v RGI)"
 for r0 in $rasters; do
   for r1 in $rasters; do
     r.mapcalc --quiet "tmp = if(${r0} & ${r1}, 1, null())" --overwrite
@@ -679,18 +795,18 @@ for i,c in enumerate(df.columns):
 
 d10 = np.log10(df.replace(0,1)).replace(0.1,0)
 
-fig, ax = plt.subplots(figsize=(4,3))
+fig, ax = plt.subplots(figsize=(8,6))
 hm = sns.heatmap(d10,
                  annot=True,
                  mask = df.isnull(),
                  cbar_kws={'label': 'X $\\cap$ Y [log$_{10}$ km$^2$]'})
-hm.figure.savefig('./set_union_AQ.png', bbox_inches='tight')
+hm.figure.savefig('./fig/set_union_AQ.png', bbox_inches='tight')
 #+end_src
 
 #+caption: Summary of different mask products and their respective overlap or set intersection between products. For example looking at only the top of the left-most column, "RGI@RGI" has 10^5.1 = ~125,000 km^2 of ice overlapping itself, and 10^3.1 = 1259 km^2 overlapping BedMachine main ice. Black 0 indicates no overlap. Here "all” is the entire mask, "main” is the main ice, "peripheral” is unconnected ice, and other labels (e.g. GICn) are specific to and documented elsewhere per those data products.
 
 #+RESULTS: fig:union_AQ
-[[file:./figs_tmp/38ec307d2fea643d040b9b3ba374a4f3731e13be.png]]
+[[file:./figs_tmp/20328bf9f9d885fc2b76033614eb6d511e8eee38.png]]
 
 ** Share
 
