@@ -1,14 +1,153 @@
 # Deliverable 1
 
-**Authors:** TBD<sup>1,2</sup> \
-**Affiliations:** <sup>1</sup>Affilitaion 1<sup>2</sup>Aff 2 \
+**Authors:** Kenneth D. Mankoff<sup>1,2</sup> \
+**Affiliations:** <sup>1</sup>NASA Goddard Institute for Space Studies, New York, NY, 10025 USA<sup>2</sup>Autonomic Integra LLC, New York, NY, 10025 USA \
+
 **License:** CC-BY
 
-**Abstract**
+**Executive Summary**
 
-Abstract here.
+The International Association of Cryospheric Sciences (IACS) working group on the delineation of glaciers, ice sheets and ice sheet basins deliverable #1 provides an overview of the state of ice shet delineations from some of the more common and popular products. These include basic data products used by much of the glaciological community (e.g., BedMachine), observational-derived boundaries (e.g., RGI 7.0) some regional climate model masks, etc.
 
-## Background
+We provide an explanation for which products rely on which other products based on a community survey, and graphical statistical displays of the product union (X \union Y, or area overlap) and the product not-union (X \union Y', or area of product X outside of product Y).
+
+## Products
+
+### Greenland
+
+<!-- Is it possible to configure Myst to accept links like gh:45 rather than the fulls URL? -->
+
+| Name                                                     | Data citation           | Science citation | Details                                               | Comments |
+|----------------------------------------------------------|-------------------------|------------------|-------------------------------------------------------|----------|
+| MEaSUREs ITS_LIVE Greenland Monthly Ice Masks, Version 1 | @gardner_2023_data      | @greene_2024     | https://github.com/IACS-cryo/Delineation-WG/issues/45 |          |
+| PISM                                                     |                         |                  | https://github.com/IACS-cryo/Delineation-WG/issues/43 |          |
+| NORCE-CISM                                               |                         |                  | https://github.com/IACS-cryo/Delineation-WG/issues/41 |          |
+| MAR                                                      |                         |                  | https://github.com/IACS-cryo/Delineation-WG/issues/39 |          |
+| NHM-SMAP                                                 |                         |                  | https://github.com/IACS-cryo/Delineation-WG/issues/38 |          |
+| ISSM                                                     |                         |                  | https://github.com/IACS-cryo/Delineation-WG/issues/36 |          |
+| MetUM                                                    |                         |                  | https://github.com/IACS-cryo/Delineation-WG/issues/35 |          |
+| GlacierMIP                                               |                         | @hock_2019       | https://github.com/IACS-cryo/Delineation-WG/issues/30 |          |
+| RGI 7.0                                                  |                         |                  | https://github.com/IACS-cryo/Delineation-WG/issues/29 |          |
+| BedMachine                                               | @NSIDC_BedMachine_GL_v5 | @morlighem_2017  | https://github.com/IACS-cryo/Delineation-WG/issues/27 |          |
+| PROMICE                                                  | @citterio_2022          | @citterio_2013   |                                                       |          |
+| ESA CCI                                                  |                         | @harper_2023     |                                                       |          |
+
+
+### Antarctica
+
+| Name                                                    | Data citation           | Science citation | Details                                               | Comments        |
+|---------------------------------------------------------|-------------------------|------------------|-------------------------------------------------------|-----------------|
+| MEaSUREs ITS_LIVE Antarctic Annual Ice Masks, Version 1 |                         | @greene_2022     |                                                       | Using only 2020 |
+| PISM                                                    |                         |                  | https://github.com/IACS-cryo/Delineation-WG/issues/43 |                 |
+| NORCE-CISM                                              |                         |                  | https://github.com/IACS-cryo/Delineation-WG/issues/41 |                 |
+| MAR                                                     |                         |                  | https://github.com/IACS-cryo/Delineation-WG/issues/39 |                 |
+| NHM-SMAP                                                |                         |                  | https://github.com/IACS-cryo/Delineation-WG/issues/38 |                 |
+| ISSM                                                    |                         |                  | https://github.com/IACS-cryo/Delineation-WG/issues/37 |                 |
+| MetUM                                                   |                         |                  | https://github.com/IACS-cryo/Delineation-WG/issues/35 |                 |
+| HIRHAM5 Antarctic ice mask                              |                         |                  | https://github.com/IACS-cryo/Delineation-WG/issues/33 |                 |
+| GlacierMIP                                              |                         | @hock_2019       | https://github.com/IACS-cryo/Delineation-WG/issues/30 |                 |
+| RGI 7.0                                                 |                         |                  | https://github.com/IACS-cryo/Delineation-WG/issues/29 |                 |
+| BedMachine                                              | @NSIDC_BedMachine_AQ_v3 | @morlighem_2019  | https://github.com/IACS-cryo/Delineation-WG/issues/28 |                 |
+
+# Discussion
+
+The masks or boundaries themseleves are rarely the primary focus of the work (with the exception of RGI, @greene_2024, and a few others). For the remaining products that are not mask-producers but rather mask-users, the decision of which mask to begin with appears to be based on reasonabe andjustifiable decisions, but those decisions may be based on ease-of-use, familirarity, use of local or national products, etc. and not with significant consideration of overlap (or not) with peripheral products such as RGI, or ease-of-comparison with final downstream products.
+
+## Greenland
+
+Several Greenlandic products use the BedMachine mask (which is based the GIMP mask) or the GIMP mask directly, which at its release may have been the most complete, accurate, and highest resolution mask. Hoewever, the GIMP mask is now based on a 10 year old paper (@howat_2014) and seven-year-old product (@howat_2017), and the mask itself uses data spanning 15 years, which is problematic considering the large annual changes in Greenland. 
+
+A detailed examination of seven Greenlandic products (BedMachine, PROMICE, MAR, RACMO, ESA CCI, GIMP, and RGI region 5) is shown below for four regions: Qaanaaq, Sisimiut, near the Geike Plateau, and the southern tip of Greenland.
+
+```{figure} fig/overlap_Qaanaaq.png
+:alt: Map of overlapping masks near Qaanaaq, Greenland
+:name: qaanaaq
+
+Overlap map of seven masks. The six filled colors represent number of overlapping products when each is limited to the main (connected) ice sheet. The seventh product is RGI region 5 (peripheral Greenland) shown as a red outline. This graphic shows that some small areas that are in the RGI peripheral region are covered by two, three, or even five of the other main ice sheet masks. If the non-RGI masks include unattached glaciers, the number of overlap is even higher. Furthermore, regions of the 'main ice sheet' are defined differently in one mask (where overlap drops from six to five).
+```
+
+```{figure} fig/overlap_Sisimiut.png
+:alt: Map of overlapping masks near Sisimiut, Greenland
+:name: sisimiut
+
+Same display as {ref}`qaanaaq`, but here showing a large area within in the RGI peripheral region that is covered by four of the other main ice sheet masks.
+```
+
+```{figure} fig/overlap_Geike.png 
+:alt: Map of overlapping masks near the Geike Plateau, Greenland
+:name: geike
+
+Same display as {ref}`qaanaaq`, but here showing only two small areas with overlap between RGI andh two or three of the main ice sheet masks. The Geike Plateau (off figure to the southeast) shows one mask does not cover this area, as coverage drops from six to five.
+```
+
+```{figure} fig/overlap_SouthGL.png
+:alt: Map of overlapping masks near southern, Greenland
+:name: southGL
+
+Same display as {ref}`qaanaaq`, but here showing the southern tip of Greenland. Large areas covered the RGI peripheral glacier product are also covered by three or four of the six mask products, and large areas not covered by RGI are only covered by three or five of the six mask products.
+```
+
+The above figure provide a qualitative view of overlapping masks in a few regions of Greenland. The figures below show a quantitative display of more masks and what areas of each mask either overlaps the other masks, or is outside of the other masks.
+
+
+```{figure} fig/set_union_GL.png
+:alt: Map of overlapping masks, Greenland
+:name: union_GL
+
+Overlapping areas between masks on X axis and on Y axis. Scale (both number and color) is logarithmic. The diagonal is the area of a product (100 % overlap with itself). An example interpretion of this graphic follows the RGI column (first column) starting at the bottom row. The bottom left square reports 10^0.3 km^2 (~2 km^2) area overlap between RGI and areas flagged as "ice shelf" in BedMachine. The second row shows overlap between RGI and peripheral glaciers in the 'harper_2023' product is 10^4.8 km^2 (~63096 km^2). More interesing is overlap between RGI and the 'main@' rows, which are the primary ice sheet in those products. RACMO only overlaps RGI by 10^3.4 km^2 (~2,500 km^2) but most other products overlap by ~10x as much (seen by the difference between ~10^3 and ~10^4). The largest overlap is GIMP with 10^4.4 km^2 (~25,000 km^2).
+```
+
+An alternative view, rather than overlap, is area of product X outside of product Y. Because overlap is commutative (X overlap Y is the same as Y overlap X) the above figure is half empty. However, X not in Y is different than Y not in X, so the following figure contains twice as much information and occupies twice the area (same information density).
+
+```{figure} fig/set_notin_GL.png
+:alt: Map of not-in masks, Greenland
+:name: notin_GL
+
+Overlapping areas between masks on X axis and on Y axis. Scale (both number and color) is logarithmic. The diagonals are 0 because a product cannot be outside itself. An example interpretion of this graphic follows the RGI column (first column) starting at the bottom row. The bottom left square reports 10^3.6 km^2 (~4,000 km^2) area of BedMachine ice shelf outside of the RGI peripheral glaciers. The second row shows the 'harper_2023' peripheral glaciers have 10^3.7 km^2 (5,000 km^2) outside of the RGI peripheral glaciers. Because this graphic is log scale, a change between two values of magnitude 1 represents ~10 % of the original values, and magnitude 2 (e.g. 10^5 to 10^3) represents 1 %.
+```
+
+## Antarctica
+
+The state of masks in Antarctica is less homogeneous than in Greenland. The BedMachine mask uses unpublished data (see https://github.com/IACS-cryo/Delineation-WG/issues/28), and many products then use the BedMachine mask. However HIRHAM uses a 1994 USGS mask, and MetUM uses a mask from AVHRR data from the early 1990s.
+
+A detailed examination of seven Antarctica products (BedMachine, ESA CCI, Rignot (IMBIE), @greene_2022, NSIDC 0709, and RGI regions 19 and 20) is shown below for two regions: Wilkins ice shelf and Abbott ice shelf.
+
+```{figure} fig/overlap_Wilkins.png
+:alt: Map of overlapping masks near Wilkins ice shelf, Antarctica
+:name: wilkins
+
+Same display as {ref}`qaanaaq`. Overlap map of seven masks. The five filled colors represent number of overlapping products when each is limited to the main (connected) ice sheet. The sixth and seventh products are RGI region 19 (peripheral Antarctica) and region 20 (main Antarctic ice sheet) shown as a thin and thick red outline, respectively. This graphic shows one product inludes the ice shelfves and coastal islands.
+```
+
+
+```{figure} fig/overlap_PIG.png
+:alt: Map of overlapping masks near PIG, Antarctica
+:name: PIG
+
+Same display as {ref}`wilkins`, but near Abbott, Pine Island Glacier, and Thwaites ice shelves. This graphic shows a) general outline misalignment, and b) One product inludes the ice shelfves and coastal islands.
+```
+
+The above figure provide a qualitative view of overlapping masks in two regions of Antarctica. The figures below show a quantitative display of more masks and what areas of each mask either overlaps the other masks, or is outside of the other masks.
+
+
+```{figure} fig/set_union_AQ.png
+:alt: Map of overlapping masks, Antarctica
+:name: union_AQ
+
+Similar display as {ref}`union_GL`, except here instead of one RGI region (peripheral) there are three RGI regions. 'all' represents RGI 19 and 20, 'main' is RGI 20, and 'perpheral' is RGI 19. Overlapping areas between masks on X axis and on Y axis. Scale (both number and color) is logarithmic. The diagonal is the area of a product (100 % overlap with itself). Of interest, the dark (low values) in the column over 'peripheral@RGI' shows overlap between RGI peripheral region and all other products. This overlap is sometimes small (~10^3 or 1000 km^2), but sometimes 10 or 100 times as large (e.g. 10^5 km^2).
+```
+
+An alternative view, rather than overlap, is area of product X outside of product Y. Because overlap is commutative (X overlap Y is the same as Y overlap X) the above figure is half empty. However, X not in Y is different than Y not in X, so the following figure contains twice as much information and occupies twice the area (same information density).
+
+```{figure} fig/set_notin_AQ.png
+:alt: Map of not-in masks, Antarctica
+:name: notin_AQ
+
+Similar display as {ref}`notin_GL`, except as in {ref}`union_AQ` instead of one RGI region (peripheral) there are three RGI regions. 'all' represents RGI 19 and 20, 'main' is RGI 20, and 'perpheral' is RGI 19.
+```
+
+<!--
+# Old
 
 This is the table from the proposal. We will likely want to include a modified version in D1.
 
@@ -30,3 +169,4 @@ This is the table from the proposal. We will likely want to include a modified v
 | “Zwally Basins”                  | Antarctic & Greenland drainage systems                |                                                 | Commonly used by community (e.g., IMBIE)                                                                                | No DOI. Maybe http://imbie.org/imbie-3/drainage-basins                             |                           |
 | Krieger 2023                     | Internal Greenlandic basins                           | TBD                                             | Methods defined in Krieger et al. (2020)                                                                                | In progress & unpublished                                                          |                           |
 
+-->

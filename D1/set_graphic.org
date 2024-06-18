@@ -308,7 +308,7 @@ Example:
 
 #+CAPTION: Subset of West Greenland coast showing how many (of 7) masks overlap within a given region. This example figure highlights the inconsistencies between various products, making intercomparison challenging.
 
-[[file:./fig/overlap_GLXXX.png]]
+[[file:./fig/overlap_Qaanaaq.png]]
 
 
 ** Sets
@@ -636,7 +636,7 @@ v.label map=boundaries column=NAME labels=lname size=7500 \
 d.labels lname
 #+END_SRC
 
-** TODO Overlap
+** Overlap
 
 #+BEGIN_SRC bash :exports both :results verbatim
 # grass ./G_GL/PERMANENT
