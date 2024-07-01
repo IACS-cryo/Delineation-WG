@@ -1,0 +1,20 @@
+
+* Table of contents                               :toc_3:noexport:
+- [[#introduction][Introduction]]
+
+* Introduction
+
+How to Myst:
+
+1x: Install and set up Python env following instructions at https://mystmd.org/
+
+When working:
+#+BEGIN_SRC bash :exports both :results verbatim
+mamba activate myst
+myst start # local interactive
+
+myst build --html # local static
+# then git push and GitHub will build and deploy at
+# https://iacs-cryo.github.io/Delineation-WG/
+#+END_SRC
+
