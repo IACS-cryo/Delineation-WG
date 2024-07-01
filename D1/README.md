@@ -51,11 +51,11 @@ We provide an explanation for which products rely on which other products based 
 
 # Discussion
 
-The masks or boundaries themseleves are rarely the primary focus of the work (with the exception of RGI, @greene_2024, and a few others). For the remaining products that are not mask-producers but rather mask-users, the decision of which mask to begin with appears to be based on reasonabe andjustifiable decisions, but those decisions may be based on ease-of-use, familirarity, use of local or national products, etc. and not with significant consideration of overlap (or not) with peripheral products such as RGI, or ease-of-comparison with final downstream products.
+The masks or boundaries themseleves are rarely the primary focus of the work (with the exception of RGI, @greene_2024, and a few others). For the remaining products that are not mask-producers but rather mask-users, the decision of which mask to begin with appears to be based on reasonabe and justifiable decisions, but those decisions may be based on ease-of-use, familirarity, use of local or national products, etc. and not with significant consideration of overlap (or not) with peripheral products such as RGI, or ease-of-comparison with final downstream products.
 
 ## Greenland
 
-Several Greenlandic products use the BedMachine mask (which is based the GIMP mask) or the GIMP mask directly, which at its release may have been the most complete, accurate, and highest resolution mask. Hoewever, the GIMP mask is now based on a 10 year old paper (@howat_2014) and seven-year-old product (@howat_2017), and the mask itself uses data spanning 15 years, which is problematic considering the large annual changes in Greenland. 
+Several Greenlandic products use the BedMachine mask (which is based on the GIMP mask) or the GIMP mask directly, which at its release may have been the most complete, accurate, and highest resolution mask. Hoewever, the GIMP mask is now based on a 10 year old paper (@howat_2014) and seven-year-old product (@howat_2017), and the mask itself uses data spanning 15 years, which is problematic considering the large annual changes in Greenland. 
 
 A detailed examination of seven Greenlandic products (BedMachine, PROMICE, MAR, RACMO, ESA CCI, GIMP, and RGI region 5) is shown below for four regions: Qaanaaq, Sisimiut, near the Geike Plateau, and the southern tip of Greenland.
 
@@ -87,7 +87,7 @@ Same display as {ref}`qaanaaq`, but here showing only two small areas with overl
 Same display as {ref}`qaanaaq`, but here showing the southern tip of Greenland. Large areas covered the RGI peripheral glacier product are also covered by three or four of the six mask products, and large areas not covered by RGI are only covered by three or five of the six mask products.
 ```
 
-The above figure provide a qualitative view of overlapping masks in a few regions of Greenland. The figures below show a quantitative display of more masks and what areas of each mask either overlaps the other masks, or is outside of the other masks.
+The above figure provides a qualitative view of overlapping masks in a few regions of Greenland. The figures below show a quantitative display of more masks and what areas of each mask either overlaps the other masks, or is outside of the other masks.
 
 
 ```{figure} fig/set_union_GL.png
