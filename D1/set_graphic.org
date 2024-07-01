@@ -444,6 +444,7 @@ for r in $rasters; do
   rn=$(echo ${r} | tr '@' '___')
   r.out.gdal --o -c -m input=${r} output=./share/GL/${rn}.tif format=GTiff type=Int16 createopt="COMPRESS=DEFLATE"
 done
+r.out.gdal --o -c -m input=overlap@overlap output=./share/GL/overlap.tif format=GTiff type=Int16 createopt="COMPRESS=DEFLATE"
 
 zip -r masks_GL.zip share/GL
 #+END_SRC
@@ -820,6 +821,7 @@ for r in $rasters; do
   rn=$(echo ${r} | tr '@' '___')
   r.out.gdal --o -c -m input=${r} output=./share/AQ/${rn}.tif format=GTiff type=Int16 createopt="COMPRESS=DEFLATE"
 done
+r.out.gdal --o -c -m input=overlap@overlap output=./share/AQ/overlap.tif format=GTiff type=Int16 createopt="COMPRESS=DEFLATE"
 
 zip -r masks_AQ.zip share/AQ
 #+END_SRC
