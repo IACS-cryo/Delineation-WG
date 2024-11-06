@@ -1,17 +1,27 @@
-# Deliverable 1
+# Deliverable 1: Review report
 
-**Authors:** Kenneth D. Mankoff<sup>1,2</sup> \
-**Affiliations:** <sup>1</sup>NASA Goddard Institute for Space Studies, New York, NY, 10025 USA<sup>2</sup>Autonomic Integra LLC, New York, NY, 10025 USA \
+**Authors:** Kenneth D. Mankoff<sup>1,2</sup>, Fabien Maussion<sup>3</sup>
+
+**Affiliations:** <br>
+<sup>1</sup>NASA Goddard Institute for Space Studies, New York, NY, 10025 USA <br>
+<sup>2</sup>Autonomic Integra LLC, New York, NY, 10025 USA <br>
+<sup>3</sup>School of Geographical Sciences, University of Bristol, Bristol, UK
 
 **License:** CC-BY
 
 **Executive Summary**
 
-The International Association of Cryospheric Sciences (IACS) working group on the delineation of glaciers, ice sheets and ice sheet basins deliverable #1 provides an overview of the state of ice shet delineations from some of the more common and popular products. These include basic data products used by much of the glaciological community (e.g., BedMachine), observational-derived boundaries (e.g., RGI 7.0) some regional climate model masks, etc.
+The International Association of Cryospheric Sciences (IACS) working group on the delineation of glaciers, ice sheets and ice sheet basins deliverable #1 aims to provide an overview of the state of ice shet delineations from some of the more common and popular products. These include basic data products used by much of the glaciological community (e.g., BedMachine), observational-derived boundaries (e.g., RGI 7.0) some regional climate model masks, etc.
+
+We reached out to the glaciological community ([CRYOLIST announcement](https://lists.cryolist.org/pipermail/cryolist/2022-November/008094.html)) and gathered a group of polar data experts,  producers and users. We asked our members to provide information on... and add the information to github. The following report is based on this initial consultation and contains new analyses of the presently available datasets.
 
 We provide an explanation for which products rely on which other products based on a community survey, and graphical statistical displays of the product union (X \union Y, or area overlap) and the product not-union (X \union Y', or area of product X outside of product Y).
 
 ## Products
+
+We list all products either introducing or using a Greenland or Antarctic mask. A mask is...
+
+This list is meant to be as exhaustive as possible. If a product is missing, please [reach out](https://github.com/IACS-cryo/Delineation-WG/issues).
 
 ### Greenland
 
@@ -32,7 +42,6 @@ We provide an explanation for which products rely on which other products based 
 | PROMICE                                                  | @citterio_2022          | @citterio_2013   |                                                       |          |
 | ESA CCI                                                  |                         | @harper_2023     |                                                       |          |
 
-
 ### Antarctica
 
 | Name                                                    | Data citation           | Science citation | Details                                               | Comments        |
@@ -49,13 +58,13 @@ We provide an explanation for which products rely on which other products based 
 | RGI 7.0                                                 |                         |                  | https://github.com/IACS-cryo/Delineation-WG/issues/29 |                 |
 | BedMachine                                              | @NSIDC_BedMachine_AQ_v3 | @morlighem_2019  | https://github.com/IACS-cryo/Delineation-WG/issues/28 |                 |
 
-# Discussion
+## Discussion
 
 The masks or boundaries themseleves are rarely the primary focus of the work (with the exception of RGI, @greene_2024, and a few others). For the remaining products that are not mask-producers but rather mask-users, the decision of which mask to begin with appears to be based on reasonabe and justifiable decisions, but those decisions may be based on ease-of-use, familirarity, use of local or national products, etc. and not with significant consideration of overlap (or not) with peripheral products such as RGI, or ease-of-comparison with final downstream products.
 
-## Greenland
+### Greenland
 
-Several Greenlandic products use the BedMachine mask (which is based on the GIMP mask) or the GIMP mask directly, which at its release may have been the most complete, accurate, and highest resolution mask. Hoewever, the GIMP mask is now based on a 10 year old paper (@howat_2014) and seven-year-old product (@howat_2017), and the mask itself uses data spanning 15 years, which is problematic considering the large annual changes in Greenland. 
+Several Greenlandic products use the BedMachine mask (which is based on the GIMP mask) or the GIMP mask directly, which at its release may have been the most complete, accurate, and highest resolution mask. However, the GIMP mask is now based on a 10 year old paper (@howat_2014) and seven-year-old product (@howat_2017), and the mask itself uses data spanning 15 years, which is problematic considering the large annual changes in Greenland.
 
 A detailed examination of seven Greenlandic products (BedMachine, PROMICE, MAR, RACMO, ESA CCI, GIMP, and RGI region 5) is shown below for four regions: Qaanaaq, Sisimiut, near the Geike Plateau, and the southern tip of Greenland.
 
@@ -73,7 +82,7 @@ Overlap map of seven masks. The six filled colors represent number of overlappin
 Same display as {ref}`qaanaaq`, but here showing a large area within in the RGI peripheral region that is covered by four of the other main ice sheet masks.
 ```
 
-```{figure} fig/overlap_Geike.png 
+```{figure} fig/overlap_Geike.png
 :alt: Map of overlapping masks near the Geike Plateau, Greenland
 :name: geike
 
@@ -106,7 +115,7 @@ An alternative view, rather than overlap, is area of product X outside of produc
 Overlapping areas between masks on X axis and on Y axis. Scale (both number and color) is logarithmic. The diagonals are 0 because a product cannot be outside itself. An example interpretion of this graphic follows the RGI column (first column) starting at the bottom row. The bottom left square reports 10^3.6 km^2 (~4,000 km^2) area of BedMachine ice shelf outside of the RGI peripheral glaciers. The second row shows the 'harper_2023' peripheral glaciers have 10^3.7 km^2 (5,000 km^2) outside of the RGI peripheral glaciers. Because this graphic is log scale, a change between two values of magnitude 1 represents ~10 % of the original values, and magnitude 2 (e.g. 10^5 to 10^3) represents 1 %.
 ```
 
-## Antarctica
+### Antarctica
 
 The state of masks in Antarctica is less homogeneous than in Greenland. The BedMachine mask uses unpublished data (see https://github.com/IACS-cryo/Delineation-WG/issues/28), and many products then use the BedMachine mask. However HIRHAM uses a 1994 USGS mask, and MetUM uses a mask from AVHRR data from the early 1990s.
 
@@ -128,7 +137,6 @@ Same display as {ref}`wilkins`, but near Abbott, Pine Island Glacier, and Thwait
 ```
 
 The above figure provide a qualitative view of overlapping masks in two regions of Antarctica. The figures below show a quantitative display of more masks and what areas of each mask either overlaps the other masks, or is outside of the other masks.
-
 
 ```{figure} fig/set_union_AQ.png
 :alt: Map of overlapping masks, Antarctica
@@ -170,3 +178,7 @@ This is the table from the proposal. We will likely want to include a modified v
 | Krieger 2023                     | Internal Greenlandic basins                           | TBD                                             | Methods defined in Krieger et al. (2020)                                                                                | In progress & unpublished                                                          |                           |
 
 -->
+
+## Way forward
+
+With IPCC AR7 coming soon, we need to have something set-up soon. How?
