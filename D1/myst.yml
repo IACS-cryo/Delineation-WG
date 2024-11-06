@@ -2,17 +2,19 @@
 version: 1
 project:
   id: a0540010-c291-4726-8e98-9101f28a05d7
-  title: IACS Ice Delineation and Basin Working Group1 Deliverable 1
+  title: IACS Ice Delineation and Basin Working Group
   # description:
   keywords: [IACS, Greenland, Antarctica, mass, GIS]
-  # authors: [Kenneth D. Mankoff, Fabien Maussion]
+  authors: [Kenneth D. Mankoff, Fabien Maussion]
   github: https://github.com/IACS-cryo/Delineation-WG/
+  toc:
+    - file: root.md
+    - file: deliverable1.md
   bibliography: [library.bib]
 site:
   template: book-theme
-  # title:
-  # options:
-  #   logo: site_logo.png
+  options:
+    logo: fig/iugg_logo_complete.png
   nav: []
   actions:
     - title: GitHub
