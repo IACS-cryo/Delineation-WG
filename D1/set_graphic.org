@@ -354,6 +354,7 @@ for o in sets['x'].unique():
 df = df * 1000 * 1000 * 1E-6 # convert from grid cells (1000 x 1000 m) to km^2
 df.columns = [_[2:] for _ in df.columns]
 df.index = [_[2:] for _ in df.index]
+df.to_csv('./dat/sets_notin_GL.csv')
 
 d10 = np.log10(df.replace(0,1)).replace(0.1,0)
 
@@ -411,6 +412,7 @@ for o in sets['x'].unique():
 df = df * 1000 * 1000 * 1E-6 # convert from grid cells (1000 x 1000 m) to km^2
 df.columns = [_[2:] for _ in df.columns]
 df.index = [_[2:] for _ in df.index]
+df.to_csv('./dat/sets_union_GL.csv')
 
 for i,c in enumerate(df.columns):
     for j,r in enumerate(df.index):
@@ -731,6 +733,7 @@ for o in sets['x'].unique():
 df = df * 1000 * 1000 * 1E-6 # convert from grid cells (1000 x 1000 m) to km^2
 df.columns = [_[2:] for _ in df.columns]
 df.index = [_[2:] for _ in df.index]
+df.to_csv('./dat/sets_notin_AQ.csv')
 
 d10 = np.log10(df.replace(0,1)).replace(0.1,0)
 
@@ -788,6 +791,7 @@ for o in sets['x'].unique():
 df = df * 1000 * 1000 * 1E-6 # convert from grid cells (1000 x 1000 m) to km^2
 df.columns = [_[2:] for _ in df.columns]
 df.index = [_[2:] for _ in df.index]
+df.to_csv('dat/sets_union_AQ.csv')
 
 for i,c in enumerate(df.columns):
     for j,r in enumerate(df.index):
