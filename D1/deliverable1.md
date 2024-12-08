@@ -119,13 +119,13 @@ An alternative view, rather than overlap, is area of product X outside of produc
 
 The state of masks in Antarctica is less homogeneous than in Greenland. The BedMachine mask uses unpublished data (see https://github.com/IACS-cryo/Delineation-WG/issues/28), and many products then use the BedMachine mask. However HIRHAM uses a 1994 USGS mask, and MetUM uses a mask from AVHRR data from the early 1990s.
 
-A detailed examination of seven Antarctica products (BedMachine, ESA CCI, Rignot (IMBIE), @greene_2022, NSIDC 0709, and RGI regions 19 and 20) is shown below for two regions: Wilkins ice shelf and Abbott ice shelf.
+A detailed examination of six Antarctica products (BedMachine, ESA CCI, Rignot (IMBIE), @greene_2022, NSIDC 0709, and RGI region 19) is shown below for two regions: Wilkins ice shelf and Abbott ice shelf.
 
 ```{figure} fig/overlap_Wilkins.png
 :alt: Map of overlapping masks near Wilkins ice shelf, Antarctica
 :name: wilkins
 
-**Overlap map of seven masks (BedMachine, ESA CCI, Rignot (IMBIE), @greene_2022, NSIDC 0709, and RGI regions 19 and 20) near Wilkins ice shelf, Antarctica.** The five filled colors represent number of overlapping products when each is limited to the main (connected) ice sheet. The sixth and seventh products are RGI region 19 (peripheral Antarctica) and region 20 (main Antarctic ice sheet) shown as a thin and thick red outline, respectively. This graphic shows one product inludes the ice shelfves and coastal islands. See [gh#50](https://github.com/IACS-cryo/Delineation-WG/issues/50) for a discussion about RGI region 20.
+**Overlap map of six masks (BedMachine, ESA CCI, Rignot (IMBIE), @greene_2022, NSIDC 0709, and RGI region 19) near Wilkins ice shelf, Antarctica.** The five filled colors represent number of overlapping products when each is limited to the main (connected) ice sheet. The sixth product is RGI region 19 (peripheral Antarctica) shown as a thin red outline. This graphic shows one product inludes the ice shelfves and coastal islands.
 ```
 
 
@@ -142,7 +142,7 @@ The above figure provide a qualitative view of overlapping masks in two regions 
 :alt: Map of overlapping masks, Antarctica
 :name: union_AQ
 
-**Overlapping areas between masks on X axis and on Y axis in Antarctica.** Here instead of one RGI region (peripheral) there are three RGI regions.  'all' represents RGI 19 and 20, 'main' is RGI 20, and 'peropheral' is RGI 19. See [gh#50](https://github.com/IACS-cryo/Delineation-WG/issues/50) for a discussion about RGI region 20. Scale (both number and color) is logarithmic. The diagonal is the area of a product (100 % overlap with itself). Of interest, the dark (low values) in the column over 'peripheral@RGI' shows overlap between RGI peripheral region and all other products. This overlap is sometimes small (~10{math}`^3` or 1000 km{math}`^2`), but sometimes 10 or 100 times as large (e.g. 10{math}`^5` km{math}`^2`).
+**Overlapping areas between masks on X axis and on Y axis in Antarctica.** Scale (both number and color) is logarithmic. The diagonal is the area of a product (100 % overlap with itself). Of interest, the dark (low values) in the column over 'peripheral@RGI' shows overlap between RGI peripheral region and all other products. This overlap is sometimes small (~10{math}`^3` or 1000 km{math}`^2`), but sometimes 10 or 100 times as large (e.g. 10{math}`^5` km{math}`^2`).
 ```
 
 An alternative view, rather than overlap, is area of product X outside of product Y. Because overlap is commutative (X overlap Y is the same as Y overlap X) the above figure is half empty. However, X not in Y is different than Y not in X, so the following figure contains twice as much information and occupies twice the area (same information density).
@@ -151,7 +151,7 @@ An alternative view, rather than overlap, is area of product X outside of produc
 :alt: Map of not-in masks, Antarctica
 :name: notin_AQ
 
-**Non-overlapping areas between masks on X axis and on Y axis in Antarctica.**. Instead of one RGI region (peripheral) there are three RGI regions. 'all' represents RGI 19 and 20, 'main' is RGI 20, and 'perpheral' is RGI 19. See [gh#50](https://github.com/IACS-cryo/Delineation-WG/issues/50) for a discussion about RGI region 20.
+**Non-overlapping areas between masks on X axis and on Y axis in Antarctica.**
 ```
 
 <!--
