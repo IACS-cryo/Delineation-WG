@@ -189,4 +189,49 @@ This is the table from the proposal. We will likely want to include a modified v
 
 ## Way forward
 
-With IPCC AR7 coming soon, we need to have something set-up soon. How?
+The following are suggestions. We seek working groups and team member feedback.
+
+### Greenland
+
+We can address the problem of double counting in Greenland through the following approach using new and updated products.
+
+In mid 2025 GEUS will be releasing an update to @citterio_2013 or a new outline of the conterminous Greenlandic ice sheet based on 2022 Sentinel imagery. We recommend using this as a broader community definition of 'ice sheet'. RGI will update to exclude overlap, and become the definition of 'peripheral glaciers'. We will recommend that popular products such as BedMachine and RCMs update their domains, boundaries, or masks to match these two products to avoid double counting.
+
+The above plan does not address several important but separate goals of the broader community that have been discussed by this working group, specifically,
+
++ Connectivity of ice that is part of the GEUS ice sheet -- ice that is visually connected in satellity imagery, but may not be connected hydrologically, dynamically, or by other definitions.
+
++ Interior ice sheet basins are not defined, and existing basins (e.g., Zwally, Rignot, Mouginot) may not cover the entire ice sheet based on the new boundary.
+
+These issues and other secondary issues will be addressed later.
+
+### Antarctica
+
+Antarctica is a more complicated enivornment. There is an equivalent to the GEUS 2022 Greendlandic outline found in @greene_2024 which provides annual masks, but these masks include but do not distinguish ice shelves.
+
+The following recommendations come to mind.
+
+1. Use BedMachine as baseline
+
++ Updated BedMachine mask metadata to mark conterminous ice, ice shelves, and peripheral (unattached) ice. 
+
++ Update RGI 20 to match BedMachine conterminous and ice shelves
+
++ Update RGI 19 to include all BedMachine peripheral and exclude the updated RGI 20 (BedMachine conterminous ice).
+
++ Ideally, BedMachine peripheral is updated to match RGI 19, but this discussion suggest this is not likely to happen, in which case  RGI 19 is likely to be a superset of BedMachine peripheral.
+
++ Recommend to community that they use RGI 20 or RGI 19 and 20. The reason to recommend RGI and not BedMachine is that users of BedMachine may include peripheral ice, which would lead to doule counting or under counting (if included in larger assessments that either include RGI 19, or assume that the Antarctica effort includes RGI 19).
+
+2. Use @greene_2024 as baseline
+
++ Select a @greene_2024 year, either 2000 (a very round number), 2020 (a recent round number) or 2022 (to match Greenland).
+
++ Update @greene_2024 metadata to delineate ice shelves.
+
++ Update RGI 20 to match the updated Greene product.
+
++ Update RGI 19 to avoid overlapping RGI 20, and to include any unattached ice not in the updated Greene product (perhaps using BedMachine unattached ice).
+
++ Recommend to community that they use RGI 20 or the updated Greene product for main ice sheet, and add in RGI 19 if they want peripheral ice.
+
