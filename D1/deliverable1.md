@@ -19,7 +19,7 @@ We provide an explanation for which products rely on which other products based 
 
 ## Products
 
-We list all products either introducing or using a Greenland or Antarctic mask. A mask is...
+We list all products either introducing or using a Greenland or Antarctic mask. A "mask" represents a gridded or vector files defining the spatial domain of a specific product.
 
 This list is meant to be as exhaustive as possible. If a product is missing, please [reach out](https://github.com/IACS-cryo/Delineation-WG/issues).
 
@@ -66,13 +66,13 @@ The masks or boundaries themseleves are rarely the primary focus of the work (wi
 
 Several Greenlandic products use the BedMachine mask (which is based on the GIMP mask) or the GIMP mask directly, which at its release may have been the most complete, accurate, and highest resolution mask. However, the GIMP mask is now based on a 10 year old paper (@howat_2014) and seven-year-old product (@howat_2017), and the mask itself uses data spanning 15 years, which is problematic considering the large annual changes in Greenland.
 
-A detailed examination of seven Greenlandic products (BedMachine, PROMICE, MAR, RACMO, ESA CCI, GIMP, and RGI region 5) is shown below for four regions: Qaanaaq, Sisimiut, near the Geike Plateau, and the southern tip of Greenland.
+A detailed examination of seven Greenlandic products (BedMachine, PROMICE, MAR, RACMO, ESA CCI, GIMP, and RGI region 05) is shown below for four regions: Qaanaaq, Sisimiut, near the Geike Plateau, and the southern tip of Greenland.
 
 ```{figure} fig/overlap_Qaanaaq.png
 :alt: Map of overlapping masks near Qaanaaq, Greenland
 :name: qaanaaq
 
-Overlap map of seven masks. The six filled colors represent number of overlapping products when each is limited to the main (connected) ice sheet. The seventh product is RGI region 5 (peripheral Greenland) shown as a red outline. This graphic shows that some small areas that are in the RGI peripheral region are covered by two, three, or even five of the other main ice sheet masks. If the non-RGI masks include unattached glaciers, the number of overlap is even higher. Furthermore, regions of the 'main ice sheet' are defined differently in one mask (where overlap drops from six to five).
+**Overlap map of seven masks (BedMachine, PROMICE, MAR, RACMO, ESA CCI, GIMP, and RGI region 05) near Qaanaaq, Greenland.** The six filled colors represent number of overlapping products when each is limited to the main (connected) ice sheet. The seventh product is RGI region 05 (peripheral Greenland, connectivity level 0 and 1) shown as a red outline. This graphic shows that some small areas that are in the RGI peripheral region are covered by two, three, or even five of the other main ice sheet masks. If the non-RGI masks include unattached glaciers, the number of overlap is even higher. Furthermore, regions of the 'main ice sheet' are defined differently in one mask (where overlap drops from six to five).
 ```
 
 ```{figure} fig/overlap_Sisimiut.png
@@ -103,7 +103,7 @@ The above figure provides a qualitative view of overlapping masks in a few regio
 :alt: Map of overlapping masks, Greenland
 :name: union_GL
 
-Overlapping areas between masks on X axis and on Y axis. Scale (both number and color) is logarithmic. The diagonal is the area of a product (100 % overlap with itself). An example interpretion of this graphic follows the RGI column (first column) starting at the bottom row. The bottom left square reports 10^0.3 km^2 (~2 km^2) area overlap between RGI and areas flagged as "ice shelf" in BedMachine. The second row shows overlap between RGI and peripheral glaciers in the 'harper_2023' product is 10^4.8 km^2 (~63096 km^2). More interesing is overlap between RGI and the 'main@' rows, which are the primary ice sheet in those products. RACMO only overlaps RGI by 10^3.4 km^2 (~2,500 km^2) but most other products overlap by ~10x as much (seen by the difference between ~10^3 and ~10^4). The largest overlap is GIMP with 10^4.4 km^2 (~25,000 km^2).
+**Overlapping areas between masks on X axis and on Y axis in Greenland.** Scale (both number and color) is logarithmic. The diagonal is the area of a product (100 % overlap with itself). An example interpretion of this graphic follows the RGI column (first column) starting at the bottom row. The bottom left square reports 10{math}`^{0.3}` km{math}`^2` (~2 km{math}`^2`) area overlap between RGI and areas flagged as "ice shelf" in BedMachine. The second row shows overlap between RGI and peripheral glaciers in the 'harper_2023' product is 10{math}`^{4.8}` km{math}`^2` (~63096 km{math}`^2`). More interesing is overlap between RGI and the 'main@' rows, which are the primary ice sheet in those products. RACMO only overlaps RGI by 10{math}`^{3.4}` km{math}`^2` (~2,500 km{math}`^2`) but most other products overlap by ~10x as much (seen by the difference between ~10{math}`^3` and ~10{math}`^4`). The largest overlap is GIMP with 10{math}`^{4.4}` km{math}`^2` (~25,000 km{math}`^2`).
 ```
 
 An alternative view, rather than overlap, is area of product X outside of product Y. Because overlap is commutative (X overlap Y is the same as Y overlap X) the above figure is half empty. However, X not in Y is different than Y not in X, so the following figure contains twice as much information and occupies twice the area (same information density).
@@ -112,7 +112,7 @@ An alternative view, rather than overlap, is area of product X outside of produc
 :alt: Map of not-in masks, Greenland
 :name: notin_GL
 
-Overlapping areas between masks on X axis and on Y axis. Scale (both number and color) is logarithmic. The diagonals are 0 because a product cannot be outside itself. An example interpretion of this graphic follows the RGI column (first column) starting at the bottom row. The bottom left square reports 10^3.6 km^2 (~4,000 km^2) area of BedMachine ice shelf outside of the RGI peripheral glaciers. The second row shows the 'harper_2023' peripheral glaciers have 10^3.7 km^2 (5,000 km^2) outside of the RGI peripheral glaciers. Because this graphic is log scale, a change between two values of magnitude 1 represents ~10 % of the original values, and magnitude 2 (e.g. 10^5 to 10^3) represents 1 %.
+**Non-overlapping areas between masks on X axis and on Y axis in Greenland.** Scale (both number and color) is logarithmic. The diagonals are 0 because a product cannot be outside itself. An example interpretion of this graphic follows the RGI column (first column) starting at the bottom row. The bottom left square reports 10{math}`^{3.6}` km{math}`^2` (~4,000 km{math}`^2`) area of BedMachine ice shelf outside of the RGI peripheral glaciers. The second row shows the 'harper_2023' peripheral glaciers have 10{math}`^{3.7}` km{math}`^2` (5,000 km{math}`^2`) outside of the RGI peripheral glaciers. Because this graphic is log scale, a change between two values of magnitude 1 represents ~10 % of the original values, and magnitude 2 (e.g. 10{math}`^5` to 10{math}`^3`) represents 1 %.
 ```
 
 ### Antarctica
@@ -125,7 +125,7 @@ A detailed examination of seven Antarctica products (BedMachine, ESA CCI, Rignot
 :alt: Map of overlapping masks near Wilkins ice shelf, Antarctica
 :name: wilkins
 
-Same display as {ref}`qaanaaq`. Overlap map of seven masks. The five filled colors represent number of overlapping products when each is limited to the main (connected) ice sheet. The sixth and seventh products are RGI region 19 (peripheral Antarctica) and region 20 (main Antarctic ice sheet) shown as a thin and thick red outline, respectively. This graphic shows one product inludes the ice shelfves and coastal islands.
+**Overlap map of seven masks (BedMachine, ESA CCI, Rignot (IMBIE), @greene_2022, NSIDC 0709, and RGI regions 19 and 20) near Wilkins ice shelf, Antarctica.** The five filled colors represent number of overlapping products when each is limited to the main (connected) ice sheet. The sixth and seventh products are RGI region 19 (peripheral Antarctica) and region 20 (main Antarctic ice sheet) shown as a thin and thick red outline, respectively. This graphic shows one product inludes the ice shelfves and coastal islands. See [gh#50](https://github.com/IACS-cryo/Delineation-WG/issues/50) for a discussion about RGI region 20.
 ```
 
 
@@ -142,7 +142,7 @@ The above figure provide a qualitative view of overlapping masks in two regions 
 :alt: Map of overlapping masks, Antarctica
 :name: union_AQ
 
-Similar display as {ref}`union_GL`, except here instead of one RGI region (peripheral) there are three RGI regions. 'all' represents RGI 19 and 20, 'main' is RGI 20, and 'perpheral' is RGI 19. Overlapping areas between masks on X axis and on Y axis. Scale (both number and color) is logarithmic. The diagonal is the area of a product (100 % overlap with itself). Of interest, the dark (low values) in the column over 'peripheral@RGI' shows overlap between RGI peripheral region and all other products. This overlap is sometimes small (~10^3 or 1000 km^2), but sometimes 10 or 100 times as large (e.g. 10^5 km^2).
+**Overlapping areas between masks on X axis and on Y axis in Antarctica.** Here instead of one RGI region (peripheral) there are three RGI regions.  'all' represents RGI 19 and 20, 'main' is RGI 20, and 'peropheral' is RGI 19. See [gh#50](https://github.com/IACS-cryo/Delineation-WG/issues/50) for a discussion about RGI region 20. Scale (both number and color) is logarithmic. The diagonal is the area of a product (100 % overlap with itself). Of interest, the dark (low values) in the column over 'peripheral@RGI' shows overlap between RGI peripheral region and all other products. This overlap is sometimes small (~10{math}`^3` or 1000 km{math}`^2`), but sometimes 10 or 100 times as large (e.g. 10{math}`^5` km{math}`^2`).
 ```
 
 An alternative view, rather than overlap, is area of product X outside of product Y. Because overlap is commutative (X overlap Y is the same as Y overlap X) the above figure is half empty. However, X not in Y is different than Y not in X, so the following figure contains twice as much information and occupies twice the area (same information density).
@@ -151,7 +151,7 @@ An alternative view, rather than overlap, is area of product X outside of produc
 :alt: Map of not-in masks, Antarctica
 :name: notin_AQ
 
-Similar display as {ref}`notin_GL`, except as in {ref}`union_AQ` instead of one RGI region (peripheral) there are three RGI regions. 'all' represents RGI 19 and 20, 'main' is RGI 20, and 'perpheral' is RGI 19.
+**Non-overlapping areas between masks on X axis and on Y axis in Antarctica.**. Instead of one RGI region (peripheral) there are three RGI regions. 'all' represents RGI 19 and 20, 'main' is RGI 20, and 'perpheral' is RGI 19. See [gh#50](https://github.com/IACS-cryo/Delineation-WG/issues/50) for a discussion about RGI region 20.
 ```
 
 <!--

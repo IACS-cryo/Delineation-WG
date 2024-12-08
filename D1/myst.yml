@@ -15,6 +15,7 @@ site:
   template: book-theme
   options:
     logo: fig/iugg_logo_complete.png
+    favicon: fig/favicon.png
   nav: []
   actions:
     - title: GitHub
