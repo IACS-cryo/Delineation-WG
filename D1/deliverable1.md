@@ -189,7 +189,7 @@ This is the table from the proposal. We will likely want to include a modified v
 
 ## Way forward
 
-The following are suggestions. We seek working groups and team member feedback.
+The following are sust suggestions, and we seek feedback from working groups and team members. **This is not yet a consensus document, nor a plan to be implemented!**
 
 ### Greenland
 
@@ -197,41 +197,54 @@ We can address the problem of double counting in Greenland through the following
 
 In mid 2025 GEUS will be releasing an update to @citterio_2013 or a new outline of the conterminous Greenlandic ice sheet based on 2022 Sentinel imagery. We recommend using this as a broader community definition of 'ice sheet'. RGI will update to exclude overlap, and become the definition of 'peripheral glaciers'. We will recommend that popular products such as BedMachine and RCMs update their domains, boundaries, or masks to match these two products to avoid double counting.
 
-The above plan does not address several important but separate goals of the broader community that have been discussed by this working group, specifically,
+This plan does not address several important but separate issues raised by this working group, specifically:
 
-+ Connectivity of ice that is part of the GEUS ice sheet -- ice that is visually connected in satellity imagery, but may not be connected hydrologically, dynamically, or by other definitions.
+- The connectivity of ice categorized as part of the GEUS ice sheet, including ice that appears visually connected in satellite imagery but may not be connected hydrologically, dynamically, or by other definitions.
+- The lack of defined interior ice sheet basins, as existing basins (e.g., Zwally, Rignot, Mouginot) may not cover the entire ice sheet based on the new boundary.
 
-+ Interior ice sheet basins are not defined, and existing basins (e.g., Zwally, Rignot, Mouginot) may not cover the entire ice sheet based on the new boundary.
-
-These issues and other secondary issues will be addressed later.
+These and other secondary issues will be addressed at a later stage.
 
 ### Antarctica
 
-Antarctica is a more complicated enivornment. There is an equivalent to the GEUS 2022 Greendlandic outline found in @greene_2024 which provides annual masks, but these masks include but do not distinguish ice shelves.
+Antarctica is a more complicated environment. There is an equivalent to the GEUS 2022 Greendlandic outline found in @greene_2024 which provides annual masks, but these masks include but do not distinguish ice shelves.
 
-The following recommendations come to mind.
+The following recommendations come to mind. In the following, "RGI 19" and "RGI 20" refer to the masks of region 19 and 20 in the [RGI region files](https://www.glims.org/rgi_user_guide/02_regions_definition.html). Changes to these would imply altering the assignment of glacier outlines to these regions.
 
-1. Use BedMachine as baseline
+#### Use BedMachine as baseline
 
-+ Updated BedMachine mask metadata to mark conterminous ice, ice shelves, and peripheral (unattached) ice. 
+- Update BedMachine mask metadata to mark conterminous ice, ice shelves, and peripheral (unattached) ice.
+- Update the outlines of the RGI 19 and RGI 20 glacier regions to match BedMachine conterminous and ice shelves
+- Update RGI 19 region outlines to include all BedMachine peripheral and exclude the updated RGI 20 (BedMachine conterminous ice).
+- Ideally, BedMachine peripheral is updated to match RGI 19 region outline, but prior discussion suggests this is not likely to happen, in which case  RGI 19 region outline is likely to be a superset of BedMachine peripheral.
+- Recommend to community that they comply to the region masks definitions provided by RGI region files. The reason to recommend RGI and not BedMachine is that users of BedMachine may include peripheral ice, which would lead to doule counting or under counting (if included in larger assessments that either include RGI 19, or assume that the Antarctica effort includes RGI 19).
 
-+ Update RGI 20 to match BedMachine conterminous and ice shelves
+#### Use @greene_2024 as baseline
 
-+ Update RGI 19 to include all BedMachine peripheral and exclude the updated RGI 20 (BedMachine conterminous ice).
+- Select a @greene_2024 year, either 2000 (a very round number), 2020 (a recent round number) or 2022 (to match Greenland).
+- Update @greene_2024 metadata to delineate ice shelves.
+- Update RGI 20 region files to match the updated Greene product.
+- Update RGI 19 region file to avoid overlapping with RGI 20, and to include any unattached ice not in the updated Greene product (perhaps using BedMachine unattached ice).
+- Recommend to community that they use RGI 20 regions or the updated Greene product for main ice sheet, and add in RGI 19 if they want peripheral ice.
 
-+ Ideally, BedMachine peripheral is updated to match RGI 19, but this discussion suggest this is not likely to happen, in which case  RGI 19 is likely to be a superset of BedMachine peripheral.
+### Initial thoughts on the consequences of these recommendations
 
-+ Recommend to community that they use RGI 20 or RGI 19 and 20. The reason to recommend RGI and not BedMachine is that users of BedMachine may include peripheral ice, which would lead to doule counting or under counting (if included in larger assessments that either include RGI 19, or assume that the Antarctica effort includes RGI 19).
+The proposed changes will likely affect the glacier and ice sheet communities differently.
 
-2. Use @greene_2024 as baseline
+The **ice sheet community** will have to update their masks to match the new standard, but this is a one-time effort for each sub-community (ISMIP for models, IMBIE for observations...) with very clear benefits. It must be added that despite of the benefits of having a unified definition of the ice sheet, neither ISMIP nor IMBIE have yet adopted a standard mask so far. Perhaps the authority of this WG could help in this regard. Initial discussions seem to indicate that both IMBIE and ISMIP are interested in adopting a standard mask, but there seems to be challenges too complex to be summarized here. Regardless, both IMBIE and ISIMIP should be responsible for enforcing the use of a standard mask in their respective efforts (e.g. during post-processing if required), regardless of this WG's recommendations.
 
-+ Select a @greene_2024 year, either 2000 (a very round number), 2020 (a recent round number) or 2022 (to match Greenland).
+For the **glacier community**, the changes as outlined above would mean that roughly ~80% of the glaciers in region 19 (Antarctic Periphery) and ~25% of the glaciers in region 05 (Greenland Periphery) would now be "part of the ice sheet" and eventually removed from RGI. This would have a significant impact on the future results of the glacier community, and would require a significant effort to update and communicate these results to the public. This is mainly because in terms of relative area, the change is considerably larger for glaciers than it is for the ice sheets. Another reason is that the glacier community has been following the RGI standard for a long time, and results on e.g. sea-level rise contributions of glaciers in Antarctica and Greenland have been consistent over the years.
 
-+ Update @greene_2024 metadata to delineate ice shelves.
+A strategy to communicate these changes to the public and community will be necessary. Fortunately, the changes could be done gradually. An ideal scenario could be:
 
-+ Update RGI 20 to match the updated Greene product.
+1. IMBIE and ISMIP adopt the new standard mask for both ice sheets for their next assessments (ISMIP7, next iteration of IMBIE, etc.). Hopefully this should not change their results in a way imputable *only* to the adoption of the new mask, so that the change goes mostly unoticed (we could be wrong with this assessment).
+2. Glaciers now classified as part of the ice sheet are flagged in the next RGI iteration (v7.2). These glaciers could either remain in the RGI files with a new attribute indicating their status or be removed, with a separate file provided for the removed outlines.
+3. The glacier community is encouraged to produce results for the entire RGI but to communicate distinctions clearly. For example, global tables like those in Hugonnet et al. (2021) or Rounce et al. (2023) could include additional rows for the "previously glaciers, now ice-sheet" contributions from regions 05 and 19.
+4. If the ice sheet community adopts a similar distinction (e.g., separating contiguous ice from "peripheral ice-sheet"), results from both communities could be compared, enhancing our understanding of methodological differences and allowing accross-community MIPs.
+5. While changes to the RGI could occur within a year, the gradual communication of updated results may take considerably longer (e.g., RGI7 is still not widely adopted one year after publication).
 
-+ Update RGI 19 to avoid overlapping RGI 20, and to include any unattached ice not in the updated Greene product (perhaps using BedMachine unattached ice).
+Given the size of the respective communities and the historically strong community adoption of the RGI, changing RGI is still the scenario which is most likely to trigger the necessary change. Potential pushbacks that could arise are:
 
-+ Recommend to community that they use RGI 20 or the updated Greene product for main ice sheet, and add in RGI 19 if they want peripheral ice.
+- The argument that peripheral glaciers behave like glaciers, so why don't the BedMachine or Greene products reflect this?
+- Concerns that ice sheet models are less accurate for peripheral glaciers, potentially biasing results.
 
+Personally, we (Ken & Fabien) believe these objections are valid but outweighed by the overarching goal of avoiding double counting in future IPCC reports and quantitative studies. We probably have overseen many important aspects of this change, and we are looking forward to the feedback from the community.
