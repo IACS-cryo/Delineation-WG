@@ -13,7 +13,7 @@
 
 The International Association of Cryospheric Sciences (IACS) working group on the delineation of glaciers, ice sheets and ice sheet basins deliverable #1 aims to provide an overview of the state of ice sheet delineations from some of the more common and popular products. These include basic data products used by much of the glaciological community (e.g., BedMachine), observational-derived boundaries (e.g., RGI 7.0) some regional climate model masks, etc.
 
-We reached out to the glaciological community ([CRYOLIST announcement](https://lists.cryolist.org/pipermail/cryolist/2022-November/008094.html)) and gathered a group of polar data experts,  producers and users. We asked our members to provide information on... and add the information to github. The following report is based on this initial consultation and contains new analyses of the presently available datasets.
+We reached out to the glaciological community ([CRYOLIST announcement](https://lists.cryolist.org/pipermail/cryolist/2022-November/008094.html)) and gathered a group of polar data experts, producers and users. We asked our members to provide information on their use of ice sheet and glacier masks and boundaries and collecte the information as [GitHub Issues](https://github.com/IACS-cryo/Delineation-WG/issues?q=is%3Aissue%20label%3Ainfo%3Amask%20). The following report is based on this initial consultation and contains new analyses of the presently available datasets.
 
 We provide an explanation for which products rely on which other products based on a community survey, and graphical statistical displays of the product union (X \union Y, or area overlap) and the product not-union (X \union Y', or area of product X outside of product Y).
 
@@ -162,34 +162,9 @@ An alternative view, rather than overlap, is area of product X outside of produc
 Data available [as a csv file](https://github.com/IACS-cryo/Delineation-WG/blob/main/D1/dat/sets_notin_AQ.csv).
 ```
 
-<!--
-# Old
-
-This is the table from the proposal. We will likely want to include a modified version in D1.
-
-| Name                             | Purpose                                               | Timespan                                        | Comments                                                                                                                | Data citation(s)                                                                   | Science citation          |
-|----------------------------------|-------------------------------------------------------|-------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|---------------------------|
-| BedMachine Greenland v5          | Bed topography                                        | 1993-2021                                       | Ice boundary is provided in mask but is not primary product                                                             | @NSIDC_BedMachine_GL_v5                                                            |                           |
-| BedMachine Antarctica v3         | Bed topography                                        | 1970-2019                                       | Ice boundary is not primary product                                                                                     | @NSIDC_BedMachine_AQ_v3                                                            |                           |
-| GEUS                             | Greenland boundary                                    | Nominal 1978-1987                               | Has “main”, “local”, and “disconnected”                                                                                 |                                                                                    | doi:10.5194/tc-7-445-2013 |
-| GIMP                             | Land Ice/Ocean delineation                            | Two ice masks with nominal years 2000 and 2015. | Year 2000 ice mask compiled from data from 1999-2002 and 2015 ice mask compiled from data from the years 2013 and 2015. | <doi:10.5067/B8X58MQBFUPA>                                                         |                           |
-| RGI                              | Outlines of glaciers outside of the ice sheets        | 2000 (deviations frequent)                      | Widely accepted standard, but overlaps with ice sheet products in this table                                            | <doi:10.7265/4m1f-gd79>                                                            |                           |
-| “AutoTerm” Ice Masks             | Land Ice/Ocean delineation                            | 2018, 2019, 2020                                | The GIMP 2015 ice mask with termini from 295 (?) marine terming outlet glaciers grafted on for the years 2018-2020.     | <doi:10.5194/tc-17-3485-2023> Data not yet released by the NSIDC                   |                           |
-| Greene 2022                      | Land Ice/Ocean delineation                            | 1997-2021                                       | 24 annual coastlines of Antarctica masked on a 240 m grid.                                                              | <doi:10.5281/zenodo.5903643>                                                       |                           |
-| MEaSUREs Antarctic Boundaries v2 | Land Ice/Ocean delineation & Antarctic Basins         | IPY 2007-2009                                   | Maps of Antarctic ice shelves, basins and coastline from radar satellite data.                                          | https://nsidc.org/data/nsidc-0709/versions/2                                       |                           |
-| MODIS Mosaic of Antarctica       | Land Ice/Ocean delineation                            | 2004, 2009, 2014                                | Antarctic coastline manually delineated, Methods defined in Scambos et al. (2007)                                       | <doi:10.5067/4ZL43A4619AF>; <doi:10.5067/RNF17BP824UM>; <doi:10.5067/68TBT0CGJSOJ> |                           |
-| Radarsat Coastline               | Land Ice/Ocean delineation                            | 1997, 2000                                      | Antarctic coastline from Radarsat. Methods in Liu & Jezek (2004)                                                        | https://research.byrd.osu.edu/rsl/radarsat/data                                    |                           |
-| Baumhoer 2021                    | Land Ice/Ocean delineation                            | 2018                                            | Antarctic coastline automatically extracted from Sentinel-1 imagery, 40 m resolution                                    | https://download.geoservice.dlr.de/icelines/ files                                 |                           |
-| “Mouginot”                       | Glacier catchments/basins for the Greenland Ice Sheet | 2009-- (slow ice) & 2013-- (fast ice)           | Commonly used by community (e.g., IMBIE)                                                                                | <doi:10.7280/d1wt11>                                                               |                           |
-| “Rignot Basins”                  | Antarctic & Greenland drainage systems                |                                                 | Commonly used by community (e.g., IMBIE)                                                                                | No DOI. http://imbie.org/imbie-3/drainage-basins                                   |                           |
-| “Zwally Basins”                  | Antarctic & Greenland drainage systems                |                                                 | Commonly used by community (e.g., IMBIE)                                                                                | No DOI. Maybe http://imbie.org/imbie-3/drainage-basins                             |                           |
-| Krieger 2023                     | Internal Greenlandic basins                           | TBD                                             | Methods defined in Krieger et al. (2020)                                                                                | In progress & unpublished                                                          |                           |
-
--->
-
 ## Way forward
 
-The following are sust suggestions, and we seek feedback from working groups and team members. **This is not yet a consensus document, nor a plan to be implemented!**
+The following are suggestions, and we seek feedback from working groups and team members. **This is not yet a consensus document, nor a plan to be implemented**. This section will be published on-line and then linked to a GitHub discussion, then a final edit based on feedback in the discussion.
 
 ### Greenland
 
@@ -212,11 +187,11 @@ The following recommendations come to mind. In the following, "RGI 19" and "RGI 
 
 #### Use BedMachine as baseline
 
-- Update BedMachine mask metadata to mark conterminous ice, ice shelves, and peripheral (unattached) ice.
+- Update BedMachine mask metadata (only metadata) to mark conterminous ice, ice shelves, and peripheral (unattached) ice.
 - Update the outlines of the RGI 19 and RGI 20 glacier regions to match BedMachine conterminous and ice shelves
 - Update RGI 19 region outlines to include all BedMachine peripheral and exclude the updated RGI 20 (BedMachine conterminous ice).
 - Ideally, BedMachine peripheral is updated to match RGI 19 region outline, but prior discussion suggests this is not likely to happen, in which case  RGI 19 region outline is likely to be a superset of BedMachine peripheral.
-- Recommend to community that they comply to the region masks definitions provided by RGI region files. The reason to recommend RGI and not BedMachine is that users of BedMachine may include peripheral ice, which would lead to doule counting or under counting (if included in larger assessments that either include RGI 19, or assume that the Antarctica effort includes RGI 19).
+- Recommend to community that they use the region masks definitions provided by RGI region files. The reason to recommend RGI and not BedMachine is that users of BedMachine may include peripheral ice, which would lead to doule counting or under counting (if included in larger assessments that either include RGI 19, or assume that the Antarctica effort includes RGI 19).
 
 #### Use @greene_2024 as baseline
 
@@ -230,9 +205,9 @@ The following recommendations come to mind. In the following, "RGI 19" and "RGI 
 
 The proposed changes will likely affect the glacier and ice sheet communities differently.
 
-The **ice sheet community** will have to update their masks to match the new standard, but this is a one-time effort for each sub-community (ISMIP for models, IMBIE for observations...) with very clear benefits. It must be added that despite of the benefits of having a unified definition of the ice sheet, neither ISMIP nor IMBIE have yet adopted a standard mask so far. Perhaps the authority of this WG could help in this regard. Initial discussions seem to indicate that both IMBIE and ISMIP are interested in adopting a standard mask, but there seems to be challenges too complex to be summarized here. Regardless, both IMBIE and ISIMIP should be responsible for enforcing the use of a standard mask in their respective efforts (e.g. during post-processing if required), regardless of this WG's recommendations.
+The **ice sheet community** will have to update their masks to match the new standard, but this is a one-time effort for each sub-community (ISMIP for models, IMBIE for observations...) with very clear benefits. It must be added that despite of the benefits of having a unified definition of the ice sheet, neither ISMIP nor IMBIE have yet adopted a standard mask so far. Our hope is that this WG would help in this regard. Initial discussions seem to indicate that both IMBIE and ISMIP are interested in adopting a standard mask, but there seems to be challenges too complex to be summarized here. Regardless, both IMBIE and ISIMIP should be responsible for enforcing the use of a standard mask in their respective efforts (e.g. during post-processing if required), regardless of this WG's recommendations.
 
-For the **glacier community**, the changes as outlined above would mean that roughly ~80% of the glaciers in region 19 (Antarctic Periphery) and ~25% of the glaciers in region 05 (Greenland Periphery) would now be "part of the ice sheet" and eventually removed from RGI. This would have a significant impact on the future results of the glacier community, and would require a significant effort to update and communicate these results to the public. This is mainly because in terms of relative area, the change is considerably larger for glaciers than it is for the ice sheets. Another reason is that the glacier community has been following the RGI standard for a long time, and results on e.g. sea-level rise contributions of glaciers in Antarctica and Greenland have been consistent over the years.
+For the **glacier community**, the changes as outlined above would mean that roughly ~80% of the glaciers in region 19 (Antarctic Periphery) and ~25% of the glaciers in region 05 (Greenland Periphery) would now be "part of the ice sheet" and eventually removed from RGI. This would have a significant impact on the future results of the glacier community, and would require a significant effort to update and communicate these results. This is mainly because in terms of relative area, the change is considerably larger for glaciers than it is for the ice sheets. Another reason is that the glacier community has been following the RGI standard for a long time, and results on e.g. sea-level rise contributions of glaciers in Antarctica and Greenland have been consistent over the years.
 
 A strategy to communicate these changes to the public and community will be necessary. Fortunately, the changes could be done gradually. An ideal scenario could be:
 
@@ -247,4 +222,4 @@ Given the size of the respective communities and the historically strong communi
 - The argument that peripheral glaciers behave like glaciers, so why don't the BedMachine or Greene products reflect this?
 - Concerns that ice sheet models are less accurate for peripheral glaciers, potentially biasing results.
 
-Personally, we (Ken & Fabien) believe these objections are valid but outweighed by the overarching goal of avoiding double counting in future IPCC reports and quantitative studies. We probably have overseen many important aspects of this change, and we are looking forward to the feedback from the community.
+Personally, we (Ken & Fabien) believe these objections are valid but outweighed by the overarching goal of avoiding double counting in future IPCC reports and quantitative studies. We probably have missed many important aspects of the proposed change, and we are looking forward to the feedback from the community.
