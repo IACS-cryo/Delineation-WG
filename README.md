@@ -5,6 +5,8 @@ Project supported by the International Association of Cryospheric Sciences ([IAC
 
 ## Goals
 
+This Working Group aims to bring together the glacier and ice sheet community to find common ground on defining the domains (ice sheet & glacier masks) best used in glacier and ice sheet change assessments and modeling. Peripheral glaciers are included in some and excluded in some ice sheet mass change assessments. They are also the focus of non-ice-sheet glacier mass balance assessments. There is a need for clear separation of ice sheets and glaciers in Antarctica and Greenland to avoid double-counting, or omissions when estimates are combined in global assessments, such as in IPCC.
+
 See:
 - [CRYOLIST announcement](https://lists.cryolist.org/pipermail/cryolist/2022-November/008094.html)
 - [Proposal](proposal/Ice%20Basins%20&%20Boundaries.pdf)
@@ -40,8 +42,6 @@ Github might feel overwhelming at first, but fear not! We won't use it for compu
 - Documents can be edited via the web interface, without using `git`. For example, to edit this document, click the pen icon at the top right corner of the text (not top right of page), then select the `Commit changes...` button.
 
 ## Status
-
-The project just started! Currently we are gathering ideas and brainstorming towards the first deliverable of the WG: 
 
 ### Deliverable 1
 
