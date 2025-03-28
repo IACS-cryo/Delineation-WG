@@ -41,6 +41,7 @@ This list is meant to be as exhaustive as possible. If a product is missing, ple
 | BedMachine                                               | @NSIDC_BedMachine_GL_v5 | @morlighem_2017  | https://github.com/IACS-cryo/Delineation-WG/issues/27 |          |
 | PROMICE                                                  | @citterio_2022          | @citterio_2013   |                                                       |          |
 | ESA CCI                                                  |                         | @harper_2023     |                                                       |          |
+| Mouginot (a.k.a IMBIE Greenlan)                          | @mouginot_2019_data     | @mouginot_2019   |                                                       |          |
 
 ### Antarctica
 

@@ -249,6 +249,28 @@ r.mapcalc "m_main = if(mask == 1, 1, null())"
 r.mapcalc "m_peripheral = if(mask == 2, 1, null())"
 #+END_SRC
 
+*** Mouginot 2019
+
+#+BEGIN_SRC bash :exports both :results verbatim
+g.mapset -c mouginot_2019
+
+# doesn't import properly to GRASS (does to QGIS)
+v.import input=${DATADIR}/Mouginot_2019/Greenland_Basins_PS_v1.4.2.shp output=basins
+g.region vector=basins res=100 -pa
+v.to.rast input=basins output=basins use=val value=1
+
+# find largest clump (main ice)
+r.clump input=basins output=clumps --o
+main_clump=$(r.stats -c -n clumps sort=desc | head -n1 | cut -d" " -f1)
+
+# set main clump to 1, peripheral is 2
+r.mapcalc "mask = if(clumps == ${main_clump}, 1, 2)" --overwrite
+
+r.mapcalc "m_all = if(mask)"
+r.mapcalc "m_main = if(mask == 1, 1, null())"
+r.mapcalc "m_peripheral = if(mask == 2, 1, null())"
+#+END_SRC
+
 ** Places
 
 #+BEGIN_SRC bash :exports both :results verbatim
@@ -286,7 +308,8 @@ r.mapcalc << EOF
   + if(isnull(m_main@MAR), 0, 1) \
   + if(isnull(m_main@RACMO), 0, 1) \
   + if(isnull(m_main@harper_2023), 0, 1) \
-  + if(isnull(m_main@GIMP), 0, 1)
+  + if(isnull(m_main@GIMP), 0, 1) \
+  + if(isnull(m_main@mouginot_2019), 0, 1)
 EOF
 
 r.null map=overlap setnull=0
@@ -371,7 +394,7 @@ hm.figure.savefig('./fig/set_notin_GL.png', bbox_inches='tight')
 #+CAPTION: Summary of different mask products and their respective “relative complement” (X outside Y) between products. Graphic should be interpreted as X outside Y. For example looking at only the top left 2x2 region, “RGI@RGI” has 10^4.9 = ~80,000 km^2 of ice outside of “GIC0@citterio_2013”, and Citterio 2013 GIC0 has 10^6.2 km^2 outside of RGI. Black 0 indicates product X contained entirely inside product Y. Here “all” is the entire mask, “main” is the main ice, “peripheral” is unconnected ice, and other labels (e.g. GICn) are specific to and documented elsewhere per those data products.
 
 #+RESULTS: fig:notin
-[[file:./figs_tmp/ba2d8b60d543ac0dd5147b475c01688bc653fe47.png]]
+[[file:./figs_tmp/236d757589bf2a5ba72f2109326a76d0acc27b75.png]]
 
 
 
@@ -431,7 +454,7 @@ hm.figure.savefig('./fig/set_union_GL.png', bbox_inches='tight')
 #+caption: Summary of different mask products and their respective overlap or set intersection between products. For example looking at only the top of the left-most column, “RGI@RGI” has 10^4.9 = ~8E4 km^2 of ice overlapping itself, and 10^3.5 = ~3E3 km^2 overlapping Citterio 2013 GIC0. Black 0 indicates no overlap. Here “all” is the entire mask, “main” is the main ice, “peripheral” is unconnected ice, and other labels (e.g. GICn) are specific to and documented elsewhere per those data products.
 
 #+RESULTS: union
-[[file:./figs_tmp/3ef797f44b3d475ede8ed5aa3cfec8b883043275.png]]
+[[file:./figs_tmp/91f094ebb73c3bb88c97534ef019b256d2554bc5.png]]
 
 
 ** Share
