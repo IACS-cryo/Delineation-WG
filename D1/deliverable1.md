@@ -67,34 +67,49 @@ The masks or boundaries themselves are rarely the primary focus of the work (wit
 
 Several Greenlandic products use the BedMachine mask (which is based on the GIMP mask) or the GIMP mask directly, which at its release may have been the most complete, accurate, and highest resolution mask. However, the GIMP mask is now based on a 10 year old paper (@howat_2014) and seven-year-old product (@howat_2017), and the mask itself uses data spanning 15 years, which is problematic considering the large annual changes in Greenland.
 
-A detailed examination of seven Greenlandic products (BedMachine, PROMICE, MAR, RACMO, ESA CCI, GIMP, and RGI region 05) is shown below for four regions: Qaanaaq, Sisimiut, near the Geike Plateau, and the southern tip of Greenland.
+A detailed examination of eight Greenlandic products (BedMachine, PROMICE, MAR, RACMO, ESA CCI, GIMP, Mouginot, and RGI region 05) is shown below for six regions: Qaanaaq, Sisimiut, near the Geike Plateau, the southern tip of Greenland, central west Greenland near Daugaard-Jensen Gletsjer, and the west Greenlandic Kangerlussuaq fjord.
 
 ```{figure} fig/overlap_Qaanaaq.png
 :alt: Map of overlapping masks near Qaanaaq, Greenland
 :name: qaanaaq
 
-**Overlap map of seven masks (BedMachine, PROMICE, MAR, RACMO, ESA CCI, GIMP, and RGI region 05) near Qaanaaq, Greenland.** The six filled colors represent number of overlapping products when each is limited to the main (connected) ice sheet. The seventh product is RGI region 05 (peripheral Greenland, connectivity level 0 and 1) shown as a red outline. This graphic shows that some small areas that are in the RGI peripheral region are covered by two, three, or even five of the other main ice sheet masks. If the non-RGI masks include unattached glaciers, the number of overlap is even higher. Furthermore, regions of the 'main ice sheet' are defined differently in one mask (where overlap drops from six to five).
+**Overlap map of eight masks (BedMachine, PROMICE, MAR, RACMO, ESA CCI, GIMP, Mouginot, and RGI region 05) near Qaanaaq, Greenland.** The seven filled colors represent number of overlapping products when each is limited to the main (connected) ice sheet. The eight product is RGI region 05 (peripheral Greenland, connectivity level 0 and 1) shown as a red outline. This graphic shows that some small areas that are in the RGI peripheral region are covered by two, three, or even seven of the other main ice sheet masks. Regions of the 'main ice sheet' are also defined differently among masks.
 ```
 
 ```{figure} fig/overlap_Sisimiut.png
 :alt: Map of overlapping masks near Sisimiut, Greenland
 :name: sisimiut
 
-Same display as {ref}`qaanaaq`, but here showing a large area within in the RGI peripheral region that is covered by four of the other main ice sheet masks.
+Same display as {ref}`qaanaaq`, but here showing a large area within in the RGI peripheral region that is covered by five of the other main ice sheet masks.
 ```
 
 ```{figure} fig/overlap_Geike.png
 :alt: Map of overlapping masks near the Geike Plateau, Greenland
 :name: geike
 
-Same display as {ref}`qaanaaq`, but here showing only two small areas with overlap between RGI and two or three of the main ice sheet masks. The Geike Plateau (off figure to the southeast) shows one mask does not cover this area, as coverage drops from six to five.
+Same display as {ref}`qaanaaq`, The Geike Plateau (southeast) shows one mask does not cover this area, as coverage drops from seven to six.
 ```
 
 ```{figure} fig/overlap_SouthGL.png
 :alt: Map of overlapping masks near southern, Greenland
 :name: southGL
 
-Same display as {ref}`qaanaaq`, but here showing the southern tip of Greenland. Large areas covered the RGI peripheral glacier product are also covered by three or four of the six mask products, and large areas not covered by RGI are only covered by three or five of the six mask products.
+Same display as {ref}`qaanaaq`, but here showing the southern tip of Greenland. Large areas covered the RGI peripheral glacier product are also covered by main ice sheet mask products, and large areas not covered by RGI are only covered by some of the seven mask products.
+```
+
+
+```{figure} fig/overlap_daugaard.png
+:alt: Map of overlapping masks near Daugaard-Jensen Gletsjer, West Greenland
+:name: daugaard
+
+Same display as {ref}`qaanaaq`, but here showing central west Greenland near Daugaard-Jensen Gletsjer.
+```
+
+```{figure} fig/overlap_Kangerlussuaq.png
+:alt: Map of overlapping masks near Kangerlussuaq Fjord, West Greenland
+:name: kangerlussuaq
+
+Same display as {ref}`qaanaaq`, but here showing Kangerlussuaq Fjord, West Greenland.
 ```
 
 The above figure provides a qualitative view of overlapping masks in a few regions of Greenland. The figures below show a quantitative display of more masks and what areas of each mask either overlaps the other masks, or is outside of the other masks.
