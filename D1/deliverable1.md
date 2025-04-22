@@ -207,7 +207,7 @@ The following recommendations come to mind. In the following, "RGI 19" and "RGI 
 - Update the outlines of the RGI 19 and RGI 20 glacier regions to match BedMachine conterminous and ice shelves
 - Update RGI 19 region outlines to include all BedMachine peripheral and exclude the updated RGI 20 (BedMachine conterminous ice).
 - Ideally, BedMachine peripheral is updated to match RGI 19 region outline, but prior discussion suggests this is not likely to happen, in which case  RGI 19 region outline is likely to be a superset of BedMachine peripheral.
-- Recommend to community that they use the region masks definitions provided by RGI region files. The reason to recommend RGI and not BedMachine is that users of BedMachine may include peripheral ice, which would lead to doule counting or under counting (if included in larger assessments that either include RGI 19, or assume that the Antarctica effort includes RGI 19).
+- Recommend to community that they use the region masks definitions provided by RGI region files. The reason to recommend RGI and not BedMachine is that users of BedMachine may include peripheral ice, which would lead to double counting or under counting (if included in larger assessments that either include RGI 19, or assume that the Antarctica effort includes RGI 19).
 
 #### Use @greene_2024 as baseline
 
