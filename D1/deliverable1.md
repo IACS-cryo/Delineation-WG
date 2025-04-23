@@ -200,7 +200,7 @@ This is a draft / work in progress.
 
 ### Urgency and elements of context
 
-The issue of double or undercounting is urgent: CMIP7 is underway, ISMIP7 is expected to release a simulation protocol soon (when?), IMBIE is a regularly recurring exercise with the next phase planned for (when?), and GlacierMIP4 is currently in preparation. **The primary and urgent aim of the working group should be to provide solutions to the double-counting problem for IPCC AR7 authors, as well as for all future publications and reports estimating sea-level rise and mass change from ice sheets and glaciers.**
+The issue of double or undercounting is urgent: CMIP7 is underway, ISMIP7 is expected to release a simulation protocol soon (*when?*), IMBIE is a regularly recurring exercise with the next phase planned for (*when?*), and GlacierMIP4 is currently in preparation. **The primary and urgent aim of the working group should be to provide solutions to the double-counting problem for IPCC AR7 authors, as well as for all future publications and reports estimating sea-level rise and mass change from ice sheets and glaciers.**
 
 Consultations by the working group have shown that the community is aware of the problem and that there is strong motivation to avoid double counting in future assessments. However, informal discussions have also revealed that the number of researchers working on global assessments is relatively small. For example, while ISMIP7 includes numerous working groups addressing different aspects of the protocol, the issue of defining the spatial domains of ice sheets and glaciers is often treated as a post-processing step that must be resolved centrally - not by the individual contributors.
 
@@ -212,7 +212,7 @@ With this in mind, the working group should aim to:
 - Provide datasets (i.e., recommended masks) to assist authors in avoiding double counting, or at least in clearly identifying and documenting the masks used in their assessments.
 - Offer authoritative guidance, based on the support of both the working group and the broader community.
 
-The timeframe is short, and the current position of the working group leads is that providing an entirely new, reviewed, and widely adopted mask in time for upcoming assessments is *not* feasible. It should not be the role of the working group to lead new mapping efforts (except potentially in cases of undercounting as discussed below) but the group can help motivate and coordinate such efforts.
+The timeframe is short, and the current position of the working group leads is that providing an entirely new, reviewed, and widely adopted mask in time for upcoming assessments is *not* feasible. It should not be the role of the working group to lead new mapping efforts (except potentially in cases of undercounting as discussed below) but the group can help motivate and coordinate such efforts. Furthermore, new products and outlines will emerge in the future anyways - the working group should rather work towards recommendations and protocols which are robust to the addition of new datasets in the future.
 
 The following recommendations are based on the discussions and analyses above. The recommendations are not yet a consensus document, and we seek feedback from the working group and the community.
 
@@ -239,13 +239,15 @@ With this approach, future studies will remain comparable to past assessments wh
 
 ### Ice sheets
 
-If the approach outlined above for the RGI is reasonable, the remaining task for the working group is to agree on an "ice sheet mask" for both Greenland and Antarctica. The RGI will then be updated accordingly (there are some obstacles to this, e.g. vector vs raster but they can be overcome).
+If the approach outlined above for the RGI is deemed reasonable, the remaining task for the working group is to agree on an "ice sheet mask" for both Greenland and Antarctica. The RGI can then be updated accordingly. There are some technical obstacles to this (for example, vector vs. raster formats) but these can be overcome.
 
-The remaining task is therfore to find the "best" or "most likely to be adopted" mask for both ice sheets. **This is the hardest bit**.
+The core challenge is therefore to identify the *best* or *most likely to be adopted* mask for both ice sheets. This is the hardest bit.
 
-One radical (but elegant and clear) solution could be to define the ice sheets as "all land ice dynamically or geographically connected to the main ice sheet including ice shelves". With this definition, producing a mask can be done automatically using any raster daset of ice cover (by e.g. BedMachine) or by a spatial merge in a vector dataset.
+One radical—but elegant and clear—solution could be to define the ice sheets as "all land ice dynamically or geographically connected to the main ice sheet, including ice shelves". With this definition, a mask could be generated automatically using any raster dataset of ice cover (e.g., BedMachine), or through a spatial merge in a vector dataset.
 
-Another solution could be to discuss (how?) and decide (how?) on a suitable product, or something in between.
+Another approach could be to engage in a discussion (*how?*) and reach a decision (*how?*) on a suitable product—or perhaps arrive at a compromise between approaches.
+
+We are starting this discussion below.
 
 ### Greenland
 
@@ -264,11 +266,15 @@ These and other secondary issues will be addressed at a later stage.
 
 #### Use BedMachine as baseline
 
-Same as for Antarctica: updated BedMachine incorporating all connected ice and peripheral glaciers.
+BedMachine products have historically included an ice mask covering all of Greenland. This mask encompasses both glaciers and the ice sheet but does not currently distinguish between the two. While the mask is gridded, it is designed to be exhaustive and correct (errors or omissions in the outlines are expected to be corrected in future versions as they are discovered).
+
+BedMachine could update its metadata and mask by implementing the ice sheet definition outlined above: distinguishing between contiguous ice (the “ice sheet”) and peripheral glaciers. The maintainers of BedMachine are reportedly open to this change (limited to adjustments in mask categories and metadata). For the RGI, this would effectively mean marking all glaciers loosely connected to the ice sheet as "ice sheet".
+
+The main downside to this approach is that BedMachine is a raster product. If it becomes the reference, there must be strong community agreement that both glaciers and the ice sheet are accurately represented within it, and that there is no significant over- or under-counting of ice.
 
 ### Antarctica
 
-Antarctica is a more complicated environment. There is an equivalent to the GEUS 2022 Greendlandic outline found in @greene_2024 which provides annual masks, but these masks include but do not distinguish ice shelves.
+Antarctica is an even more complicated environment. There is an equivalent to the GEUS 2022 Greendlandic outline found in @greene_2024 which provides annual masks, but these masks include but do not distinguish ice shelves.
 
 The following recommendations come to mind. In the following, "RGI 19" and "RGI 20" refer to the masks of region 19 and 20 in the [RGI region files](https://www.glims.org/rgi_user_guide/02_regions_definition.html). Changes to these could imply altering the assignment of glacier outlines to these regions.
 
@@ -290,13 +296,13 @@ The following recommendations come to mind. In the following, "RGI 19" and "RGI 
 
 ### Undercounting?
 
-If undercounting occurs (e.g. there is ice that is not mapped anywhere), then a new mapping effort is necessary. By definition, it is not possible to quantify the amount of undercounting.
+If undercounting occurs (e.g. there is ice that is not mapped anywher in any product), then a new mapping effort is necessary. By definition, it is not possible to quantify the amount of undercounting.
 
 ## Initial thoughts on the consequences of these recommendations
 
 The proposed changes will likely affect the glacier and ice sheet communities differently.
 
-The **ice sheet community** will have to update their masks to match the new standard, but this is a one-time effort for each sub-community (ISMIP for models, IMBIE for observations...) with very clear benefits. It must be added that despite of the benefits of having a unified definition of the ice sheet, neither ISMIP nor IMBIE have yet adopted a standard mask so far. Our hope is that this WG could help in this regard. Initial discussions seem to indicate that both IMBIE and ISMIP are interested in adopting a standard mask, but there seems to be challenges too complex to be summarized here. Regardless, both IMBIE and ISIMIP should be responsible for enforcing the use of a standard mask in their respective efforts (e.g. during post-processing if required), regardless of this WG's recommendations.
+The **ice sheet community** will have to update their masks to match the new standard, but this is a one-time effort for each sub-community (ISMIP for models, IMBIE for observations...) with very clear benefits. It must be added that despite of the benefits of having a unified definition of the ice sheet, neither ISMIP nor IMBIE have yet adopted a standard mask so far (ISMIP Greenland did). Our hope is that this WG could help in this regard. Initial discussions seem to indicate that both IMBIE and ISMIP are interested in adopting a standard mask, but there seems to be challenges too complex to be summarized here. Regardless, both IMBIE and ISIMIP should be responsible for enforcing the use of a standard mask in their respective efforts (e.g. during post-processing if required), regardless of this WG's recommendations.
 
 For the **glacier community**, the changes as outlined above could mean that roughly ~80% of the glaciers in region 19 (Antarctic Periphery) and ~25% of the glaciers in region 05 (Greenland Periphery) could now be "part of the ice sheet" and eventually removed from RGI. This could have a significant impact on the future results of the glacier community, and could require a significant effort to update and communicate these results. This is mainly because in terms of relative area, the change is considerably larger for glaciers than it is for the ice sheets. Another reason is that the glacier community has been following the RGI standard for a long time, and results on e.g. sea-level rise contributions of glaciers in Antarctica and Greenland have been consistent over the years.
 
