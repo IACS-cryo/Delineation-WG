@@ -662,6 +662,29 @@ v.label map=boundaries column=NAME labels=lname size=7500 \
 d.labels lname
 #+END_SRC
 
+*** Bedmap 3
+
+#+BEGIN_SRC bash :exports both :results verbatim
+g.mapset -c Bedmap3
+r.in.gdal input="${DATADIR}/Pritchard_2025/bm3_masks.tif" output=mask_0
+g.region raster=mask_0 -pa
+# 1 = grounded ice, 2 = transiently grounded ice shelf, 3 = floating ice shelf, 4 = rock"
+r.mapcalc "mask = if(mask_0 <= 3, mask_0, null())"
+
+# find largest clump (main ice)
+r.clump input=mask output=clumps --o
+main_clump=$(r.stats -c -n clumps sort=desc | head -n1 | cut -d" " -f1)
+
+# set main clump to 1, peripheral is 2, shelves ar 3
+r.mapcalc "mask = if(clumps == ${main_clump}, 1, mask)" --overwrite
+
+r.mapcalc "m_all = if(mask)"
+r.mapcalc "m_main = if(clumps == ${main_clump}, 1, null())"
+r.mapcalc "m_peripheral = if(isnull(m_main) && (mask_0 == 1), 1, null())"
+r.mapcalc "m_shelf = if(mask_0 == 3, 1, null())"
+#+END_SRC
+
+
 ** Overlap
 
 #+BEGIN_SRC bash :exports both :results verbatim
@@ -677,7 +700,8 @@ r.mapcalc << EOF
   + if(isnull(m_main@harper_2023), 0, 1) \
   + if(isnull(m_main@IMBIE_Rignot), 0, 1) \
   + if(isnull(m_main@Greene_2022), 0, 1) \
-  + if(isnull(m_main@NSIDC_0709), 0, 1)
+  + if(isnull(m_main@NSIDC_0709), 0, 1) \
+  + if(isnull(m_main@Bedmap3), 0, 1)
 EOF
 
 r.colors map=overlap color=viridis
@@ -712,7 +736,7 @@ Example:
 
 [[file:./fig/overlap_PIG.png]]
 
-** TODO Sets
+** Sets
 
 *** Not in
 
@@ -773,7 +797,7 @@ hm.figure.savefig('./fig/set_notin_AQ.png', bbox_inches='tight')
 #+CAPTION: Summary of different mask products and their respective “relative complement” (X outside Y) between products. Graphic should be interpreted as X outside Y. For example looking at only the top left 2x2 region, “RGI@RGI” has 10^3.9 = ~8,000 km^2 of ice outside of "all@BedMachine", and BedMachine has 10^7.1 km^2 outside of RGI. Black 0 indicates product X contained entirely inside product Y. Here "all" is the entire mask, "main" is the main ice, "peripheral" is unconnected ice, and other labels are specific to and documented elsewhere per those data products.
 
 #+RESULTS: fig:notin_AQ
-[[file:./figs_tmp/ac62a7b720938bb7a910255655edda56d2298093.png]]
+[[file:./figs_tmp/b82ba65d46b8fc6c37f68cd31b2aaa1c7525a415.png]]
 
 
 *** Union
@@ -833,7 +857,7 @@ hm.figure.savefig('./fig/set_union_AQ.png', bbox_inches='tight')
 #+caption: Summary of different mask products and their respective overlap or set intersection between products. For example looking at only the top of the left-most column, "RGI@RGI" has 10^5.1 = ~125,000 km^2 of ice overlapping itself, and 10^3.1 = 1259 km^2 overlapping BedMachine main ice. Black 0 indicates no overlap. Here "all” is the entire mask, "main” is the main ice, "peripheral” is unconnected ice, and other labels (e.g. GICn) are specific to and documented elsewhere per those data products.
 
 #+RESULTS: fig:union_AQ
-[[file:./figs_tmp/5bde42b8c9e1fac3d07904997efb93f985e591a9.png]]
+[[file:./figs_tmp/29d55afe2e3d846eb3e719d94e2f1f619e07a846.png]]
 
 ** Share
 

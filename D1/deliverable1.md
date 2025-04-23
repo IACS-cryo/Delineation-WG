@@ -73,6 +73,7 @@ This list is meant to be as exhaustive as possible. If a product is missing, ple
 | GlacierMIP                                              |                         | @hock_2019       | https://github.com/IACS-cryo/Delineation-WG/issues/30 |                 |
 | RGI 7.0                                                 |                         |                  | https://github.com/IACS-cryo/Delineation-WG/issues/29 |                 |
 | BedMachine                                              | @NSIDC_BedMachine_AQ_v3 | @morlighem_2019  | https://github.com/IACS-cryo/Delineation-WG/issues/28 |                 |
+| Bedmap3                                                 | @pritchard_2025_data    | @pritchard_2025  |                                                       |                 |
 
 ## Results and discussion
 
@@ -156,13 +157,13 @@ Data available [as a csv file](https://github.com/IACS-cryo/Delineation-WG/blob/
 
 The state of masks in Antarctica is less homogeneous than in Greenland. The BedMachine mask uses unpublished data (see [GH Issue](https://github.com/IACS-cryo/Delineation-WG/issues/28)), and many products then use the BedMachine mask. However HIRHAM uses a 1994 USGS mask, and MetUM uses a mask from AVHRR data from the early 1990s.
 
-A detailed examination of six Antarctica products (BedMachine, ESA CCI, Rignot (IMBIE), @greene_2022, NSIDC 0709, and RGI region 19) is shown below for two regions: Wilkins ice shelf and Abbott ice shelf.
+An examination of seven Antarctica products (BedMachine, ESA CCI, Rignot (IMBIE), @greene_2022, NSIDC 0709, Bedmap3 and RGI region 19) is shown below for two regions: Wilkins ice shelf and Abbott ice shelf.
 
 ```{figure} fig/overlap_Wilkins.png
 :alt: Map of overlapping masks near Wilkins ice shelf, Antarctica
 :name: wilkins
 
-**Overlap map of six masks (BedMachine, ESA CCI, Rignot (IMBIE), @greene_2022, NSIDC 0709, and RGI region 19) near Wilkins ice shelf, Antarctica.** The five filled colors represent number of overlapping products when each is limited to the main (connected) ice sheet. The sixth product is RGI region 19 (peripheral Antarctica) shown as a thin red outline. This graphic shows one product includes the ice shelves and coastal islands.
+**Overlap map of seven masks (BedMachine, ESA CCI, Rignot (IMBIE), @greene_2022, NSIDC 0709, Bedmap3, and RGI region 19) near Wilkins ice shelf, Antarctica.** The six filled colors represent number of overlapping products when each is limited to the main (connected) ice sheet. The seventh product is RGI region 19 (peripheral Antarctica) shown as a thin red outline. This graphic shows one product 'main ice sheet' includes the ice shelves and coastal islands.
 ```
 
 ```{figure} fig/overlap_PIG.png
