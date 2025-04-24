@@ -322,7 +322,7 @@ d.rast overlap
 d.legend overlap
 d.vect RGI@RGI fill_color=none color=red legend_label="RGI 5 (Greenland)"
 d.labels lname
-d.vect places icon=basic/circle size=10 color=black fill_color=black legend_label='Populated region' where='population > 100'
+d.vect places icon=basic/circle size=10 color=black fill_color=black legend_label='Settlement' where='population > 100'
 d.barscale length=50 units=kilometers at=3,97
 d.legend.vect -b at=10,20 fontsize=16 border_color=none
 #+END_SRC

@@ -85,7 +85,7 @@ For the products that are not mask producers but rather mask users, the choice o
 
 Several Greenlandic products use the BedMachine mask (which is based on the GIMP mask) or the GIMP mask directly, which at its release may have been the most complete, accurate, and highest resolution mask. However, the GIMP mask is now based on a 10 year old paper (@howat_2014) and seven-year-old product (@howat_2017), and the mask itself uses data spanning 15 years, which is problematic considering the large annual changes in Greenland.
 
-A detailed examination of eight Greenlandic products (BedMachine, PROMICE, MAR, RACMO, ESA CCI, GIMP, Mouginot, and RGI v7 region 05) is shown below for six regions: Qaanaaq, Sisimiut, near the Geike Plateau, the southern tip of Greenland, central west Greenland near Daugaard-Jensen Gletsjer, and the west Greenlandic Kangerlussuaq fjord.
+A detailed examination of eight Greenlandic products (BedMachine, PROMICE, MAR, RACMO, ESA CCI, GIMP, Mouginot, and RGI v7 region 05) is shown below for six regions: Qaanaaq, Sisimiut, near the Geikie Plateau, the southern tip of Greenland, central east Greenland near Daugaard-Jensen Gletsjer, and the east Greenlandic Kangerlussuaq fjord.
 
 For all figures below, the RGI version used is v7.0. In this version, glacier outlines in Greenland correspond to connectivity level 0 and 1 in @rastner_2012 (level 2 - strongly connected - has been removed from the RGI with version 7).
 
@@ -103,11 +103,11 @@ For all figures below, the RGI version used is v7.0. In this version, glacier ou
 Same display as {ref}`qaanaaq`, but here showing a large area within in the RGI peripheral region that is covered by five of the other main ice sheet masks.
 ```
 
-```{figure} fig/overlap_Geike.png
-:alt: Map of overlapping masks in the Geike Plateau region, Greenland
-:name: geike
+```{figure} fig/overlap_Geikie.png
+:alt: Map of overlapping masks in the Geikie Plateau region, Greenland
+:name: geikie
 
-Same display as {ref}`qaanaaq`, The Geike Plateau (southeast) shows one mask does not cover this area, as coverage drops from seven to six.
+Same display as {ref}`qaanaaq`, The Geikie Plateau (southeast) shows one mask does not cover this area, as coverage drops from seven to six.
 ```
 
 ```{figure} fig/overlap_SouthGL.png
